@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_item_course"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,16,9"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintHeight_percent="0.68"
+        android:src="@drawable/test_course"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.34" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:src="@drawable/ic_new"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_course"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_course" />
+
+    <TextView
+        android:id="@+id/tv_item_course_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:text="相约清晨良言"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_course"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_course" />
+
+    <TextView
+        android:id="@+id/tv_item_course_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="带你了解清晨的每一束阳光"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_course_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_course_title" />
+
+    <TextView
+        android:id="@+id/tv_item_course_teacher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:text="杨川岛"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_course_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_course_desc" />
+
+    <TextView
+        android:id="@+id/tv_item_course_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="更新至第6讲"
+        android:textColor="#ff459df5"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/dp_10"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_course_teacher"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_course_desc"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_course_teacher" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="52dp"
+        android:background="#22707070"
+        app:layout_constraintTop_toBottomOf="@+id/iv_item_course" />
+</androidx.constraintlayout.widget.ConstraintLayout>

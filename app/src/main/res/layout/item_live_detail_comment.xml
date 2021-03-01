@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_item_live_detail_comment_avator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/test_avator_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_live_detail_comment_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="alex"
+        android:textColor="#ff000000"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_live_detail_comment_avator"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_live_detail_comment_avator" />
+
+    <TextView
+        android:id="@+id/tv_item_detail_comment_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="2011年1月1日"
+        android:textColor="#ffbbbbbb"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_live_detail_comment_nick"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_detail_comment_nick" />
+
+    <TextView
+        android:id="@+id/tv_item_live_detail_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="18dp"
+        android:text="相匹配的反常现象，会不会是指数编制出相匹配的反常现象，会不会是指数编制出相匹配的反常现象，会不会是指数编制出相匹配比方说近十年，"
+        android:textColor="#ff343434"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_detail_comment_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_detail_comment_date" />
+
+    <TextView
+        android:id="@+id/tv_item_live_detail_thumbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="18dp"
+        android:drawableStart="@drawable/ic_thumb"
+        android:drawablePadding="8dp"
+        android:text="30"
+        android:textColor="#ff666666"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_detail_content" />
+
+    <TextView
+        android:id="@+id/tv_item_live_detail_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="23dp"
+        android:drawableStart="@drawable/ic_message"
+        android:drawablePadding="6dp"
+        android:text="9"
+        android:textColor="#ff666666"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_live_detail_thumbs"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_live_detail_thumbs"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_live_detail_thumbs" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_item_live_detail_answer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:visibility="gone"
+        android:background="@drawable/bg_comment_round"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_live_detail_thumbs"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_live_detail_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_detail_message">
+
+        <TextView
+            android:id="@+id/tv_item_live_detail_answer_man"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="11dp"
+            android:text="作者 回复"
+            android:textColor="#ff666666"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_item_live_detail_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="的确，近些年好问题。"
+            android:textColor="#ff666666"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_live_detail_answer_man"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_live_detail_answer_man" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#FFEEEEEE"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_live_detail_comment_nick"
+        app:layout_constraintTop_toBottomOf="@+id/cl_item_live_detail_answer" />
+</androidx.constraintlayout.widget.ConstraintLayout>

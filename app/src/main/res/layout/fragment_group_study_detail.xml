@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <include
+        android:id="@+id/stv_common_title"
+        layout="@layout/common_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <ImageView
+        android:id="@+id/sgp_top_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintTop_toBottomOf="@+id/stv_common_title" />
+
+    <TextView
+        android:id="@+id/tv_fragment_group_study_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:text="清晨良言"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stv_common_title" />
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/tv_fragment_group_study_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_title" />
+
+    <TextView
+        android:id="@+id/tv_fragment_group_study_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_plan_date"
+        android:drawablePadding="10dp"
+        android:text="每周一二三四五"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/view_divider"
+        app:layout_constraintTop_toBottomOf="@+id/view_divider" />
+
+    <TextView
+        android:id="@+id/tv_fragment_group_study_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_live_plan_time"
+        android:drawablePadding="10dp"
+        android:text="6:00AM - 7:00AM"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_fragment_group_study_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_date" />
+
+    <TextView
+        android:id="@+id/tv_fragment_group_study_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_plan_location"
+        android:drawablePadding="10dp"
+        android:text="Zoom：1234567890， 密码：2020"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/view_divider"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_time" />
+
+    <TextView
+        android:id="@+id/tv_fragment_group_study_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/ic_live_plan_group"
+        android:drawablePadding="10dp"
+        android:text="讲师组"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/view_divider"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_location" />
+
+    <View
+        android:id="@+id/view_v"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_fragment_group_detail_launchzoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bg_blue"
+        android:padding="8dp"
+        android:text="一键开启Zoom"
+        android:textColor="#ffffffff"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/view_v"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_group" />
+
+    <TextView
+        android:id="@+id/tv_fragment_group_detail_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/sp_rect_blue"
+        android:drawableLeft="@drawable/ic_share"
+        android:drawablePadding="@dimen/dp_4"
+        android:gravity="center"
+        android:paddingStart="15dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="8dp"
+        android:text="分享日程"
+        android:textColor="#ff459df5"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/view_v"
+        app:layout_constraintTop_toTopOf="@+id/tv_fragment_group_detail_launchzoom" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_fragment_group_study_detail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="@dimen/dp_10"
+        app:layout_constraintBottom_toTopOf="@+id/view_divider_h"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sgp_top_bg" />
+
+    <View
+        android:id="@+id/view_divider_h"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="#FFBBBBBB"
+        app:layout_constraintBottom_toTopOf="@+id/tv_fragment_group_detail_input" />
+
+
+    <TextView
+        android:id="@+id/tv_fragment_group_detail_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:background="@drawable/sp_rect_round_gray"
+        android:paddingStart="33dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="写感想"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_fragment_group_study_service"
+        app:layout_constraintStart_toStartOf="@+id/tv_fragment_group_study_title" />
+
+    <ImageView
+        android:id="@+id/iv_fragment_group_study_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/ic_service"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_fragment_group_study_favorite"
+        app:layout_constraintTop_toTopOf="@+id/tv_fragment_group_detail_input" />
+
+    <ImageView
+        android:id="@+id/iv_fragment_group_study_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/ic_heart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_fragment_group_detail_input" />
+</androidx.constraintlayout.widget.ConstraintLayout>

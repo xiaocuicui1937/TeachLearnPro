@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dp_10"
+    android:background="@drawable/sp_rect_round_white">
+
+    <ImageView
+        android:id="@+id/iv_item_live_main"
+        android:layout_width="120dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:scaleType="centerCrop"
+        android:src="@drawable/test_course"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_live_main_title"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_height="wrap_content"
+        android:text="直播"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_live_main"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_live_main" />
+    <TextView
+        android:id="@+id/tv_item_live_list_time"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_4"
+        android:layout_height="wrap_content"
+        android:text="开始时间:00:00:00,结束时间:00:00:00"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_live_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_main_title" />
+    <TextView
+        android:id="@+id/tv_item_live_list_status"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_height="wrap_content"
+        android:text="直播中"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_live_list_time"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_live_main"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_list_time" />
+</androidx.constraintlayout.widget.ConstraintLayout>

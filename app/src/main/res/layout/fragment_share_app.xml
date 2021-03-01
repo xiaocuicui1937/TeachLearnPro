@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root_qr_layout"
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/common_title" />
+
+    <ImageView
+        android:id="@+id/iv_fragment_share_app"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/stv_common_title"
+        android:background="@drawable/bg_share" />
+
+    <ImageView
+        android:id="@+id/iv_share_app_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share_center"
+        android:layout_centerInParent="true"
+        />
+
+    <ImageView
+        android:layout_above="@+id/iv_share_app_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share_top"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_40"/>
+    <ImageView
+        android:id="@+id/iv_share_app_qrcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_40"
+        android:layout_centerInParent="true"
+        />
+    <TextView
+        android:layout_below="@+id/iv_share_app_center"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="扫描二维码下载祂路APP"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:id="@+id/tv_save_share_app_lengthpic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/sp_rect_corner8"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="保存海报长图"
+        android:textColor="#ff459df5"
+        android:textSize="12sp" />
+
+</RelativeLayout>

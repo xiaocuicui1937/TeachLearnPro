@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF5F9FC">
+
+    <com.scwang.smart.refresh.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/sp_white_live"
+            android:elevation="@dimen/dp_10"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_4"
+            android:paddingEnd="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_vp_live_interact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_4"
+                android:background="@drawable/sp_white_live" />
+
+            <TextView
+                android:id="@+id/tv_vp_live_interact_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/switch_vp_live_interact"
+                android:layout_centerHorizontal="true"
+                android:text="@string/only_look_main"
+                android:textColor="#ff9a9a9a"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fragment_live_inner_interact"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/view_divider_h"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_divider_h"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:background="#FFBBBBBB"
+            app:layout_constraintBottom_toTopOf="@+id/tv_fragment_live_inner_interact_input" />
+
+        <TextView
+            android:id="@+id/tv_fragment_live_inner_interact_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/sp_rect_round_gray"
+            android:drawableStart="@drawable/ic_write"
+            android:drawablePadding="@dimen/dp_4"
+            android:paddingStart="33dp"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="输入你想说的话"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_fragment_live_inner_interact_service"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_fragment_live_inner_interact_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/ic_reword"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_live_inner_interact_input"
+            app:layout_constraintEnd_toStartOf="@+id/iv_fragment_live_inner_interact_favorite"
+            app:layout_constraintTop_toTopOf="@+id/tv_fragment_live_inner_interact_input" />
+
+        <ImageView
+            android:id="@+id/iv_fragment_live_inner_interact_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_live_inner_interact_input"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_fragment_live_inner_interact_input" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>

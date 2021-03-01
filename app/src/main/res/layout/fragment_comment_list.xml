@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/ll_toolbar"
+        layout="@layout/common_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:id="@+id/tv_fragment_comment_list_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="评论 19"
+        android:textColor="#fff59845"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_toolbar" />
+
+    <ImageView
+        android:id="@+id/iv_fragment_comment_line_comments"
+        android:layout_width="18dp"
+        android:layout_height="6dp"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_round_origin"
+        app:layout_constraintEnd_toEndOf="@+id/tv_fragment_comment_list_comments"
+        app:layout_constraintStart_toStartOf="@+id/tv_fragment_comment_list_comments"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_comment_list_comments" />
+
+    <ImageView
+        android:id="@+id/iv_fragment_comment_line_thumbs"
+        android:layout_width="18dp"
+        android:layout_height="6dp"
+        android:layout_marginTop="@dimen/dp_4"
+        android:background="@drawable/bg_round_origin"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/tv_fragment_comment_list_thumbs"
+        app:layout_constraintStart_toStartOf="@+id/tv_fragment_comment_list_thumbs"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_comment_list_thumbs" />
+
+    <TextView
+        android:id="@+id/tv_fragment_comment_list_thumbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:text="赞 574"
+        android:textColor="#ff666666"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_fragment_comment_list_comments"
+        app:layout_constraintTop_toTopOf="@+id/tv_fragment_comment_list_comments" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_fragment_comment_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@+id/iv_fragment_comment_line_comments"
+        app:layout_constraintBottom_toTopOf="@+id/tv_fragment_comment_list_input" />
+
+    <TextView
+        android:id="@+id/tv_fragment_comment_list_input"
+        android:layout_width="0dp"
+
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="13dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/sp_rect_round_gray"
+        android:paddingStart="33dp"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="写感想"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_fragment_comment_list_thumbs"
+        app:layout_constraintStart_toStartOf="@+id/tv_fragment_comment_list_comments" />
+
+    <TextView
+        android:id="@+id/tv_fragment_comment_list_thumbcount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_origin"
+        android:gravity="center"
+        android:text="574"
+        android:textColor="#ffffffff"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_fragment_comment_list_thumbs"
+        app:layout_constraintTop_toTopOf="@+id/iv_fragment_comment_list_thumbs" />
+
+    <ImageView
+        android:id="@+id/iv_fragment_comment_list_thumbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:src="@drawable/ic_thumb_big"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_comment_list_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_fragment_comment_list_input" />
+</androidx.constraintlayout.widget.ConstraintLayout>

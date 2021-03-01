@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="18dp"
+    android:layout_marginEnd="18dp"
+    android:layout_marginTop="18dp"
+    android:background="@color/white"
+    android:elevation="4dp">
+
+    <TextView
+        android:id="@+id/tv_item_group_study_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="清晨良言"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="16dp"
+        android:background="#22707070"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_group_study_title" />
+
+    <TextView
+        android:id="@+id/tv_item_group_study_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_plan_date"
+        android:drawablePadding="10dp"
+        android:text="每周一二三四五"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/view_divider"
+        app:layout_constraintTop_toBottomOf="@+id/view_divider" />
+
+    <TextView
+        android:id="@+id/tv_item_group_study_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_live_plan_time"
+        android:drawablePadding="10dp"
+        android:text="6:00AM - 7:00AM"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_group_study_date"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_group_study_date" />
+
+    <TextView
+        android:id="@+id/tv_item_group_study_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_plan_location"
+        android:drawablePadding="10dp"
+        android:text="Zoom：1234567890， 密码：2020"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/view_divider"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_group_study_time" />
+
+    <TextView
+        android:id="@+id/tv_item_group_study_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:drawableLeft="@drawable/ic_live_plan_group"
+        android:drawablePadding="10dp"
+        android:text="讲师组"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/view_divider"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_group_study_location" />
+    <TextView
+        android:id="@+id/tv_item_group_study_blur"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#eeCCCCCC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
+    <ImageView
+        android:id="@+id/iv_item_group_study_lock"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_lock"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

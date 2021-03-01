@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_item_interact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="23dp"
+        android:src="@drawable/test_avator_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_interact_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:text="何处"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_interact"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_interact" />
+
+    <TextView
+        android:id="@+id/tv_item_interact_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:padding="15dp"
+        android:text="谢谢美腻的香香老师！"
+        android:textColor="#ff666666"
+        android:textSize="14sp"
+        android:background="#FFDEEAF3"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_interact_nick"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_interact_nick" />
+</androidx.constraintlayout.widget.ConstraintLayout>

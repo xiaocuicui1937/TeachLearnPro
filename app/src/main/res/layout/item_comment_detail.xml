@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/iv_item_comment_detail_avator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="22dp"
+        android:src="@drawable/test_avator_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_comment_detail_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="alex"
+        android:textColor="#ff000000"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_item_comment_detail_avator"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_comment_detail_avator"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_comment_detail_avator" />
+
+    <TextView
+        android:id="@+id/tv_item_live_detail_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        android:text="相匹配的反常现象，会不会是指数编制相匹配方说近十年，"
+        android:textColor="#ff343434"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_comment_detail_avator"
+        app:layout_constraintTop_toBottomOf="@+id/iv_item_comment_detail_avator" />
+
+    <TextView
+        android:id="@+id/tv_item_comment_detail_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11月1日"
+        android:textColor="#ffbbbbbb"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_comment_detail_avator"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_detail_content" />
+
+    <TextView
+        android:id="@+id/tv_item_live_detail_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="18dp"
+        android:drawableStart="@drawable/ic_message"
+        android:drawablePadding="8dp"
+        android:text=""
+        android:textColor="#ff666666"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_detail_content" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="#FFEEEEEE"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_comment_detail_date"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_comment_detail_avator"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_live_detail_message"
+        android:layout_marginTop="18dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

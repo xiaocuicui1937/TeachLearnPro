@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gate">
+
+    <TextView
+        android:id="@+id/tv_fragment_login_register_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/et_fragment_login_register_nick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/sp_input"
+        android:hint="@string/nick"
+        android:padding="16dp"
+        android:textColorHint="@color/color_88A2B5"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_login_register_title" />
+    <EditText
+        android:id="@+id/et_fragment_login_register_loginid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/sp_input"
+        android:hint="@string/phone_num"
+        android:inputType="number"
+        android:padding="16dp"
+        android:textColorHint="@color/color_88A2B5"
+        app:layout_constraintTop_toBottomOf="@+id/et_fragment_login_register_nick" />
+
+    <EditText
+        android:id="@+id/et_fragment_login_register_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/sp_input"
+        android:hint="@string/pwd"
+        android:padding="16dp"
+        android:inputType="textPassword"
+        android:textColorHint="@color/color_88A2B5"
+        app:layout_constraintTop_toBottomOf="@+id/et_fragment_login_register_loginid" />
+    <EditText
+        android:id="@+id/et_fragment_login_register_pwd_sure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/sp_input"
+        android:hint="@string/pwd_sure"
+        android:padding="16dp"
+        android:inputType="textPassword"
+        android:visibility="gone"
+        android:textColorHint="@color/color_88A2B5"
+        app:layout_constraintTop_toBottomOf="@+id/et_fragment_login_register_pwd" />
+
+    <EditText
+        android:id="@+id/et_fragment_login_register_veritycode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/sp_input"
+        android:hint="@string/verity_code"
+        android:visibility="gone"
+        android:padding="16dp"
+        android:inputType="number"
+        android:textColorHint="@color/color_88A2B5"
+        app:layout_constraintEnd_toStartOf="@+id/tv_fragment_login_register_vertifycode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_fragment_login_register_pwd_sure" />
+
+    <TextView
+        android:id="@+id/tv_fragment_login_register_vertifycode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sp_rect_round_white"
+        android:padding="16dp"
+        android:text="@string/send_verity_code"
+        android:textColor="@color/blue_6BB1F7"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/et_fragment_login_register_loginid"
+        app:layout_constraintTop_toTopOf="@+id/et_fragment_login_register_veritycode" />
+
+    <TextView
+        android:id="@+id/tv_fragment_login_register_submit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/bg_submit"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/login"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_fragment_login_register_loginid"
+        app:layout_constraintStart_toStartOf="@+id/et_fragment_login_register_loginid"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_login_register_vertifycode" />
+
+    <TextView
+        android:id="@+id/tv_fragment_login_register_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="21dp"
+        android:text="@string/not_login_to_register"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_fragment_login_register_loginid"
+        app:layout_constraintStart_toStartOf="@+id/et_fragment_login_register_loginid"
+        app:layout_constraintTop_toBottomOf="@+id/tv_fragment_login_register_submit" />
+</androidx.constraintlayout.widget.ConstraintLayout>

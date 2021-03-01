@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:id="@+id/root_group_entry_layout">
+
+    <include
+        layout="@layout/common_title"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_group_entry">
+
+            <ImageView
+                android:id="@+id/iv_fragment_group_entry_inner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="400dp"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:scaleType="fitXY"
+                android:src="@drawable/bg_group_entry_center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHeight_percent="0.6"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.8" />
+
+            <TextView
+                android:id="@+id/tv_fragment_group_study_what"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="学什么：组合创新思维模型"
+                android:textColor="#26292C"
+                android:textSize="18sp"
+                android:drawableEnd="@drawable/ic_red_star"
+                android:drawablePadding="@dimen/dp_4"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_fragment_group_entry_inner"
+                app:layout_constraintEnd_toEndOf="@+id/iv_fragment_group_entry_inner"
+                app:layout_constraintHorizontal_bias="0.15"
+                app:layout_constraintStart_toStartOf="@+id/iv_fragment_group_entry_inner"
+                app:layout_constraintTop_toTopOf="@+id/iv_fragment_group_entry_inner"
+                app:layout_constraintVertical_bias="0.25" />
+
+            <EditText
+                android:id="@+id/et_fragment_group_study_what"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/sp_input_entry"
+                app:layout_constraintEnd_toEndOf="@+id/iv_fragment_group_entry_inner"
+                app:layout_constraintStart_toStartOf="@+id/tv_fragment_group_study_what"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_what" />
+
+            <TextView
+                android:id="@+id/tv_fragment_group_study_how"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="怎么学：先上学+线下交流"
+                android:textColor="#26292C"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_fragment_group_study_what"
+                app:layout_constraintTop_toBottomOf="@+id/et_fragment_group_study_what" />
+
+            <EditText
+                android:id="@+id/et_fragment_group_study_how"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/sp_input_entry"
+                app:layout_constraintEnd_toEndOf="@+id/iv_fragment_group_entry_inner"
+                app:layout_constraintStart_toStartOf="@+id/tv_fragment_group_study_what"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_how" />
+
+            <TextView
+                android:id="@+id/tv_fragment_group_study_courses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="您报名的课程是?"
+                android:textColor="#26292C"
+                android:textSize="18sp"
+                android:drawableEnd="@drawable/ic_red_star"
+                android:drawablePadding="@dimen/dp_4"
+                app:layout_constraintStart_toStartOf="@+id/tv_fragment_group_study_what"
+                app:layout_constraintTop_toBottomOf="@+id/et_fragment_group_study_how" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_fragment_group_courses"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:background="@drawable/sp_input_entry"
+                android:padding="@dimen/dp_10"
+                app:layout_constraintBottom_toTopOf="@+id/tv_fragment_group_entry_submit"
+                app:layout_constraintEnd_toEndOf="@+id/et_fragment_group_study_how"
+                app:layout_constraintStart_toStartOf="@+id/et_fragment_group_study_how"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_group_study_courses" />
+
+            <TextView
+                android:id="@+id/tv_fragment_group_entry_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:background="@drawable/bg_blue_submit"
+                android:gravity="center"
+                android:text="进入学习"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_fragment_group_entry_inner"
+                app:layout_constraintEnd_toEndOf="@+id/rv_fragment_group_courses"
+                app:layout_constraintStart_toStartOf="@+id/rv_fragment_group_courses"
+                app:layout_constraintTop_toBottomOf="@+id/rv_fragment_group_courses" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

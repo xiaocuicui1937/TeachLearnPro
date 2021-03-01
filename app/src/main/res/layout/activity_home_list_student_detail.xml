@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <include layout="@layout/common_title"
+            android:id="@+id/ll_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+        <TextView
+            android:id="@+id/tv_list_student_witness_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:text="纸上得来终觉浅，绝知此事要躬行"
+            android:textColor="#ff000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_activity_list_student_witness"
+            app:layout_constraintTop_toBottomOf="@+id/ll_toolbar" />
+
+        <ImageView
+            android:id="@+id/iv_activity_list_student_witness"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_list_student_witness_title" />
+
+
+        <FrameLayout
+            android:id="@+id/fl_home_list_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="@dimen/dp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_activity_list_student_witness"
+            app:layout_constraintTop_toBottomOf="@+id/iv_activity_list_student_witness" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

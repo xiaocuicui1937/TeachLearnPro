@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_live"
+    app:startDestination="@+id/homePageFragment">
+
+    <fragment
+        android:id="@+id/homePageFragment"
+        android:name="com.gnss.teachlearnpro.main.home.HomePageFragment"
+        android:label="HomePageFragment">
+        <action
+            android:id="@+id/action_liveDetailFragment_to_liveDetailFragment"
+            app:destination="@id/livePlanFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/livePlanFragment"
+        android:name="com.gnss.teachlearnpro.live.liveplan.LivePlanFragment"
+        android:label="LivePlanFragment">
+        <action
+            android:id="@+id/action_liveDetailFragment_to_liveDetailFragment"
+            app:destination="@id/liveDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/liveDetailFragment"
+        android:name="com.gnss.teachlearnpro.main.live.detail.fragment.LiveDetailFragment"
+        android:label="LiveDetailFragment">
+        <action
+            android:id="@+id/action_liveDetailFragment_to_commentListFragment"
+            app:destination="@id/commentListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentListFragment"
+        android:name="com.gnss.teachlearnpro.main.live.detail.commentlist.fragment.CommentListFragment"
+        android:label="CommentListFragment" />
+</navigation>

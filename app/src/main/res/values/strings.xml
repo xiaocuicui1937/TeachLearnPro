@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">衪路</string>
+    <string name="phone_num">手机号码</string>
+    <string name="pwd">输入密码</string>
+    <string name="pwd_sure">确认密码</string>
+    <string name="verity_code">验证码</string>
+    <string name="send_verity_code">发送验证码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="not_login_to_register">还没有账号?点击登录</string>
+    <string name="not_register_to_login">已经有账号?点击登录</string>
+    <string name="nick">昵称</string>
+
+    <string name="phone_not_empty">手机号不能为空</string>
+    <string name="pwd_not_empty">密码不能为空</string>
+    <string name="pwd_not_same">输入密码前后不一致</string>
+    <string name="verity_code_not_empty">验证码不能为空</string>
+    <string name="nickname_not_empty">昵称不能为空</string>
+
+    <string name="home">首页</string>
+    <string name="live">直播</string>
+    <string name="course">系列课程</string>
+    <string name="group_lean">小组学习</string>
+    <string name="profile">我的账号</string>
+
+    <string name="live_plan">直播计划</string>
+    <string name="live_back">直播回放</string>
+
+    <string name="live_record">直播记录</string>
+    <string name="course_record">课程记录</string>
+
+    <string name="detail">详情</string>
+    <string name="interact">互动</string>
+    <string name="all">所有</string>
+    <string name="course_f">课程</string>
+    <string name="only_look_main">只看主讲</string>
+</resources>

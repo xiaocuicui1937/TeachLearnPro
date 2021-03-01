@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="18dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="18dp"
+    android:background="#FFF5F9FC">
+
+    <TextView
+        android:id="@+id/tv_item_leave_msg_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:text="太极二章"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_leave_msg_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="19dp"
+        android:text="2020-10-16"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_leave_msg_title"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_leave_msg_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:paddingBottom="19dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="真是非常精彩的一个课程真是非常精彩的真是非常精彩的一个课程一一个课程一一个课程一个课，受益良多..."
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_item_leave_msg_date"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_leave_msg_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_leave_msg_title" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="330dp"
+    android:background="@drawable/sp_rect_conner10_orange">
+
+    <ImageView
+        android:id="@+id/iv_layout_reword_custom_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="22dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_layout_reward_custom_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_layout_reward_custom_title" />
+
+    <TextView
+        android:id="@+id/tv_layout_reward_custom_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="打赏"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:background="#FFEEEEEE"
+        app:layout_constraintTop_toBottomOf="@+id/tv_layout_reward_custom_title" />
+
+
+    <com.gnss.teachlearnpro.common.ui.RadioGroupEx
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_layout_reward_custom_submit"
+        app:layout_constraintTop_toBottomOf="@+id/view_divider">
+
+        <RadioButton
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_orign_reword"
+            android:button="@null"
+            android:gravity="center"
+            android:text="￥1.88"
+            android:textColor="@color/color_reword" />
+
+        <RadioButton
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_orign_reword"
+            android:button="@null"
+            android:gravity="center"
+            android:text="￥5.21"
+            android:textColor="@color/color_reword" />
+
+        <RadioButton
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_orign_reword"
+            android:button="@null"
+            android:gravity="center"
+            android:text="￥6.66"
+            android:textColor="@color/color_reword" />
+
+        <RadioButton
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_orign_reword"
+            android:button="@null"
+            android:gravity="center"
+            android:text="￥18.8"
+            android:textColor="@color/color_reword" />
+
+        <RadioButton
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_orign_reword"
+            android:button="@null"
+            android:gravity="center"
+            android:text="￥66.66"
+            android:textColor="@color/color_reword" />
+
+        <RadioButton
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_orign_reword"
+            android:button="@null"
+            android:gravity="center"
+            android:text="￥100"
+            android:textColor="@color/color_reword" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="27dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+
+                android:text="其他金额（元）："
+                android:textColor="#ff000000"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/et_layout_reword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="24dp"
+                android:background="@color/z_transparent"
+                android:hint="可输入2~500"
+                android:textColorHint="#ff9a9a9a"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/et_layout_reword"
+                android:layout_marginTop="@dimen/dp_4"
+                android:layout_marginEnd="24dp"
+                android:background="#FFEEEEEE" />
+        </RelativeLayout>
+    </com.gnss.teachlearnpro.common.ui.RadioGroupEx>
+
+    <TextView
+        android:id="@+id/tv_layout_reward_custom_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_orign"
+        android:gravity="center"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:text="确定打赏"
+        android:textColor="#ffffffff"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

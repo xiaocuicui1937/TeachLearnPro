@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF5F9FC">
+
+    <include layout="@layout/common_title" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tl_fragment_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/sp_rect_round_3dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stv_common_title"
+        app:tabSelectedTextColor="#FF344954"
+        app:tabTextColor="#FF999999"
+        app:tabIndicatorColor="#FFF59845"
+        app:tabIndicatorHeight="@dimen/dp_4"
+        app:tabIndicatorFullWidth="false"
+        android:paddingTop="@dimen/dp_4"
+        android:paddingBottom="@dimen/dp_4"
+        app:tabTextAppearance="@style/TabLayoutTheme"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/course_f" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/live" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/group_lean" />
+
+    </com.google.android.material.tabs.TabLayout>
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFF5F9FC"
+        app:layout_constraintTop_toBottomOf="@+id/tl_fragment_favorite"
+        app:layout_constraintStart_toStartOf="@+id/tl_fragment_favorite"
+        app:layout_constraintEnd_toEndOf="@+id/tl_fragment_favorite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+    <com.scwang.smart.refresh.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_fragment_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

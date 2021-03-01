@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smart.refresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.scwang.smart.refresh.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF9FAFD">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintHeight_percent="0.24"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_fragment_profile_avator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="35dp"
+                android:src="@drawable/test_avator"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="爱学习爱直播"
+                android:textColor="#ff000000"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/iv_fragment_profile_avator"
+                app:layout_constraintTop_toTopOf="@+id/iv_fragment_profile_avator" />
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="湖北 武汉"
+                android:textColor="#ff999999"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_fragment_profile_nick"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_profile_nick" />
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_phonenum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="+86 13165658585"
+                android:textColor="#ff999999"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="@+id/tv_fragment_profile_location"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_profile_location" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:drawableEnd="@drawable/ic_right_arraw"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_profile_phonenum"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_fragment_profile_phonenum" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_center"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/white"
+            app:layout_constraintHeight_percent="0.12"
+            app:layout_constraintTop_toBottomOf="@+id/cl_top">
+
+            <View
+                android:id="@+id/view_divider_h"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_fragment_leave_msg_courses"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7"
+                android:textColor="#ff000000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/view_divider_h"
+                app:layout_constraintEnd_toStartOf="@+id/view_divider"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_fragment_leave_msg_coursetip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="参加直播数"
+                android:textColor="#ff999999"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toStartOf="@+id/view_divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_divider_h" />
+
+            <TextView
+                android:id="@+id/tv_fragment_leave_msg_groups"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textColor="#ff000000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/view_divider_h"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view_divider" />
+
+            <TextView
+                android:id="@+id/tv_fragment_leave_msg_groupstip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已听课程数"
+                android:textColor="#ff999999"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/view_divider"
+                app:layout_constraintTop_toBottomOf="@+id/view_divider_h" />
+
+            <View
+                android:id="@+id/view_divider"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="14dp"
+                android:background="#33707070"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@+id/cl_center">
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_setting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="20dp"
+                android:drawableRight="@drawable/ic_right_arraw"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="设置"
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view_first"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:background="#3C3C434A"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_profile_setting" />
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_collect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="20dp"
+                android:drawableRight="@drawable/ic_right_arraw"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="收藏"
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_first" />
+
+            <View
+                android:id="@+id/view_second"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:background="#3C3C434A"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_profile_collect" />
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_message"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="20dp"
+                android:drawableRight="@drawable/ic_right_arraw"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="我的留言"
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_second" />
+
+            <View
+                android:id="@+id/view_thrid"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:background="#3C3C434A"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_profile_message" />
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_share"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="20dp"
+                android:drawableRight="@drawable/ic_right_arraw"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="分享APP"
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_thrid" />
+
+            <View
+                android:id="@+id/view_four"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:background="#3C3C434A"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_profile_share" />
+
+            <TextView
+                android:id="@+id/tv_fragment_profile_about_me"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="20dp"
+                android:drawableRight="@drawable/ic_right_arraw"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="关于我们"
+                android:textColor="#ff000000"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_four" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_fragment_profile_logout"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:textColor="#fff59845"
+            android:gravity="center"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/cl_bottom"
+            android:background="@drawable/sp_rect_quit"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="18dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.scwang.smart.refresh.layout.SmartRefreshLayout>

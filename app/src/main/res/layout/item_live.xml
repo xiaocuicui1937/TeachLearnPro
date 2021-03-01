@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:id="@+id/tv_item_recent_study_look_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看全部"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_live_arrow"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_live_time" />
+
+    <TextView
+        android:id="@+id/tv_item_live_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=">"
+        android:textColor="#ff999999"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_recent_study_look_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_recent_study_look_all" />
+
+    <TextView
+        android:id="@+id/tv_item_hot_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直播·"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_item_live_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="今日20:00"
+        android:textColor="#459DF5"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_hot_course"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_hot_course" />
+
+    <ImageView
+        android:id="@+id/iv_item_live"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="18dp"
+        android:visibility="gone"
+        android:src="@drawable/test_live"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_hot_course"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_hot_course" />
+
+    <TextView
+        android:id="@+id/tv_item_live_content_title"
+        android:layout_width="145dp"
+        android:layout_height="19dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="6dp"
+        android:text="如何抓住青春的机遇？"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_live"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_live" />
+
+    <TextView
+        android:id="@+id/tv_item_live_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="1234人"
+        android:visibility="gone"
+        android:textColor="#ff459df5"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_live_content_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_live_content_title" />
+
+    <TextView
+        android:id="@+id/tv_item_live_reserved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:text="已预约"
+        android:textColor="#ff999999"
+        android:visibility="gone"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_live_count"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_live_count" />
+
+    <TextView
+        android:id="@+id/tv_item_live_tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="开启提醒"
+        android:textColor="#fff59845"
+        android:visibility="gone"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_live_reserved"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_live_count" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="#33707070"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_item_live"
+        android:layout_marginTop="23dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

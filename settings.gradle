@@ -1,0 +1,12 @@
+include ':app'
+rootProject.name = "TeachLearnPro"
+
+
+include ':melibrary'
+project(':melibrary').projectDir = "G:\\AndroidDemo\\EcommerceReal\\melibrary" as File
+
+include ':meUi'
+project(':meUi').projectDir = "G:\\AndroidDemo\\EcommerceReal\\meUi" as File
+
+include ':common'
+project(':common').projectDir = "G:\\AndroidDemo\\EcmmercePro\\common" as File

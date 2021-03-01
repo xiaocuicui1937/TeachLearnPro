@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp">
+
+    <TextView
+        android:id="@+id/tv_item_recent_study_look_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="查看全部"
+        android:textColor="#ff999999"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_hot_course"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_live_arrow"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_live_time" />
+
+    <TextView
+        android:id="@+id/tv_item_live_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=">"
+        android:textColor="#ff999999"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_item_recent_study_look_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_item_recent_study_look_all" />
+
+    <TextView
+        android:id="@+id/tv_item_recent_study"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="最近在学"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/iv_item_recent_course"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/test_recent_studu"
+        app:layout_constraintDimensionRatio="H,16:9"
+        app:layout_constraintEnd_toStartOf="@+id/iv_item_live_recent_study_live"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_recent_study"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recent_study" />
+
+    <ImageView
+        android:id="@+id/iv_item_live_recent_study_live"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="18dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/test_recent_studu"
+        app:layout_constraintDimensionRatio="H,16:9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_recent_course"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recent_study" />
+
+    <TextView
+        android:id="@+id/tv_item_recent_study_course"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="课程名"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_item_recent_course"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_recent_course"
+        app:layout_constraintTop_toBottomOf="@+id/iv_item_recent_course" />
+
+    <TextView
+        android:id="@+id/tv_item_recent_study_live"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:text="直播名"
+        android:textColor="#ff000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_item_live_recent_study_live"
+        app:layout_constraintStart_toStartOf="@+id/iv_item_live_recent_study_live"
+        app:layout_constraintTop_toBottomOf="@+id/iv_item_live_recent_study_live" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="20dp"
+        android:background="#33707070"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_recent_study_live" />
+</androidx.constraintlayout.widget.ConstraintLayout>

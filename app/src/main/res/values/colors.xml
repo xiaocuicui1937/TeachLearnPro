@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--TabBottom-->
+    <color name="tabBottomDefaultColor">#D4D4D4</color>
+    <!--tint 是色彩的意思-->
+    <color name="tabBottomTintColor">#3B67EB</color>
+
+    <color name="tabTopDefaultColor">#666666</color>
+    <color name="color_88A2B5">#88A2B5</color>
+    <color name="blue_6BB1F7">#6BB1F7</color>
+    <color name="blue_459DF5">#459DF5</color>
+    <color name="blue_459DF5_88">#88459DF5</color>
+    <color name="color_splash">#FF0077C8</color>
+</resources>
