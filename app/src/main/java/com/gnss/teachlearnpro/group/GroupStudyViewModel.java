@@ -24,6 +24,7 @@ public class GroupStudyViewModel extends BaseViewModel {
 
     public void obtainGroupStudyList(int pageIndex) {
         EasyHttp.post("Team/getList")
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("page",String.valueOf(pageIndex))
                 .execute(new SimpleCallBack<String>() {
                     @Override

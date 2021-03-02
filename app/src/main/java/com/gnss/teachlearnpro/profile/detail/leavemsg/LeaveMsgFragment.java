@@ -11,6 +11,8 @@ import com.gnss.teachlearnpro.common.ui.FragmentProvider;
 
 public class LeaveMsgFragment extends MeBaseFragment implements FragmentProvider {
 
+    private LeaveMsgLogic mLogic;
+
     public static LeaveMsgFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -28,12 +30,18 @@ public class LeaveMsgFragment extends MeBaseFragment implements FragmentProvider
     @Override
     public void init() {
         super.init();
-        new LeaveMsgLogic(this);
+        mLogic = new LeaveMsgLogic(this);
     }
 
     @Nullable
     @Override
     public View getMineView() {
         return mLayoutView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mLogic.initObtainLeaveList();
     }
 }

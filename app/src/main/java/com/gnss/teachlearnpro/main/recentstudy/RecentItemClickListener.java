@@ -1,5 +1,6 @@
-package com.gnss.teachlearnpro.main.live;
+package com.gnss.teachlearnpro.main.recentstudy;
 
+import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -10,15 +11,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.LiveListBean;
+import com.gnss.teachlearnpro.common.bean.RecentStudyBean;
+import com.gnss.teachlearnpro.course.detail.CourseDetailActivity;
 import com.gnss.teachlearnpro.main.live.detail.LiveDetailActivity;
 
-public class LiveMainItemClickListener implements OnItemClickListener {
+public class RecentItemClickListener implements OnItemClickListener {
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-        LiveListBean.DataBean data = (LiveListBean.DataBean) adapter.getData().get(position);
-        CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
-        instance.put(Contact.ID,data.getId());
-        instance.put(Contact.TITLE,data.getTitle());
-        ActivityUtils.startActivity(LiveDetailActivity.class);
+        RecentStudyBean.DataBean data = (RecentStudyBean.DataBean) adapter.getData().get(position);
+        Intent intent = new Intent(view.getContext(),CourseDetailActivity.class);
+        intent.putExtra(Contact.ID, data.getId());
+        ActivityUtils.startActivity(intent);
     }
 }

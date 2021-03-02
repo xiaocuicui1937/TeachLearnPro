@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.gnss.teachlearnpro.R;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.HomePageBean;
 
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +26,7 @@ public class HomeClassesAdapter extends BaseQuickAdapter<HomePageBean.DataBean.C
     protected void convert(@NotNull BaseViewHolder baseViewHolder, HomePageBean.DataBean.ClassBean classBean) {
         ImageView iv = baseViewHolder.getView(R.id.iv_item_grid);
         TextView tv = baseViewHolder.getView(R.id.tv_item_grid);
-        Glide.with(iv).load(R.drawable.ic_classes).into(iv);
+        Glide.with(iv).load(Contact.BASE_PIC_URL+classBean.getIcon()).placeholder(R.drawable.ic_classes).into(iv);
         tv.setText(classBean.getName());
     }
 }

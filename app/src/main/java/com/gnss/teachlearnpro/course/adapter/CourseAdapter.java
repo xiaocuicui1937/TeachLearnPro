@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class CourseAdapter extends BaseQuickAdapter<CourseBean.DataBean, BaseViewHolder> {
+public class CourseAdapter extends BaseQuickAdapter<CourseBean.DataBean, BaseViewHolder> implements LoadMoreModule {
 
     public CourseAdapter(int layoutResId, @Nullable List<CourseBean.DataBean> data) {
         super(layoutResId, data);

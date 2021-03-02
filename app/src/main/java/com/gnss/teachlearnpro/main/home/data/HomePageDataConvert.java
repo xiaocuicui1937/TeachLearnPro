@@ -28,6 +28,8 @@ public class HomePageDataConvert extends DataConvert {
     public ArrayList<MultipleItemEntity> convert() {
         if (ObjectUtils.isEmpty(getJsonData())) {
             throw new RuntimeException("please call setJsonData first !");
+        } else {
+            ENTITYS.clear();
         }
         HomePageBean homePage = GsonUtils.fromJson(getJsonData(), HomePageBean.class);
         HomePageBean.DataBean data = homePage.getData();
@@ -39,8 +41,12 @@ public class HomePageDataConvert extends DataConvert {
         List<HomePageBean.DataBean.ClassBean> classX = data.getClassX();
         addClass(classX);
         //直播
+
         HomePageBean.DataBean.LiveBean live = data.getLive();
-        addLive("01", 0, "直播", live.getTime_start(), "如何抓住青春的机遇？", "1234人-已预约-开启提醒", "查看全部", "");
+        String status = getLiveStatus(live);
+
+        addLive(live.getId(), 0, "直播", status,
+                live.getTitle(), live.getMake_number() + "人-已预约-开启提醒", "查看全部", live.getTitle_img());
         //最近在学
         List<HomePageBean.DataBean.StudyBean> studys = data.getStudy();
         //String.valueOf(param.getId()), 0, "最近在学",param.getLogo(),param.getTitle(), "查看全部"
@@ -49,56 +55,70 @@ public class HomePageDataConvert extends DataConvert {
         //热门课程
         List<HomePageBean.DataBean.CourseBean> course = data.getCourse();
         for (HomePageBean.DataBean.CourseBean param : course) {
-            addHotCourse(String.valueOf(param.getId()), "热门课程", param.getLogo(), param.getTitle(), param.getPlatform());
+            addHotCourse(param.getId(), "热门课程", param.getLogo(), param.getTitle(), param.getPlatform());
         }
         //最新课程
         HomePageBean.DataBean.CourseNewBean course_new = data.getCourse_new();
-        addNewCourse(String.valueOf(course_new.getId()), "最新课程", course_new.getLogo(), course_new.getTitle(), "");
+        addNewCourse(course_new.getId(), "最新课程", course_new.getLogo(), course_new.getTitle(), "");
         //定制推荐
         HomePageBean.DataBean.CourseBean made_new = data.getMade_new();
-        addNewCourse(String.valueOf(course_new.getId()), "定制推荐", made_new.getLogo(), made_new.getTitle(), "");
+        addNewCourse(course_new.getId(), "定制推荐", made_new.getLogo(), made_new.getTitle(), "");
         //话题文章
-        MainActivity activity = (MainActivity) ActivityUtils.getTopActivity();
-        addInfoList(activity);
+//        MainActivity activity = (MainActivity) ActivityUtils.getTopActivity();
+//        addInfoList(activity);
+        addAirticle(data.getInfo(),"话题文章");
         //学员见证
-//        List<HomePageBean.DataBean.StudentBean> student = data.getStudent();
-        addStudentWitnessList(activity);
+        List<HomePageBean.DataBean.StudentBean> student = data.getStudent();
+//        addStudentWitnessList(activity);
 
-//        for (HomePageBean.DataBean.StudentBean param : student) {
-//            addStudentWitness(String.valueOf(param.getId()), "学员见证", param.getImg(), param.getTitle());
-//        }
+        for (HomePageBean.DataBean.StudentBean param : student) {
+            addStudentWitness(param.getId(), "学员见证", param.getImg(), param.getTitle());
+        }
 
 
         return ENTITYS;
     }
 
-
-    private void addInfoList(MainActivity activity) {
-        HomePageViewModel model = new ViewModelProvider(activity).get(HomePageViewModel.class);
-        model.getInfoList().observe(activity, infoListResBean -> {
-            if (infoListResBean.isSuccess()) {
-                model.obtainStudentWitnessList(1);
-                addAirticle(infoListResBean.getData(), "话题文章");
-            } else {
-                ToastUtils.showShort(infoListResBean.getMsg());
-            }
-        });
+    private String getLiveStatus(HomePageBean.DataBean.LiveBean live) {
+        //0未开始1直播中2结束
+        String status = "";
+        if (live.getStatus() == 0) {
+            status = live.getTime_start();
+        } else if (live.getStatus() == 1) {
+            status = "直播中";
+        } else if (live.getStatus() == 2) {
+            status = "结束";
+        }
+        return status;
     }
 
-    private void addStudentWitnessList(MainActivity activity) {
-        HomePageViewModel model = new ViewModelProvider(activity).get(HomePageViewModel.class);
-        model.getStudentWitnessList().observe(activity, studentWitnessResBean -> {
-            if (studentWitnessResBean.isSuccess()) {
-                List<StudentWitnessResBean.DataBean> data = studentWitnessResBean.getData();
-                for (int i = 0; i < data.size(); i++) {
-                    addStudentWitness(String.valueOf(data.get(i).getId()), i == 0 ? "学员见证" : "", data.get(i).getImg(), data.get(i).getTitle());
-                }
-            } else {
-                ToastUtils.showShort(studentWitnessResBean.getMsg());
-            }
 
-        });
-    }
+//    private void addInfoList(MainActivity activity) {
+//        HomePageViewModel model = new ViewModelProvider(activity).get(HomePageViewModel.class);
+//        model.getInfoList().observe(activity, infoListResBean -> {
+//            if (infoListResBean.isSuccess()) {
+//                model.obtainStudentWitnessList(1);
+//                addAirticle(infoListResBean.getData(), "话题文章");
+//            } else {
+//                ToastUtils.showShort(infoListResBean.getMsg());
+//            }
+//        });
+//    }
+//
+//    private void addStudentWitnessList(MainActivity activity) {
+//        HomePageViewModel model = new ViewModelProvider(activity).get(HomePageViewModel.class);
+//        model.getStudentWitnessList().observe(activity, studentWitnessResBean -> {
+//            if (studentWitnessResBean.isSuccess()) {
+//                List<StudentWitnessResBean.DataBean> data = studentWitnessResBean.getData();
+//                for (int i = 0; i < data.size(); i++) {
+//                    addStudentWitness(data.get(i).getId(), i == 0 ? "学员见证" : "", data.get(i).getImg(), data.get(i).getTitle());
+//                }
+//            } else {
+//                ToastUtils.showShort(studentWitnessResBean.getMsg());
+//            }
+//
+//        });
+//    }
 
     private void addBanner(List<HomePageBean.DataBean.InformationBean> informations) {
         MultipleItemEntity entity = MultipleItemEntity.builder()
@@ -116,7 +136,7 @@ public class HomePageDataConvert extends DataConvert {
         ENTITYS.add(entity);
     }
 
-    private void addLive(String id, @DrawableRes int res, String... strs) {
+    private void addLive(int id, @DrawableRes int res, String... strs) {
         MultipleItemEntity entity = MultipleItemEntity.builder()
                 .setField(ItemType.TYPE, ItemType.LIVE_TYPE)
                 .setField(Contact.ID, id)
@@ -139,9 +159,10 @@ public class HomePageDataConvert extends DataConvert {
                     .build();
             ENTITYS.add(entity);
         }
+
     }
 
-    private void addHotCourse(String id, String... strs) {
+    private void addHotCourse(int id, String... strs) {
         MultipleItemEntity entity = MultipleItemEntity.builder()
                 .setField(ItemType.TYPE, ItemType.HOT_COURSE_TYPE)
                 .setField(Contact.ID, id)
@@ -153,7 +174,7 @@ public class HomePageDataConvert extends DataConvert {
         ENTITYS.add(entity);
     }
 
-    private void addNewCourse(String id, String... strs) {
+    private void addNewCourse(int id, String... strs) {
         MultipleItemEntity entity = MultipleItemEntity.builder()
                 .setField(ItemType.TYPE, ItemType.NEW_COURSE_TYPE)
                 .setField(Contact.ID, id)
@@ -165,7 +186,7 @@ public class HomePageDataConvert extends DataConvert {
         ENTITYS.add(entity);
     }
 
-    private void addAirticle(List<InfoListResBean.DataBean> infos, String title) {
+    private void addAirticle(List<HomePageBean.DataBean.InfoBean> infos, String title) {
         List<ArticleBean> arrays = new ArrayList<>();
         if (ObjectUtils.isNotEmpty(infos)) {
             for (int i = 0; i < infos.size(); i++) {
@@ -181,7 +202,7 @@ public class HomePageDataConvert extends DataConvert {
 
     }
 
-    private void addStudentWitness(String id, String... strs) {
+    private void addStudentWitness(int id, String... strs) {
         MultipleItemEntity entity = MultipleItemEntity.builder()
                 .setField(ItemType.TYPE, ItemType.STUDENT_WITNESS_TYPE)
                 .setField(Contact.ID, id)

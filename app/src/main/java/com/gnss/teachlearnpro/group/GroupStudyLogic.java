@@ -1,42 +1,29 @@
 package com.gnss.teachlearnpro.group;
 
-import android.view.View;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
-import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.ObjectUtils;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.module.BaseLoadMoreModule;
 import com.ecommerce.common.dataconvert.MultipleItemEntity;
 import com.ecommerce.melibrary.log.MeLog;
 import com.gnss.teachlearnpro.R;
-import com.gnss.teachlearnpro.common.Contact;
-import com.gnss.teachlearnpro.common.bean.CommentBean;
 import com.gnss.teachlearnpro.common.logic.BaseLogic;
 import com.gnss.teachlearnpro.common.ui.FragmentProvider;
-import com.gnss.teachlearnpro.common.viewmodel.CommentViewModel;
-import com.gnss.teachlearnpro.course.model.CourseViewModel;
-import com.gnss.teachlearnpro.group.entry.GroupStudyEntryFragment;
 import com.gnss.teachlearnpro.main.MainActivity;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
-import java.sql.Ref;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GroupStudyLogic extends BaseLogic {
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;//默认获取第一页
     private FragmentProvider mProvider;
     private GroupStudyAdapter mAdapter;
@@ -86,7 +73,7 @@ public class GroupStudyLogic extends BaseLogic {
         });
 
         model.getGroupStudy().observe(act, s -> {
-           handleLoadData(loadMoreModule,s);
+            handleLoadData(loadMoreModule, s);
         });
     }
 
@@ -94,18 +81,19 @@ public class GroupStudyLogic extends BaseLogic {
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, String res) {
         ArrayList<MultipleItemEntity> dataConvert = new GroupStudyDataConvert().setJsonData(res).convert();
         hideLoading();
-        if (refreshLayout!=null){
+        if (refreshLayout != null) {
             refreshLayout.finishRefresh(true);
+        }
+        if (ObjectUtils.isEmpty(dataConvert)) {
+            loadMoreModule.loadMoreEnd();
+            return;
         }
         if (mPageIndex == 1) {
             mAdapter.setNewInstance(dataConvert);
         } else {
             mAdapter.addData(dataConvert);
         }
-        if (ObjectUtils.isEmpty(dataConvert)) {
-            loadMoreModule.loadMoreEnd();
-            return;
-        }
+
         if (dataConvert.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();

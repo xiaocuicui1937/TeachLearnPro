@@ -10,11 +10,13 @@
 
     <TextView
         android:id="@+id/tv_item_leave_msg_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:text="太极二章"
+        android:layout_marginEnd="@dimen/dp_10"
+        app:layout_constraintEnd_toStartOf="@+id/tv_item_leave_msg_date"
         android:textColor="#ff000000"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"

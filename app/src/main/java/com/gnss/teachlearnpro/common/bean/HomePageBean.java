@@ -168,7 +168,39 @@ public class HomePageBean extends BaseResBean{
         }
 
         public static class LiveBean {
+            private int id;
             private String time_start;
+            private String push_url;
+            private String title;
+            private String title_img;
+            private int status;
+            private int make_number;
+
+            public int getId() {
+                return id;
+            }
+
+            public int getMake_number() {
+                return make_number;
+            }
+
+            public int getStatus() {
+                return status;
+            }
+
+            public String getTitle_img() {
+                return title_img;
+            }
+
+            public String getTitle() {
+                return title;
+            }
+
+            public String getPush_url() {
+                return push_url;
+            }
+
+
 
             public String getTime_start() {
                 return time_start;
@@ -242,6 +274,11 @@ public class HomePageBean extends BaseResBean{
         public static class ClassBean {
             private int id;
             private String name;
+            private String icon;
+
+            public String getIcon() {
+                return icon;
+            }
 
             public int getId() {
                 return id;

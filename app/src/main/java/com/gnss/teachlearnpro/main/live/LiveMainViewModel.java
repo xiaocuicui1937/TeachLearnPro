@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.LiveListBean;
 import com.gnss.teachlearnpro.common.model.BaseViewModel;
 import com.zhouyou.http.EasyHttp;
@@ -15,6 +17,7 @@ public class LiveMainViewModel extends BaseViewModel {
 
     public void obtainLiveList(int pageIndex) {
         EasyHttp.post("Home/live")
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("page",String.valueOf(pageIndex))
                 .execute(new SimpleCallBack<String>() {
                     @Override

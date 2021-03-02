@@ -57,6 +57,7 @@ public class HomePageLogic extends BaseLogic {
         mAdapter = new HomePageAdapter(null);
         mRv.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new HomePageItemClickListener());
+        mAdapter.setOnItemChildClickListener(new HomePageItemChildClickListener());
         request();
 
         initRefresh();

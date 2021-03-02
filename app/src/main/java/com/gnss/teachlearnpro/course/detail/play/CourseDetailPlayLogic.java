@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickListener {
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;//默认获取第一页
     private boolean isLookAll = true;
     private ActivityProvider mProvider;

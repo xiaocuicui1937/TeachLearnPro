@@ -42,7 +42,7 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
     private FragmentProvider mFragmentProvider;
     private LiveInteractInnerAdapter mAdapter;
     private CommentViewModel commentModel;
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;//默认获取第一页
     private boolean isLookAll = true;
     private ImageView mIvHeart;

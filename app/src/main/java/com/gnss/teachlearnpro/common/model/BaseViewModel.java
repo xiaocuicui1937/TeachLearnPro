@@ -7,7 +7,6 @@ import com.zhouyou.http.exception.ApiException;
 
 public class BaseViewModel extends ViewModel {
 
-
     public void tipError(ApiException e, String msg) {
         ToastUtils.showShort(msg + e.getMessage() + "\n错误码:" + e.getCode());
     }

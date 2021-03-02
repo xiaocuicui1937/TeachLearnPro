@@ -27,6 +27,7 @@ import com.youth.banner.indicator.CircleIndicator;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -43,7 +44,8 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         addItemType(ItemType.NEW_COURSE_TYPE, R.layout.item_new_course);
         addItemType(ItemType.ARTICLE_TYPE, R.layout.item_airticel_info);
         addItemType(ItemType.STUDENT_WITNESS_TYPE, R.layout.item_student_witness);
-
+        addChildClickViewIds(R.id.tv_item_recent_study_look_all,R.id.tv_item_airticle_info_look_all,
+                R.id.iv_item_recent_course,R.id.iv_item_live_recent_study_live);
     }
 
     @Override
@@ -158,10 +160,16 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
     }
 
 
-    private void createLive(BaseViewHolder baseViewHolder, MultipleItemEntity multipleItemEntity) {
+    private void createLive(BaseViewHolder baseViewHolder, MultipleItemEntity item) {
+        TextView title= baseViewHolder.getView(R.id.tv_item_live_content_title);
+        title.setText(item.getField(Contact.CONTENT_TITLE));
         TextView liveStartTime = baseViewHolder.getView(R.id.tv_item_live_time);
-        MeLog.e((String) multipleItemEntity.getField(Contact.SUB_TITLE));
-        liveStartTime.setText(multipleItemEntity.getField(Contact.SUB_TITLE));
+        liveStartTime.setText(item.getField(Contact.SUB_TITLE));
+        ImageView ivLogo = baseViewHolder.getView(R.id.iv_item_live);
+        Glide.with(ivLogo.getContext()).load(Contact.BASE_PIC_URL+item.getField(Contact.LOGO_URL)).placeholder(R.drawable.test_live).into(ivLogo);
+        TextView makeNumTv = baseViewHolder.getView(R.id.tv_item_live_count);
+        String content = item.getField(Contact.CONTENT_SUB_TITLE);
+        makeNumTv.setText(content.split("-")[0]);
     }
 
     HomeClassesAdapter adapter;

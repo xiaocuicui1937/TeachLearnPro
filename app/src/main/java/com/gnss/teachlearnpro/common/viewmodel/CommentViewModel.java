@@ -9,17 +9,19 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.BaseResBean;
 import com.gnss.teachlearnpro.common.bean.CommentBean;
+import com.gnss.teachlearnpro.common.bean.LeaveMsgBean;
 import com.gnss.teachlearnpro.common.model.BaseViewModel;
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.callback.SimpleCallBack;
 import com.zhouyou.http.exception.ApiException;
 
-import org.w3c.dom.Comment;
-
 public class CommentViewModel extends BaseViewModel {
     private MutableLiveData<CommentBean> mUtableCommentDetail = new MutableLiveData<>();
+    private MutableLiveData<LeaveMsgBean> mUtableLeaveMsg = new MutableLiveData<>();
     private MutableLiveData<Boolean> mUtableCollect = new MutableLiveData<>();
     private MutableLiveData<Boolean> mUtableWriteComment = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mUtableUpdateComment = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mUtableDeleteComment = new MutableLiveData<>();
     private MutableLiveData<Boolean> mUtableAddRecording = new MutableLiveData<>();
 
 
@@ -99,6 +101,30 @@ public class CommentViewModel extends BaseViewModel {
         return "";
     }
 
+    public void obtainLeaveMsg(CommentType type, int pageIndex) {
+        String token = SPUtils.getInstance().getString(Contact.TOEKN);
+        EasyHttp.post("Personal/getMyReview")
+                .headers(Contact.HEADER_TOKEN, token)
+                .params("page", String.valueOf(pageIndex))
+                .params("type", getType(type))
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        mUtableLeaveMsg.postValue(null);
+                        tipError(e, "访问获取留言列表失败");
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        LeaveMsgBean leaveMsg = GsonUtils.fromJson(s, LeaveMsgBean.class);
+                        mUtableLeaveMsg.postValue(leaveMsg);
+                    }
+                });
+    }
+
+    public LiveData<LeaveMsgBean> getLeaveMsg() {
+        return mUtableLeaveMsg;
+    }
 
     public void setCollectStatus(CommentType type, String id) {
         EasyHttp.post("Collection/addCollection")
@@ -153,9 +179,69 @@ public class CommentViewModel extends BaseViewModel {
     }
 
     /**
+     * 更新留言
+     *
+     * @param id      留言id
+     * @param content 留言内容
+     */
+    public void updateComment(String id, String content) {
+        EasyHttp.post("Comment/updateInfo")
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .params("id", id)
+                .params("content", content)
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        mUtableUpdateComment.postValue(false);
+                        tipError(e, "访问更新留言接口失败");
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        BaseResBean res = GsonUtils.fromJson(s, BaseResBean.class);
+                        mUtableUpdateComment.postValue(res.isSuccess());
+                        ToastUtils.showShort(res.getMsg());
+                    }
+                });
+    }
+
+    public LiveData<Boolean> getUpdateComment() {
+        return mUtableUpdateComment;
+    }
+
+    /**
+     * 删除留言
+     *
+     * @param id 留言id
+     */
+    public void deleteComment(String id) {
+        EasyHttp.post("Comment/delMyComment")
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .params("id", id)
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        mUtableDeleteComment.postValue(false);
+                        tipError(e, "访问删除留言接口失败");
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        BaseResBean res = GsonUtils.fromJson(s, BaseResBean.class);
+                        mUtableDeleteComment.postValue(res.isSuccess());
+                        ToastUtils.showShort(res.getMsg());
+                    }
+                });
+    }
+
+    public LiveData<Boolean> getDeleteComment() {
+        return mUtableDeleteComment;
+    }
+
+    /**
      * 点赞评论
      *
-     * @param type
+     * @param type 点赞的类型 直播、课程、文章
      * @param id
      */
     public void addRecording(CommentType type, String id) {

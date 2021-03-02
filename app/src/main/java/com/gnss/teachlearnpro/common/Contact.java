@@ -105,6 +105,12 @@ public class Contact {
      * 小组学习
      */
     public static final String GROUP_SELECTED_PARAM = "group_selected_param";
+
+    /**
+     * 留言列表类型
+     * */
+    public static final String LEAVE_MSG_TYPE = "leave_msg_type";
+    public static final String LEAVE_MSG_DETAIL = "leave_msg_detail";
     /**
      * 选中地址
      * <p>

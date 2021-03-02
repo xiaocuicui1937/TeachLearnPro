@@ -3,42 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF5F9FC"
     android:fitsSystemWindows="true">
 
     <include layout="@layout/common_title" />
 
-    <TextView
-        android:id="@+id/tv_activity_leave_msg_detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="33dp"
-        android:text="太极二章"
-        android:textColor="#ff000000"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stv_common_title" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#FFF5F9FC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stv_common_title">
 
-    <TextView
-        android:id="@+id/tv_activity_leave_msg_detail_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="2020-10-16  18:53"
-        android:textColor="#ff999999"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_activity_leave_msg_detail_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_activity_leave_msg_detail_title" />
+        <TextView
+            android:id="@+id/tv_activity_leave_msg_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="33dp"
+            android:text="太极二章"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/et_activity_leave_msg_detail_content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="37dp"
-        android:background="@null"
-        android:text="真是非常精彩的一个课程一个课程一个课，受益良多...
+        <TextView
+            android:id="@+id/tv_activity_leave_msg_detail_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="2020-10-16  18:53"
+            android:textColor="#ff999999"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_activity_leave_msg_detail_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_activity_leave_msg_detail_title" />
+
+        <EditText
+            android:id="@+id/et_activity_leave_msg_detail_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="37dp"
+            android:background="@null"
+            android:text="真是非常精彩的一个课程一个课程一个课，受益良多...
 真是非常精彩的一个课程一个课程一个课，受益良多...
 真是非常精彩的一个课程一个课程一个课，受益良多...
 真是非常精彩的一个课程一个课程一个课，受益良多...
@@ -46,38 +52,40 @@
 真是非常精彩的一个课程一个课程一个课，受益良多...
 真是非常精彩的一个课程一个课程一个课，受益良多...
 真是非常精彩的一个课程一个课程一个课，受益良多..."
-        android:textColor="#ff999999"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_activity_leave_msg_detail_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_activity_leave_msg_detail_date" />
+            android:textColor="#ff999999"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_activity_leave_msg_detail_date"
+            app:layout_constraintTop_toBottomOf="@+id/tv_activity_leave_msg_detail_date" />
 
-    <ImageView
-        android:id="@+id/iv_activity_leave_msg_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_activity_leave_msg_edit"
-        app:layout_constraintEnd_toStartOf="@+id/iv_activity_leave_msg_edit"
-        app:layout_constraintTop_toTopOf="@+id/iv_activity_leave_msg_edit" />
+        <ImageView
+            android:id="@+id/iv_activity_leave_msg_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_activity_leave_msg_edit"
+            app:layout_constraintEnd_toStartOf="@+id/iv_activity_leave_msg_edit"
+            app:layout_constraintTop_toTopOf="@+id/iv_activity_leave_msg_edit" />
 
-    <ImageView
-        android:id="@+id/iv_activity_leave_msg_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:src="@drawable/ic_edit"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_activity_leave_msg_sure"
-        app:layout_constraintEnd_toStartOf="@+id/iv_activity_leave_msg_sure"
-        app:layout_constraintTop_toTopOf="@+id/iv_activity_leave_msg_sure" />
+        <ImageView
+            android:id="@+id/iv_activity_leave_msg_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_edit"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_activity_leave_msg_sure"
+            app:layout_constraintEnd_toStartOf="@+id/iv_activity_leave_msg_sure"
+            app:layout_constraintTop_toTopOf="@+id/iv_activity_leave_msg_sure" />
 
-    <ImageView
-        android:id="@+id/iv_activity_leave_msg_sure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="47dp"
-        android:src="@drawable/ic_sure"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/et_activity_leave_msg_detail_content" />
+        <ImageView
+            android:id="@+id/iv_activity_leave_msg_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="47dp"
+            android:src="@drawable/ic_sure"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/et_activity_leave_msg_detail_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

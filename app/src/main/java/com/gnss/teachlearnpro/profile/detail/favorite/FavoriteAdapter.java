@@ -35,18 +35,10 @@ public class FavoriteAdapter extends BaseQuickAdapter<FavoriteBean.DataBean, Bas
         Glide.with(iv.getContext()).load(item.getHead_img()).placeholder(R.drawable.ic_place_favorite).into(iv);
         tvTitle.setText(item.getTitle());
         tvType.setText(getTypeStr(item.getType()));
-        tvCreateTime.setText(stampToDate(item.getCreate_time()));
+        tvCreateTime.setText(TimeUtils.millis2String(item.getCreate_time()*1000L));
     }
 
-    public String stampToDate(int time) {
-        String res;
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        //如果它本来就是long类型的,则不用写这一步
-        Date date = new Date(time);
-        res = simpleDateFormat.format(date);
-        return res;
-    }
-
+   
     private String getTypeStr(int type) {
         if (type == 1) {
             return StringUtils.getString(R.string.course_f);

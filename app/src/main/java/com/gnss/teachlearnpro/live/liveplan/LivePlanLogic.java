@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LivePlanLogic extends BaseLogic {
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;
     private FragmentProvider mFragmentProvider;
     private LivePlanAdapter mAdapter;

@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickListener {
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;//默认获取第一页
     private boolean isLookAll = true;
 
@@ -49,7 +49,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
     public LiveDetailFragmentLogic(FragmentProvider provider, LiveDetailFragment fragment) {
         this.mProvider = provider;
         this.mFragment = fragment;
-        setTitle(provider, "直播详情", (AppCompatActivity) ActivityUtils.getTopActivity());
+        setTitle(provider, CacheMemoryUtils.getInstance().get(Contact.TITLE), (AppCompatActivity) ActivityUtils.getTopActivity());
         initView();
         initRecyclerView();
         addRequestResListener();
@@ -111,7 +111,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
             Switch switchView = (Switch) view;
             mPageIndex = 1;
             isLookAll = !switchView.isChecked();
-            commentModel.obtainCommentList(CommentViewModel.CommentType.COURSE, id, mPageIndex, isLookAll);
+            commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex, isLookAll);
         });
 
 
@@ -122,17 +122,18 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
     }
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
-        if (mPageIndex == 1) {
-            mAdapter.setNewInstance(getDatas(dataBean.getData(), true));
-        } else {
-            mAdapter.addData(getDatas(dataBean.getData(), false));
-        }
-        MeLog.e("总数：" + dataBean.getCount());
         List<CommentBean.DataBean> dataRes = dataBean.getData();
         if (ObjectUtils.isEmpty(dataRes)) {
             loadMoreModule.loadMoreEnd();
             return;
         }
+        if (mPageIndex == 1) {
+            mAdapter.setNewInstance(getDatas(dataRes, true));
+        } else {
+            mAdapter.addData(getDatas(dataRes, false));
+        }
+        MeLog.e("总数：" + dataBean.getCount());
+
         if (dataRes.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();

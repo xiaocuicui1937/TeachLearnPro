@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.SPUtils;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.LivePlanBean;
 import com.gnss.teachlearnpro.common.model.BaseViewModel;
 import com.zhouyou.http.EasyHttp;
@@ -12,26 +14,36 @@ import com.zhouyou.http.exception.ApiException;
 
 public class LiveViewModel extends BaseViewModel {
     private MutableLiveData<LivePlanBean> mMutablePlan = new MutableLiveData<>();
+    private MutableLiveData<LivePlanBean> mMutableBack = new MutableLiveData<>();
 
     /**
      * 获取直播计划
      * 或者直播回放
      */
-    public void obtainLivePlanOrBack(LiveType type,int pageIndex) {
+    public void obtainLivePlanOrBack(LiveType type, int pageIndex) {
         EasyHttp.post("Home/live")
-                .params("page",String.valueOf(pageIndex))
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .params("page", String.valueOf(pageIndex))
                 .params("type", getParamWithType(type))
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
-                        mMutablePlan.postValue(null);
+                        if (type == LiveType.PLAN) {
+                            mMutablePlan.postValue(null);
+                        } else {
+                            mMutableBack.postValue(null);
+                        }
                         tipError(e, getTipMsg(type));
                     }
 
                     @Override
                     public void onSuccess(String s) {
                         LivePlanBean livePlanBean = GsonUtils.fromJson(s, LivePlanBean.class);
-                        mMutablePlan.postValue(livePlanBean);
+                        if (type == LiveType.PLAN) {
+                            mMutablePlan.postValue(livePlanBean);
+                        } else {
+                            mMutableBack.postValue(livePlanBean);
+                        }
                     }
                 });
     }
@@ -61,5 +73,9 @@ public class LiveViewModel extends BaseViewModel {
 
     public LiveData<LivePlanBean> getLive() {
         return mMutablePlan;
+    }
+
+    public LiveData<LivePlanBean> getLiveBack() {
+        return mMutableBack;
     }
 }

@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LiveBackLogic extends BaseLogic {
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;
     private FragmentProvider mFragmentProvider;
     private LiveBackAdapter mAdapter;
@@ -45,18 +45,18 @@ public class LiveBackLogic extends BaseLogic {
         model = new ViewModelProvider(act).get(LiveViewModel.class);
         model.obtainLivePlanOrBack(LiveViewModel.LiveType.BACK, 1);
         BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
-        model.getLive().observe(act, livePlanBean -> {
+        model.getLiveBack().observe(act, livePlanBean -> {
             handleLoadData(loadMoreModule, livePlanBean);
         });
         //下拉刷新
-        refreshLayout.setOnRefreshListener(refreshLayout -> {
-            //禁止上拉加载
-            loadMoreModule.setEnableLoadMore(false);
-            //重置页码
-            mPageIndex = 1;
-            showLoading("获取直播回放列表...");
-            model.obtainLivePlanOrBack(LiveViewModel.LiveType.BACK, mPageIndex);
-        });
+//        refreshLayout.setOnRefreshListener(refreshLayout -> {
+//            //禁止上拉加载
+//            loadMoreModule.setEnableLoadMore(false);
+//            //重置页码
+//            mPageIndex = 1;
+//            showLoading("获取直播回放列表...");
+//            model.obtainLivePlanOrBack(LiveViewModel.LiveType.BACK, mPageIndex);
+//        });
         //上拉加载
         loadMoreModule.setOnLoadMoreListener(() -> {
             loadMoreModule.setEnableLoadMore(true);
@@ -100,9 +100,10 @@ public class LiveBackLogic extends BaseLogic {
         refreshLayout = mFragmentProvider.getMineView().findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(mFragmentProvider.getActivity()));
         refreshLayout.setOnRefreshListener(refreshlayout -> {
+            mPageIndex = 1;
             showLoading("获取直播回放列表...");
             //获取直播计划列表
-            model.obtainLivePlanOrBack(LiveViewModel.LiveType.BACK, 1);
+            model.obtainLivePlanOrBack(LiveViewModel.LiveType.BACK, mPageIndex);
         });
     }
 

@@ -10,10 +10,18 @@ import com.gnss.teachlearnpro.common.ui.BaseActivity;
 
 public class LeaveMsgListActivity extends BaseActivity implements ActivityProvider {
 
+    private LeaveMsgListLogic mLogic;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leave_msg_list);
-        new LeaveMsgListLogic(this);
+        mLogic = new LeaveMsgListLogic(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mLogic.initObtainLeaveList();
     }
 }

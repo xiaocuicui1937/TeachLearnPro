@@ -9,6 +9,7 @@ import com.ecommerce.melibrary.log.MeLog;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.HomePageBean;
 import com.gnss.teachlearnpro.common.bean.InfoListResBean;
+import com.gnss.teachlearnpro.common.bean.RecentStudyBean;
 import com.gnss.teachlearnpro.common.bean.StudentWitnessResBean;
 import com.gnss.teachlearnpro.common.model.BaseViewModel;
 import com.zhouyou.http.EasyHttp;
@@ -19,13 +20,14 @@ public class HomePageViewModel extends BaseViewModel {
     private MutableLiveData<HomePageBean> mMutableHome = new MutableLiveData<>();
     private MutableLiveData<InfoListResBean> mMutableInfoList = new MutableLiveData<>();
     private MutableLiveData<StudentWitnessResBean> mMutableStudentWitnessList = new MutableLiveData<>();
+    private MutableLiveData<RecentStudyBean> mMutableRecentStudyList = new MutableLiveData<>();
 
     /**
      * 获取首页信息
      */
     public void obtainHomePageInfo() {
         EasyHttp.post("Home/home")
-                .params(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
@@ -51,7 +53,7 @@ public class HomePageViewModel extends BaseViewModel {
      */
     public void obtainInfoList(int pageIndex) {
         EasyHttp.post("Info/getList")
-                .params(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("page", String.valueOf(pageIndex))
                 .execute(new SimpleCallBack<String>() {
                     @Override
@@ -78,7 +80,7 @@ public class HomePageViewModel extends BaseViewModel {
      */
     public void obtainStudentWitnessList(int pageIndex) {
         EasyHttp.post("Student/getList")
-                .params(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("page", String.valueOf(pageIndex))
                 .execute(new SimpleCallBack<String>() {
                     @Override
@@ -98,5 +100,33 @@ public class HomePageViewModel extends BaseViewModel {
 
     public LiveData<StudentWitnessResBean> getStudentWitnessList() {
         return mMutableStudentWitnessList;
+    }
+
+    /**
+     * 获取最近学习列表
+     */
+    public void obtainRecentStudyList(int pageIndex) {
+        EasyHttp.post("Home/getAllList")
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .params("page", String.valueOf(pageIndex))
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        mMutableRecentStudyList.postValue(null);
+                        tipError(e, "访问最近学习列表接口失败");
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        RecentStudyBean courseBean = GsonUtils.fromJson(s, RecentStudyBean.class);
+                        mMutableRecentStudyList.postValue(courseBean);
+                        MeLog.e(s);
+                    }
+                });
+    }
+
+
+    public LiveData<RecentStudyBean> getRecentStudyList() {
+        return mMutableRecentStudyList;
     }
 }

@@ -33,7 +33,7 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import java.util.List;
 
 public class FavoriteLogic extends BaseLogic {
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;//默认获取第一页
     private FragmentProvider mProvider;
     private TabLayout mTabLayout;
@@ -74,17 +74,17 @@ public class FavoriteLogic extends BaseLogic {
         if (refreshLayout != null) {
             refreshLayout.finishRefresh(true);
         }
-
+        if (ObjectUtils.isEmpty(data)) {
+            loadMoreModule.loadMoreEnd();
+            return;
+        }
 
         if (mPageIndex == 1) {
             mAdapter.setNewInstance(data);
         } else if (ObjectUtils.isNotEmpty(data)) {
             mAdapter.addData(data);
         }
-        if (ObjectUtils.isEmpty(data)) {
-            loadMoreModule.loadMoreEnd();
-            return;
-        }
+
         if (data.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();

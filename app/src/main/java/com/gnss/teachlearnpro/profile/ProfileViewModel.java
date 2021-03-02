@@ -137,21 +137,7 @@ public class ProfileViewModel extends BaseViewModel {
         return mMutableUpdateAvator;
     }
 
-    public void obtainLeaveMsg() {
-        String token = SPUtils.getInstance().getString(Contact.TOEKN);
-        EasyHttp.post("Personal/getMyReview")
-                .headers(Contact.HEADER_TOKEN, token)
-                .execute(new SimpleCallBack<String>() {
-                    @Override
-                    public void onError(ApiException e) {
-                        tipError(e, "访问获取留言列表失败");
-                    }
 
-                    @Override
-                    public void onSuccess(String s) {
-                        MeLog.e("留言:"+s);
-                    }
-                });
-    }
+
 
 }

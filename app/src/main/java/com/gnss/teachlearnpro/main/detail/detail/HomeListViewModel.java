@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.HomeDetailBean;
 import com.gnss.teachlearnpro.common.bean.InfoDetailBean;
 import com.gnss.teachlearnpro.common.bean.StudentWitnessDetailResBean;
@@ -20,6 +22,7 @@ public class HomeListViewModel extends BaseViewModel {
     public void obtainDetail(HomeListType type, String id) {
 
         EasyHttp.post(getUrl(type))
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("id", id)
                 .execute(new SimpleCallBack<String>() {
                     @Override

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageDetailLogic extends BaseLogic {
-    private static final int DEFAULT_PAGE = 5;
+    private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;//默认获取第一页
     private ActivityProvider mProvider;
     private HomePageViewModel model;
@@ -70,11 +70,6 @@ public class HomePageDetailLogic extends BaseLogic {
             default:
                 break;
         }
-
-
-
-
-
     }
 
     private void obtainRequest() {

@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.CommentBean;
 import com.gnss.teachlearnpro.common.bean.GroupStudyDetailBean;
 import com.gnss.teachlearnpro.common.model.BaseViewModel;
@@ -17,6 +19,7 @@ public class GroupStudyDetailViewModel extends BaseViewModel {
 
     public void obtainGroupStudyDetail(String id) {
         EasyHttp.post("Team/getTeamDetail")
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("team_id", id)
                 .execute(new SimpleCallBack<String>() {
                     @Override
