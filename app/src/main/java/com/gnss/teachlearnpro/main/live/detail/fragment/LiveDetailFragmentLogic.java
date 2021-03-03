@@ -102,16 +102,17 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
         commentModel = new ViewModelProvider(act).get(CommentViewModel.class);
         commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, 1, isLookAll);
         BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
-
         commentModel.getCommentList().observe(act, dataBean -> {
             hideLoading();
             handleLoadData(loadMoreModule, dataBean);
         });
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            Switch switchView = (Switch) view;
-            mPageIndex = 1;
-            isLookAll = !switchView.isChecked();
-            commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex, isLookAll);
+            if (view.getId() == R.id.tv_item_live_detail_thumbs) {
+                addThumbs(position, act, view);
+            } else if (view instanceof Switch) {
+                switchMineOrAll(id, (Switch) view);
+            }
+
         });
 
 
@@ -119,6 +120,25 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
             hideLoading();
             mIvHeart.setImageResource(aBoolean ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
         });
+    }
+
+
+    private void addThumbs(int position, AppCompatActivity act, View view) {
+
+        MultipleItemEntity entity = mAdapter.getData().get(position);
+        int commonId = entity.getField(Contact.ID);
+        commentModel.addRecording(CommentViewModel.CommentType.LIVE, String.valueOf(commonId));
+        commentModel.getAddRecording().observe(act, aBoolean -> {
+            TextView tvThumbs = (TextView) view;
+            tvThumbs.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0
+                    , 0);
+        });
+    }
+    private void switchMineOrAll(String id, Switch view) {
+        Switch switchView = (Switch) view;
+        mPageIndex = 1;
+        isLookAll = !switchView.isChecked();
+        commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex, isLookAll);
     }
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
@@ -181,6 +201,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
             MultipleItemEntity comment = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.COMMENT_TYPE)
                     .setField(Contact.CONTENT_SUB_TITLE, param)
+                    .setField(Contact.ID,param.getCommon_id())
                     .build();
             datas.add(comment);
         }

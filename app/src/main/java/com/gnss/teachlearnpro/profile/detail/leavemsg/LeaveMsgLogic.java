@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.ClickUtils;
-import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.module.BaseLoadMoreModule;
@@ -105,8 +104,9 @@ public class LeaveMsgLogic extends BaseLogic {
         rv.setLayoutManager(manager);
         mAdapter = new LeaveMsgListAdapter(R.layout.item_leave_msg, null);
         rv.setAdapter(mAdapter);
-        initRefresh();
+        mAdapter.setEmptyView(R.layout.empty_layout);
         mAdapter.setOnItemClickListener(new LeaveMsgItemCLickListener());
+        initRefresh();
     }
 
     private void initRefresh() {
@@ -122,7 +122,7 @@ public class LeaveMsgLogic extends BaseLogic {
 
     public void initObtainLeaveList() {
         mPageIndex = 1;
-        if (model!=null){
+        if (model != null) {
             showLoading("获取留言列表...");
             model.obtainLeaveMsg(CommentViewModel.CommentType.LIVE, mPageIndex);
 

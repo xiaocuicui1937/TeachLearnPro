@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ecommerce.common.dataconvert.MultipleItemEntity;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.LivePlanBean;
+import com.gnss.teachlearnpro.live.liveback.detail.LivePlayBackActivity;
 import com.gnss.teachlearnpro.live.liveplan.detail.PlanDetailAActivity;
 
 import java.util.List;
@@ -23,7 +24,6 @@ public class LiveBackItemClickListener implements OnItemClickListener {
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
         instance.put(Contact.TITLE, data.getTitle());
         instance.put(Contact.PlAY_URL, data.getPlayback_address());
-        instance.put(Contact.ID, String.valueOf(data.getId()));
-        ActivityUtils.startActivity(PlanDetailAActivity.class);
+        ActivityUtils.startActivity(LivePlayBackActivity.class);
     }
 }

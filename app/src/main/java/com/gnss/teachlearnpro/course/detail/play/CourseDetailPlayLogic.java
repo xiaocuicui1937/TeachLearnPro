@@ -60,9 +60,7 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
 
         commentModel = new ViewModelProvider(act).get(CommentViewModel.class);
         commentModel.obtainCommentList(CommentViewModel.CommentType.COURSE, id, mPageIndex, isLookAll);
-
         BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
-
         commentModel.getCommentList().observe(act, dataBean -> {
             hideLoading();
             handleLoadData(loadMoreModule, dataBean);
@@ -142,17 +140,8 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
         return datas;
     }
 
-    private void handleDetail(GroupStudyDetailActivity act, GroupStudyDetailBean.DataBean dataBean) {
-        hideLoading();
-        if (dataBean == null) {
-            return;
-        }
-
-        mIvHeart.setImageResource(dataBean.getCollect_number() != 0 ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
-    }
 
     private void initView() {
-
         StandardGSYVideoPlayer player = mProvider.findViewById(R.id.sgp_top_bg);
         mPlayerManager = new PlayerManager(player);
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();

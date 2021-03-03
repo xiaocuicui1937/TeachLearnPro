@@ -24,7 +24,7 @@ public class RecordViewModel extends BaseViewModel {
     private MutableLiveData<List<RecordResBean.DataBean>> mMutableLiveRecords = new MutableLiveData<>();
     private MutableLiveData<List<RecordResBean.DataBean>> mMutableCourseRecords = new MutableLiveData<>();
 
-    public void obtainRecords(RecordType type) {
+    public void obtainRecords(RecordType type,int pageIndex) {
         String url;
         String tip;
         if (type == RecordType.COURSE) {
@@ -37,6 +37,7 @@ public class RecordViewModel extends BaseViewModel {
         MeLog.e("person:" + url);
         EasyHttp.post(url)
                 .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .params("page",String.valueOf(pageIndex))
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {

@@ -118,29 +118,4 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
-
-    <ImageView
-        android:id="@+id/iv_fragment_leave_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dp_10"
-        android:src="@drawable/ic_empty"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_leave_msg_tip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_fragment_leave_msg_tip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="你还没有写留言"
-        android:textColor="#ff9a9a9a"
-        android:textSize="12sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_divider_mine" />
 </androidx.constraintlayout.widget.ConstraintLayout>

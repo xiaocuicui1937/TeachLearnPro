@@ -15,8 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.BarUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.request.RequestOptions;
 import com.ecommerce.melibrary.log.MeLog;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
@@ -74,17 +78,27 @@ public class CourseDetailListLogic extends BaseLogic {
         TextView tvManCount = mineView.findViewById(R.id.tv_fragment_course_detail_course);
         FrameLayout flContent = mineView.findViewById(R.id.fl_fragment_course_detail_desc);
         ImageView ivCover = mineView.findViewById(R.id.iv_fragment_course_detail_list);
+        ImageView ivAvatar = mineView.findViewById(R.id.iv_fragment_course_detail_avatar);
         mHtmlManager.initWebView(flContent);
 
         CourseDetailBean.DataBean.CourseBean course = dataBean.getCourse();
         tvTitle.setText(course.getTitle());
         tvSubTitle.setText(course.getDesc());
         tvLiveCount.setText(course.getNew_total() + "/" + dataBean.getCourse().getTotal());
-        tvManCount.setText(course.getDesc() + "人加入学习");
+        tvManCount.setText(course.getTotal_user() + "人加入学习");
         mHtmlManager.loadHtmlCode(course.getIntro());
-
-        Glide.with(ivCover.getContext()).load(course.getLogo()).into(ivCover);
         setTitleToCollapsingToolbarLayout(course.getTitle());
+        Glide.with(ivCover.getContext()).load(course.getLogo()).into(ivCover);
+
+        List<CourseDetailBean.DataBean.UserBean> users = dataBean.getUser();
+        if (ObjectUtils.isNotEmpty(users)){
+            RequestOptions options = RequestOptions.bitmapTransform(new CircleCrop()).diskCacheStrategy(DiskCacheStrategy.NONE);
+            Glide.with(ivAvatar.getContext()).applyDefaultRequestOptions(options)
+                    .load(users.get(0).getAvatar()).into(ivAvatar);
+        }
+
+
+
         List<CourseDetailBean.DataBean.CatalogListBean> catalog_list = dataBean.getCatalog_list();
         mAdapter.setNewInstance(getDatas(catalog_list));
     }
@@ -92,7 +106,7 @@ public class CourseDetailListLogic extends BaseLogic {
     private List<PlayItemBean> getDatas(List<CourseDetailBean.DataBean.CatalogListBean> catalogList) {
         List<PlayItemBean> list = new ArrayList<>();
         for (CourseDetailBean.DataBean.CatalogListBean param : catalogList) {
-            list.add(new PlayItemBean(param.getId(),param.getTitle(), param.getTime() + "|" + param.getCreate_time(), param.getUrl()));
+            list.add(new PlayItemBean(param.getId(), param.getTitle(), param.getTime() + "|" + param.getCreate_time(), param.getUrl()));
         }
         return list;
     }
@@ -139,7 +153,7 @@ public class CourseDetailListLogic extends BaseLogic {
 
     }
 
-    public void destroyWebView(){
+    public void destroyWebView() {
         mHtmlManager.destroyWebView();
     }
 }

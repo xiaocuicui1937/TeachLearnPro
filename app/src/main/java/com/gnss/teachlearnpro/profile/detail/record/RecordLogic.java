@@ -15,6 +15,7 @@ import com.ecommerce.meui.tab.top.MeTabTop;
 import com.ecommerce.meui.tab.top.MeTabTopInfo;
 import com.ecommerce.meui.tab.top.MeTabTopLayout;
 import com.gnss.teachlearnpro.R;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.logic.BaseLogic;
 import com.gnss.teachlearnpro.common.ui.FragmentProvider;
 import com.gnss.teachlearnpro.live.adapter.ViewPagerFragmentStateAdapter;
@@ -35,7 +36,7 @@ public class RecordLogic extends BaseLogic {
 
     public RecordLogic(FragmentProvider provider) {
         this.mFrovider = provider;
-        setTitle(provider,"学习记录",(AppCompatActivity) provider.getActivity());
+        setTitle(provider, "学习记录", (AppCompatActivity) provider.getActivity());
         initTap();
     }
 
@@ -43,8 +44,8 @@ public class RecordLogic extends BaseLogic {
         mTabToplayout = mFrovider.getMineView().findViewById(R.id.mtl_tab_top);
         int defaultColor = mFrovider.getResources().getColor(R.color.tabTopDefaultColor);
         int tintColor = mFrovider.getResources().getColor(R.color.black);
-
         mInfoList = new ArrayList<>();
+        mCurItemIndex = mFrovider.getArguments().getInt(Contact.RECORD_TYPE);
         for (String param : mTabs) {
             MeTabTopInfo<?> tabTop = new MeTabTopInfo<>(param, defaultColor, tintColor);
             mInfoList.add(tabTop);
@@ -60,11 +61,10 @@ public class RecordLogic extends BaseLogic {
         mTabToplayout.defaultSelected(mInfoList.get(mCurItemIndex));
         MeTabTop tabFirst = mTabToplayout.findTab(mInfoList.get(0));
         MeTabTop tabSecond = mTabToplayout.findTab(mInfoList.get(1));
-        tabFirst.getTvName().setTextSize(TypedValue.COMPLEX_UNIT_DIP,16);
-        tabSecond.getTvName().setTextSize(TypedValue.COMPLEX_UNIT_DIP,16);
+        tabFirst.getTvName().setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
+        tabSecond.getTvName().setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
 
-
-        tabSecond.getTvName().setTextSize(TypedValue.COMPLEX_UNIT_DIP,16);
+        tabSecond.getTvName().setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, SizeUtils.dp2px(4));
         params.leftMargin = SizeUtils.dp2px(70);
         params.rightMargin = SizeUtils.dp2px(70);
@@ -77,8 +77,8 @@ public class RecordLogic extends BaseLogic {
         List<Fragment> fragments = new ArrayList<>();
         mVp = mFrovider.getMineView().findViewById(R.id.vp_fragment_live);
 
-        fragments.add(CourseRecordFragment.newInstance());
         fragments.add(LiveRecordFragment.newInstance());
+        fragments.add(CourseRecordFragment.newInstance());
 
         ViewPagerFragmentStateAdapter adapter = new ViewPagerFragmentStateAdapter(mFrovider.getParentFragmentManager()
                 , mFrovider.getLifecycle(), fragments);

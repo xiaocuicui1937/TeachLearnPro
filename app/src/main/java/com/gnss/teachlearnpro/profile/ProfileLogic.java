@@ -62,7 +62,7 @@ public class ProfileLogic extends BaseLogic {
 
     @SuppressLint("SetTextI18n")
     private void parseProfile(ProfileBean profileBean) {
-        hideLoading();
+//        hideLoading();
         if (refreshLayout != null) {
             refreshLayout.finishRefresh();
         }
@@ -150,7 +150,7 @@ public class ProfileLogic extends BaseLogic {
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                showLoading("获取个人信息");
+//                showLoading("获取个人信息");
                 model.obtainProfile();
             }
         });

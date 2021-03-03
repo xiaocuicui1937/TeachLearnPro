@@ -7,6 +7,7 @@ import android.widget.RelativeLayout;
 import com.allen.library.SuperTextView;
 import com.blankj.utilcode.util.SizeUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.bean.RecordResBean;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class RecordAdapter extends BaseQuickAdapter<RecordResBean.DataBean, BaseViewHolder> {
+public class RecordAdapter extends BaseQuickAdapter<RecordResBean.DataBean, BaseViewHolder> implements LoadMoreModule {
 
     public RecordAdapter(int layoutResId, @Nullable List<RecordResBean.DataBean> data) {
         super(layoutResId, data);

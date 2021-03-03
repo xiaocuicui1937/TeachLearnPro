@@ -4,10 +4,12 @@ import java.util.List;
 
 public class CourseDetailBean extends BaseResBean{
 
+
     /**
-     * course : {"id":18,"logo":"http://zt.baomanyi.net/public/static/upload/file/20210128/6012169cebdce.jpg","title":"课程1","desc":"sdfsdfsd","lecturer_name":"","lecturer_head":"","lecturer_quality":"","lecturer_desc":"","intro":"<p>水电费水电费水电费是否<\/p>","total":100,"new_total":1,"total_user":0}
+     * course : {"id":18,"logo":"http://zt.baomanyi.net/public/static/upload/file/20210128/6012169cebdce.jpg","title":"课程1","desc":"sdfsdfsd","lecturer_name":"","lecturer_head":"","lecturer_quality":"","lecturer_desc":"","intro":"<p>水电费水电费水电费是否<\/p>","total":100,"collection_status":1,"new_total":1,"total_user":2}
      * catalog_list : [{"id":13,"course_id":18,"title":11,"type":2,"url":"https://app-1301194689.cos.ap-nanjing.myqcloud.com/96971202101310859496205.mov","time":"","create_time":"2021-01-31 08:57"}]
-     * user : []
+     * user : [{"id":262,"avatar":"http://zt.baomanyi.net/public/upload/file/20210303/603eea49db478.jpg"},{"id":263,"avatar":""}]
+     * user_count : 2
      */
 
     private DataBean data;
@@ -32,11 +34,13 @@ public class CourseDetailBean extends BaseResBean{
          * lecturer_desc :
          * intro : <p>水电费水电费水电费是否</p>
          * total : 100
+         * collection_status : 1
          * new_total : 1
-         * total_user : 0
+         * total_user : 2
          */
 
         private CourseBean course;
+        private int user_count;
         /**
          * id : 13
          * course_id : 18
@@ -48,7 +52,12 @@ public class CourseDetailBean extends BaseResBean{
          */
 
         private List<CatalogListBean> catalog_list;
-        private List<?> user;
+        /**
+         * id : 262
+         * avatar : http://zt.baomanyi.net/public/upload/file/20210303/603eea49db478.jpg
+         */
+
+        private List<UserBean> user;
 
         public CourseBean getCourse() {
             return course;
@@ -56,6 +65,14 @@ public class CourseDetailBean extends BaseResBean{
 
         public void setCourse(CourseBean course) {
             this.course = course;
+        }
+
+        public int getUser_count() {
+            return user_count;
+        }
+
+        public void setUser_count(int user_count) {
+            this.user_count = user_count;
         }
 
         public List<CatalogListBean> getCatalog_list() {
@@ -66,11 +83,11 @@ public class CourseDetailBean extends BaseResBean{
             this.catalog_list = catalog_list;
         }
 
-        public List<?> getUser() {
+        public List<UserBean> getUser() {
             return user;
         }
 
-        public void setUser(List<?> user) {
+        public void setUser(List<UserBean> user) {
             this.user = user;
         }
 
@@ -85,6 +102,7 @@ public class CourseDetailBean extends BaseResBean{
             private String lecturer_desc;
             private String intro;
             private int total;
+            private int collection_status;
             private int new_total;
             private int total_user;
 
@@ -168,6 +186,14 @@ public class CourseDetailBean extends BaseResBean{
                 this.total = total;
             }
 
+            public int getCollection_status() {
+                return collection_status;
+            }
+
+            public void setCollection_status(int collection_status) {
+                this.collection_status = collection_status;
+            }
+
             public int getNew_total() {
                 return new_total;
             }
@@ -214,6 +240,9 @@ public class CourseDetailBean extends BaseResBean{
                 return title;
             }
 
+            public void setTitle(String title) {
+                this.title = title;
+            }
 
             public int getType() {
                 return type;
@@ -245,6 +274,27 @@ public class CourseDetailBean extends BaseResBean{
 
             public void setCreate_time(String create_time) {
                 this.create_time = create_time;
+            }
+        }
+
+        public static class UserBean {
+            private int id;
+            private String avatar;
+
+            public int getId() {
+                return id;
+            }
+
+            public void setId(int id) {
+                this.id = id;
+            }
+
+            public String getAvatar() {
+                return avatar;
+            }
+
+            public void setAvatar(String avatar) {
+                this.avatar = avatar;
             }
         }
     }

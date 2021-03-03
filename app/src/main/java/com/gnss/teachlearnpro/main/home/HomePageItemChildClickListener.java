@@ -17,18 +17,19 @@ import com.gnss.teachlearnpro.common.bean.HomePageBean;
 import com.gnss.teachlearnpro.course.detail.CourseDetailActivity;
 import com.gnss.teachlearnpro.main.detail.list.HomePageDetailActivity;
 import com.gnss.teachlearnpro.main.live.LiveMainListActivity;
+import com.gnss.teachlearnpro.main.recentstudy.RecentListActivity;
 
 import java.util.List;
-
+//            CacheMemoryUtils.getInstance().put(Contact.ID,55);
+//            ActivityUtils.startActivity(LiveDetailActivity.class);
 public class HomePageItemChildClickListener implements OnItemChildClickListener {
-    //            CacheMemoryUtils.getInstance().put(Contact.ID,55);
-    //            ActivityUtils.startActivity(LiveDetailActivity.class);
+
     @Override
     public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
         MultipleItemEntity entity = (MultipleItemEntity) adapter.getData().get(position);
         Context context = view.getContext();
         int type = entity.getField(ItemType.TYPE);
-        if (type == ItemType.LIVE_TYPE) {
+       if (type == ItemType.LIVE_TYPE) {
             ActivityUtils.startActivity(LiveMainListActivity.class);
         } else if (type == ItemType.RECENT_GRID_TYPE) {
             toRecent(view, entity);
@@ -43,6 +44,8 @@ public class HomePageItemChildClickListener implements OnItemChildClickListener 
             toRecentDetail(view, studys.get(0));
         } else if (view.getId() == R.id.iv_item_live_recent_study_live) {
             toRecentDetail(view, studys.get(1));
+        } else {
+            ActivityUtils.startActivity(RecentListActivity.class);
         }
     }
 

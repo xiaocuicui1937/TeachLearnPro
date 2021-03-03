@@ -1,24 +1,23 @@
 package com.gnss.teachlearnpro.course;
 
-import android.widget.LinearLayout;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.allen.library.SuperTextView;
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.chad.library.adapter.base.module.BaseLoadMoreModule;
 import com.ecommerce.melibrary.log.MeLog;
 import com.gnss.teachlearnpro.R;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.CourseBean;
 import com.gnss.teachlearnpro.common.logic.BaseLogic;
 import com.gnss.teachlearnpro.common.ui.FragmentProvider;
 import com.gnss.teachlearnpro.course.adapter.CourseAdapter;
 import com.gnss.teachlearnpro.course.model.CourseViewModel;
-import com.gnss.teachlearnpro.main.MainActivity;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
@@ -38,11 +37,19 @@ public class CourseLogic extends BaseLogic {
         addResModel();
     }
 
-    private void initView() {
-        SuperTextView stvTitle = mFragmentProvider.getMineView().findViewById(R.id.stv_common_title);
-        stvTitle.setCenterString(StringUtils.getString(R.string.course));
+    @Override
+    protected boolean showBack() {
+        return CacheMemoryUtils.getInstance().get(Contact.IS_ACTIVITY);
+    }
 
-        fixContent(mFragmentProvider.getMineView().findViewById(R.id.root_fragment_course), mFragmentProvider.getResources());
+    private void initView() {
+        String title = getTitle();
+        setTitle(mFragmentProvider, title, (AppCompatActivity) mFragmentProvider.getActivity());
+        boolean isActivity = CacheMemoryUtils.getInstance().get(Contact.IS_ACTIVITY);
+        if (!isActivity) {
+            fixContent(mFragmentProvider.getMineView().findViewById(R.id.root_fragment_course), mFragmentProvider.getResources());
+        }
+
         RecyclerView rv = mFragmentProvider.getMineView().findViewById(R.id.rv_fragment_course);
         LinearLayoutManager manager = new LinearLayoutManager(rv.getContext());
         mAdapter = new CourseAdapter(R.layout.item_course, null);
@@ -51,9 +58,18 @@ public class CourseLogic extends BaseLogic {
         mAdapter.setOnItemClickListener(new CourseItemClickListener());
     }
 
+    private String getTitle() {
+        String titleStr = CacheMemoryUtils.getInstance().get(Contact.TITLE);
+        String title = StringUtils.getString(R.string.course);
+        if (ObjectUtils.isNotEmpty(titleStr)) {
+            title = titleStr;
+        }
+        return title;
+    }
+
     private void addResModel() {
         showLoading("获取课程列表...");
-        MainActivity topActivity = (MainActivity) ActivityUtils.getTopActivity();
+        AppCompatActivity topActivity = (AppCompatActivity) ActivityUtils.getTopActivity();
         CourseViewModel model = new ViewModelProvider(topActivity).get(CourseViewModel.class);
         model.obtainCourseList(mPageIndex = 1);
 
@@ -61,7 +77,6 @@ public class CourseLogic extends BaseLogic {
         loadMoreModule.setOnLoadMoreListener(() -> {
             model.obtainCourseList(mPageIndex);
         });
-
         model.getCourseList().observe(mFragmentProvider.getViewLifecycleOwner(), courseBean -> {
             hideLoading();
             handleLoadData(loadMoreModule, courseBean);
@@ -100,9 +115,6 @@ public class CourseLogic extends BaseLogic {
 
 
     private void initRefresh(CourseViewModel model) {
-        LinearLayout rootLayout = mFragmentProvider.getMineView().findViewById(R.id.root_fragment_course);
-        fixContent(rootLayout, mFragmentProvider.getResources());
-
         refreshLayout = mFragmentProvider.getMineView().findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(mFragmentProvider.getActivity()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {

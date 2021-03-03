@@ -8,21 +8,16 @@ import androidx.annotation.NonNull;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheMemoryUtils;
-import com.blankj.utilcode.util.ObjectUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ecommerce.common.dataconvert.MultipleItemEntity;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.ItemType;
-import com.gnss.teachlearnpro.common.bean.CourseBean;
-import com.gnss.teachlearnpro.common.bean.HomeDetailBean;
-import com.gnss.teachlearnpro.common.bean.HomePageBean;
 import com.gnss.teachlearnpro.course.detail.CourseDetailActivity;
 import com.gnss.teachlearnpro.main.detail.detail.HomeListDetailActivity;
 import com.gnss.teachlearnpro.main.detail.detail.HomeListViewModel;
 import com.gnss.teachlearnpro.main.live.detail.LiveDetailActivity;
-
-import java.util.List;
+import com.gnss.teachlearnpro.main.recentstudy.RecentListActivity;
 
 public class HomePageItemClickListener implements OnItemClickListener {
     @Override
@@ -31,6 +26,7 @@ public class HomePageItemClickListener implements OnItemClickListener {
         MultipleItemEntity entity = (MultipleItemEntity) adapter.getData().get(position);
         int type = entity.getField(ItemType.TYPE);
         switch (type) {
+
             case ItemType.LIVE_TYPE:
                 toLiveDetail(entity);
                 break;
@@ -52,7 +48,7 @@ public class HomePageItemClickListener implements OnItemClickListener {
     private void toHomeDetail(Context context, MultipleItemEntity entity, HomeListViewModel.HomeListType type) {
         Intent intent = new Intent(context, HomeListDetailActivity.class);
         int id = entity.getField(Contact.ID);
-        intent.putExtra(Contact.ID,id);
+        intent.putExtra(Contact.ID, id);
         intent.putExtra(Contact.HOME_DETAIL_TYPE, type);
         ActivityUtils.startActivity(intent);
     }

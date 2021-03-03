@@ -54,6 +54,15 @@ public class Contact {
     public static final int PROFILE_ABOUT_ME_TYPE = 7;
     public static final int PROFILE_LEAVE_MSG_TYPE = 8;
     public static final int PROFILE_FAVORITE_TYPE = 9;
+
+    /**
+     * 打开记录是直播还是课程
+     */
+    public static final String RECORD_TYPE = "record_type";
+    public static final int RECORD_LIVE= 0;
+    public static final int RECORD_COURSE= 1;
+
+
     /**
      * 首页区分跳转到同一个Activity显示不同的内容
      */
@@ -124,4 +133,14 @@ public class Contact {
     public static final String SELECTED_PROVINCE = "selected_province";
     public static final String SELECTED_CITY = "selected_city";
     public static final String SELECTED_AREA = "selected_area";
+
+    /**
+     * 头像裁剪地址
+     */
+    public static final int AVATAR_CORP_PATH = 0x102;
+
+    /**
+     * 课程列表包含的容器是否是activity
+     */
+    public static final String IS_ACTIVITY = "is_activity";
 }

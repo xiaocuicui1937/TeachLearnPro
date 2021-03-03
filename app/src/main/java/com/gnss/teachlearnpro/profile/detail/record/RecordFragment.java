@@ -7,14 +7,14 @@ import androidx.annotation.Nullable;
 
 import com.ecommerce.common.ui.compent.MeBaseFragment;
 import com.gnss.teachlearnpro.R;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.ui.FragmentProvider;
 
 public class RecordFragment extends MeBaseFragment implements FragmentProvider {
-
-    public static RecordFragment newInstance() {
+    public static RecordFragment newInstance(int index) {
 
         Bundle args = new Bundle();
-
+        args.putInt(Contact.RECORD_TYPE,index);
         RecordFragment fragment = new RecordFragment();
         fragment.setArguments(args);
         return fragment;

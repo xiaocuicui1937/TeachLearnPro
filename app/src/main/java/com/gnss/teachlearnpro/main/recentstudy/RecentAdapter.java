@@ -1,5 +1,6 @@
 package com.gnss.teachlearnpro.main.recentstudy;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -8,7 +9,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.gnss.teachlearnpro.R;
-import com.gnss.teachlearnpro.common.bean.CourseBean;
 import com.gnss.teachlearnpro.common.bean.RecentStudyBean;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +27,9 @@ public class RecentAdapter extends BaseQuickAdapter<RecentStudyBean.DataBean, Ba
         ImageView ivLogo = baseViewHolder.getView(R.id.iv_item_hot_course);
         TextView tvContentTitle = baseViewHolder.getView(R.id.tv_item_hot_course_content);
         TextView tvContentOther = baseViewHolder.getView(R.id.tv_item_hot_course_other);
+        TextView title = baseViewHolder.getView(R.id.tv_item_hot_course);
+        title.setVisibility(View.INVISIBLE);
+
 
         String logoUrl = dataBean.getLogo();
         String contentTitle = dataBean.getTitle();

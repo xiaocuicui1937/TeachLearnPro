@@ -10,11 +10,13 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.ecommerce.common.tab.MeFragmentTabView;
 import com.ecommerce.common.tab.MeTabViewAdapter;
 import com.ecommerce.meui.tab.bottom.MeTabBottomInfo;
 import com.ecommerce.meui.tab.bottom.MeTabBottomLayout;
 import com.gnss.teachlearnpro.R;
+import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.ui.ActivityProvider;
 import com.gnss.teachlearnpro.course.CourseFragment;
 import com.gnss.teachlearnpro.group.GroupStudyFragment;
@@ -133,6 +135,10 @@ public class MainActivityLogic {
         mBottomLayout.addTabSelectedChangeListener((index, preInfo, nextInfo) -> {
                     mFragmentTabView.setCurrentItem(index);
                     mCurItemIndex = index;
+                    if (mCurItemIndex==2){
+                        CacheMemoryUtils.getInstance().put(Contact.IS_ACTIVITY,false);
+                        CacheMemoryUtils.getInstance().put(Contact.ID, 0);
+                    }
                 }
         );
         mBottomLayout.defaultSelected(mInfoList.get(mCurItemIndex));

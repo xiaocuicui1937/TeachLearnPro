@@ -16,8 +16,9 @@ public class LiveDetailViewModel extends BaseViewModel {
     private MutableLiveData<LiveDetailResBean> mUtableLiveDetail = new MutableLiveData<>();
 
     public void obtainLiveDetail(String id) {
+        String token = SPUtils.getInstance().getString(Contact.TOEKN);
         EasyHttp.post("Home/liveDetails")
-                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .headers(Contact.HEADER_TOKEN,token)
                 .params("id", id)
                 .execute(new SimpleCallBack<String>() {
                     @Override

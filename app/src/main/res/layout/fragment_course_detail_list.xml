@@ -147,16 +147,34 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/view_divider_h" />
 
-            <TextView
-                android:id="@+id/tv_fragment_course_detail_mancount"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="图标"
-                android:textColor="#ff000000"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/view_divider_h"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/view_divider" />
+                app:layout_constraintStart_toEndOf="@+id/view_divider">
+
+                <ImageView
+                    android:id="@+id/iv_fragment_course_detail_avatar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="2dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_fragment_course_detail_mancount"
+                    app:layout_constraintEnd_toStartOf="@+id/iv_fragment_course_detail_mancount"
+                    app:layout_constraintTop_toTopOf="@+id/iv_fragment_course_detail_mancount" />
+
+                <ImageView
+                    android:id="@+id/iv_fragment_course_detail_mancount"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/sp_circle"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_small_right_arrow"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_fragment_course_detail_course"

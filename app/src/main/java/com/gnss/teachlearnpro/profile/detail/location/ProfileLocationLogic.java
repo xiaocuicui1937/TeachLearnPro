@@ -68,7 +68,7 @@ public class ProfileLocationLogic extends BaseLogic {
     }
 
     private void addCall() {
-        ProfileDetailActivity act = (ProfileDetailActivity) ActivityUtils.getTopActivity();
+        AppCompatActivity act = (AppCompatActivity) ActivityUtils.getTopActivity();
         model = new ViewModelProvider(act).get(ProfileLocationViewModel.class);
         model.obtainProvince();
 

@@ -1,7 +1,10 @@
 package com.gnss.teachlearnpro.profile.detail.profileinfo;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.View;
 import android.widget.TextView;
 
@@ -43,8 +46,11 @@ import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.callback.SelectCallback;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.lxj.xpopup.XPopup;
+import com.yalantis.ucrop.UCrop;
 
+import java.io.File;
 import java.util.ArrayList;
+
 
 public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener {
     private FragmentProvider mProvider;
@@ -72,6 +78,13 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
                         String.valueOf(mProfileInfo.getSex()));
             }
         });
+        UiMessageUtils.getInstance().addListener(Contact.AVATAR_CORP_PATH, localMessage -> {
+            String path = (String) localMessage.getObject();
+            setAvator(path);
+            //上传图片
+            model.updateAvator(path);
+        });
+
     }
 
 
@@ -120,6 +133,10 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
     private void updateAddress(SuperTextView stvLocation) {
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
         UiMessageUtils.getInstance().addListener(localMessage -> {
+            int id = localMessage.getId();
+            if (id==Contact.AVATAR_CORP_PATH){
+                return;
+            }
             if (localMessage.getId() == Contact.SELECTED_ADDRESS_LOCATION) {
                 parseLocationWithGd(stvLocation, localMessage);
             } else {
@@ -174,19 +191,79 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
     }
 
     private void createAvator() {
-
         EasyPhotos.createAlbum(mProvider.getActivity(), true, GlideEngine.getInstance())
                 .setFileProviderAuthority(AppUtils.getAppPackageName() + ".fileprovider")
                 .start(new SelectCallback() {
                     @Override
                     public void onResult(ArrayList<Photo> photos, boolean isOriginal) {
-                        String path = photos.get(0).path;
-                        setAvator(path);
-                        //上传图片
-                        model.updateAvator(path);
+                        starUCrop(photos.get(0).uri);
+
                     }
                 });
+//        String[] items = {StringUtils.getString(R.string.take_photo), StringUtils.getString(R.string.from_album)};
+//        new XPopup.Builder(mRightTextAvator.getContext())
+//                .asBottomList(StringUtils.getString(R.string.select_type), items, new OnSelectListener() {
+//                    @Override
+//                    public void onSelect(int position, String text) {
+//                        if (position == 0) {
+//                            //拍照
+//
+//                        } else {
+//                            upAvatarFromAlbum();
+//                        }
+//                    }
+//                }).show();
+    }
 
+    private void starUCrop(Uri sourceUri) {
+        File file = new File(Environment.getExternalStorageDirectory() + "/crop");
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        UCrop.Options options = new UCrop.Options();
+        //裁剪后图片保存在文件夹中
+        Uri destinationUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/crop", "uCrop.jpg"));
+        UCrop uCrop = UCrop.of(sourceUri, destinationUri);//第一个参数是裁剪前的uri,第二个参数是裁剪后的uri
+        uCrop.withAspectRatio(1, 1);//设置裁剪框的宽高比例
+        //下面参数分别是缩放,旋转,裁剪框的比例
+        options.setAllowedGestures(com.yalantis.ucrop.UCropActivity.ALL, com.yalantis.ucrop.UCropActivity.NONE, com.yalantis.ucrop.UCropActivity.ALL);
+        options.setToolbarTitle("裁剪头像");//设置标题栏文字
+        options.setCropGridStrokeWidth(2);//设置裁剪网格线的宽度(我这网格设置不显示，所以没效果)
+        //options.setCropFrameStrokeWidth(1);//设置裁剪框的宽度
+        options.setMaxScaleMultiplier(3);//设置最大缩放比例
+        //options.setHideBottomControls(true);//隐藏下边控制栏
+        options.setShowCropGrid(true);  //设置是否显示裁剪网格
+        //options.setOvalDimmedLayer(true);//设置是否为圆形裁剪框
+        options.setShowCropFrame(true); //设置是否显示裁剪边框(true为方形边框)
+        options.setToolbarWidgetColor(Color.parseColor("#ffffff"));//标题字的颜色以及按钮颜色
+        options.setDimmedLayerColor(Color.parseColor("#AA000000"));//设置裁剪外颜色
+        options.setToolbarColor(Color.parseColor("#000000")); // 设置标题栏颜色
+        options.setStatusBarColor(Color.parseColor("#000000"));//设置状态栏颜色
+        options.setCropGridColor(Color.parseColor("#ffffff"));//设置裁剪网格的颜色
+        options.setCropFrameColor(Color.parseColor("#ffffff"));//设置裁剪框的颜色
+        options.withMaxResultSize(200,200);
+        uCrop.withOptions(options);
+        /*//裁剪后保存到文件中
+        Uri destinationUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/myxmpp/" + "test1.jpg"));
+        UCrop uCrop = UCrop.of(sourceUri, destinationUri);
+        UCrop.Options options = new UCrop.Options();
+        //设置裁剪图片可操作的手势
+        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
+        //设置toolbar颜色
+        options.setToolbarColor(ActivityCompat.getColor(this, R.color.orange2));
+        //设置状态栏颜色
+        options.setStatusBarColor(ActivityCompat.getColor(this, R.color.orange2));
+        //是否能调整裁剪框
+        options.setFreeStyleCropEnabled(true);
+        options.setToolbarWidgetColor(Color.parseColor("#ffffff"));//标题字的颜色以及按钮颜色
+        options.setDimmedLayerColor(Color.parseColor("#AA000000"));//设置裁剪外颜色
+        options.setToolbarColor(Color.parseColor("#000000")); // 设置标题栏颜色
+        options.setStatusBarColor(Color.parseColor("#000000"));//设置状态栏颜色
+        options.setCropGridColor(Color.parseColor("#ffffff"));//设置裁剪网格的颜色
+        options.setCropFrameColor(Color.parseColor("#ffffff"));//设置裁剪框的颜色
+        //options.setShowCropFrame(false); //设置是否显示裁剪边框(true为方形边框)
+        uCrop.withOptions(options);*/
+        uCrop.start(mProvider.getActivity());
     }
 
     private void createNick() {

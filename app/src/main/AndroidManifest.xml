@@ -68,13 +68,18 @@
         <activity android:name=".profile.detail.leavemsg.detail.LeaveMsgDetailActivity" />
         <activity android:name=".main.live.LiveMainListActivity" />
         <activity android:name=".main.recentstudy.RecentListActivity" />
+        <activity android:name=".course.activity.CourseActivity"/>
 
         <activity
             android:name=".course.detail.play.CourseDetailPlayActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
 
-
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".live.liveback.detail.LivePlayBackActivity"/>
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="8327ff4fc0fa9395cd27dce39124cbaa" />

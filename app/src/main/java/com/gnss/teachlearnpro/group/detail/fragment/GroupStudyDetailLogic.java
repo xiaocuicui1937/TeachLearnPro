@@ -79,12 +79,12 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         });
 
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            if (view instanceof Switch){
-                mPageIndex = 1;
-                Switch switchView = (Switch) view;
-                isLookAll = !switchView.isChecked();
-                commentModel.obtainCommentList(CommentViewModel.CommentType.GROUP, id, mPageIndex, isLookAll);
+            if (view.getId() == R.id.tv_item_live_detail_thumbs) {
+                addThumbs(position, act, view);
+            } else if (view instanceof Switch) {
+                switchMineOrAll(id, (Switch) view);
             }
+
 
         });
 
@@ -94,6 +94,28 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
             mIvHeart.setImageResource(aBoolean ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
         });
     }
+
+    private void switchMineOrAll(String id, Switch view) {
+        if (view != null){
+            mPageIndex = 1;
+            Switch switchView = (Switch) view;
+            isLookAll = !switchView.isChecked();
+            commentModel.obtainCommentList(CommentViewModel.CommentType.GROUP, id, mPageIndex, isLookAll);
+        }
+    }
+
+    private void addThumbs(int position, AppCompatActivity act, View view) {
+        MultipleItemEntity entity = mAdapter.getData().get(position);
+        int commonId = entity.getField(Contact.ID);
+        commentModel.addRecording(CommentViewModel.CommentType.GROUP, String.valueOf(commonId));
+        commentModel.getAddRecording().observe(act, aBoolean -> {
+            TextView tvThumbs = (TextView) view;
+            tvThumbs.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0
+                    , 0);
+        });
+    }
+
+
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
         if (mPageIndex == 1) {
