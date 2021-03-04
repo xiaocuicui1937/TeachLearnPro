@@ -24,7 +24,8 @@ public class InfoDetailLogic extends BaseLogic {
 
     public InfoDetailLogic(ActivityProvider provider) {
         this.mProvider = provider;
-        setTitle("话题文章详情");
+
+        setTitle(provider.getIntent().getStringExtra(Contact.TITLE));
         initView();
         addRequestListener();
     }
@@ -38,7 +39,8 @@ public class InfoDetailLogic extends BaseLogic {
         model.getList().observe(act, homeDetailBean -> {
             hideLoading();
             mTvTitle.setText(homeDetailBean.title);
-            mTvCounts.setText("阅读数:" + homeDetailBean.readCount + "   收藏数:" + homeDetailBean.collectCount);
+            //+ "   收藏数:" + homeDetailBean.collectCount
+            mTvCounts.setText("阅读数:" + homeDetailBean.readCount );
             mHtmlLoadManager.loadHtmlCode(homeDetailBean.content);
             Glide.with(mIv.getContext()).load(homeDetailBean.logoUrl).into(mIv);
         });

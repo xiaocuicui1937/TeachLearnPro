@@ -20,7 +20,6 @@ public class HomeListViewModel extends BaseViewModel {
     private MutableLiveData<HomeDetailBean> mMutableList = new MutableLiveData<>();
 
     public void obtainDetail(HomeListType type, String id) {
-
         EasyHttp.post(getUrl(type))
                 .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("id", id)

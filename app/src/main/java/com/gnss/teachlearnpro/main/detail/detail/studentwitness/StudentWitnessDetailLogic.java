@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.bumptech.glide.Glide;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.HomeDetailBean;
@@ -27,7 +28,7 @@ public class StudentWitnessDetailLogic extends BaseLogic {
 
     public StudentWitnessDetailLogic(ActivityProvider provider) {
         this.mProvider = provider;
-        setTitle("学员见证详情");
+        setTitle(provider.getIntent().getStringExtra(Contact.TITLE));
         initView();
         addRequestListener();
     }
@@ -41,6 +42,7 @@ public class StudentWitnessDetailLogic extends BaseLogic {
         model.getList().observe(act, homeDetailBean -> {
             hideLoading();
             mTvTitle.setText(homeDetailBean.title);
+            Glide.with(mIv.getContext()).load(Contact.BASE_PIC_URL+homeDetailBean.logoUrl).into(mIv);
            loadHtmlCode(homeDetailBean.content);
         });
     }

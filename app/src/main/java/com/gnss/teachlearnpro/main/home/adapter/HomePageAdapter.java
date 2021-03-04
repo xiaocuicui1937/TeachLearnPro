@@ -1,5 +1,7 @@
 package com.gnss.teachlearnpro.main.home.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,8 +15,6 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -24,9 +24,12 @@ import com.ecommerce.melibrary.log.MeLog;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.ItemType;
+import com.gnss.teachlearnpro.common.bean.ArticleBean;
 import com.gnss.teachlearnpro.common.bean.HomePageBean;
 import com.gnss.teachlearnpro.course.activity.CourseActivity;
 import com.gnss.teachlearnpro.main.MainActivity;
+import com.gnss.teachlearnpro.main.detail.detail.HomeListDetailActivity;
+import com.gnss.teachlearnpro.main.detail.detail.HomeListViewModel;
 import com.youth.banner.Banner;
 import com.youth.banner.adapter.BannerImageAdapter;
 import com.youth.banner.holder.BannerImageHolder;
@@ -88,17 +91,18 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         }
     }
 
-    private HomeInfoAdapter homeInfoAdapter;
 
     private void createArticle(BaseViewHolder baseViewHolder, MultipleItemEntity multipleItemEntity) {
         RecyclerView rv = baseViewHolder.getView(R.id.rv_item_airticle_info);
 
-        if (homeInfoAdapter == null) {
-            homeInfoAdapter = new HomeInfoAdapter(R.layout.item_article_item_info, multipleItemEntity.getField(Contact.ARRAY));
+        rv.setLayoutManager(new LinearLayoutManager(rv.getContext()));
+        if (rv.getAdapter() == null) {
+            HomeInfoAdapter homeInfoAdapter = new HomeInfoAdapter(R.layout.item_article_item_info,
+                    multipleItemEntity.getField(Contact.ARRAY));
+            rv.setAdapter(homeInfoAdapter);
+            homeInfoAdapter.setOnItemClickListener(this);
         }
         //LinearLayoutManager 不能复用每次只能new出来 复用LinearLayoutManager is already attached to a RecyclerView 错误
-        rv.setLayoutManager(new LinearLayoutManager(rv.getContext()));
-        rv.setAdapter(homeInfoAdapter);
     }
 
     private void createStudentWitness(BaseViewHolder baseViewHolder, MultipleItemEntity multipleItemEntity) {
@@ -206,7 +210,6 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
                 //图片加载自己实现
                 Glide.with(holder.itemView)
                         .load(data.getBanner())
-                        .apply(RequestOptions.bitmapTransform(new RoundedCorners(30)))
                         .into(holder.imageView);
             }
         })
@@ -217,6 +220,26 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
 
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+        if (adapter instanceof HomeInfoAdapter){
+            List<ArticleBean> datas = (List<ArticleBean>) adapter.getData();
+            if (ObjectUtils.isNotEmpty(datas)){
+                ArticleBean articleBean = datas.get(position);
+                toHomeDetail(view.getContext(),articleBean.name,articleBean.id);
+            }
+        }else if (adapter instanceof HomeClassesAdapter){
+            toCourseList(adapter, position);
+        }
+    }
+
+    private void toHomeDetail(Context context,String  title,int id) {
+        Intent intent = new Intent(context, HomeListDetailActivity.class);
+        intent.putExtra(Contact.TITLE, title);
+        intent.putExtra(Contact.ID, id);
+        intent.putExtra(Contact.HOME_DETAIL_TYPE, HomeListViewModel.HomeListType.INFO);
+        ActivityUtils.startActivity(intent);
+    }
+
+    private void toCourseList(@NonNull BaseQuickAdapter<?, ?> adapter, int position) {
         HomePageBean.DataBean.ClassBean classBean = (HomePageBean.DataBean.ClassBean) adapter.getData().get(position);
         CacheMemoryUtils.getInstance().put(Contact.ID, classBean.getId());
         CacheMemoryUtils.getInstance().put(Contact.TITLE, classBean.getName());

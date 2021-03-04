@@ -1,5 +1,7 @@
 package com.gnss.teachlearnpro.common.bean;
 
+import com.gnss.teachlearnpro.common.Contact;
+
 public class LiveDetailResBean extends BaseResBean {
 
 
@@ -51,6 +53,11 @@ public class LiveDetailResBean extends BaseResBean {
         private String details;
         private String play_url_hls;
         private String play_url_flv;
+        private int collection_status;
+
+        public boolean isCollect() {
+            return collection_status == Contact.COLLECTED;
+        }
 
         public String getPlay_url_flv() {
             return play_url_flv;

@@ -24,7 +24,7 @@ public class HomeInfoAdapter extends BaseQuickAdapter<ArticleBean, BaseViewHolde
         TextView tvContent = baseViewHolder.getView(R.id.tv_item_airticle_item_content);
         tvIndex.setText(articleBean.index);
         tvContent.setText(articleBean.name);
-        if (getData().size() == 1) {
+        if (baseViewHolder.getAbsoluteAdapterPosition() == 0) {
             tvIndex.setBackgroundResource(R.drawable.sp_circle_first);
         } else {
             tvIndex.setBackgroundResource(R.drawable.sp_circle_other);

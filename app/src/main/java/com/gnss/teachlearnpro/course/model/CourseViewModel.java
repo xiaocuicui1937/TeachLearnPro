@@ -41,7 +41,7 @@ public class CourseViewModel extends BaseViewModel {
 
     @NotNull
     private String getId() {
-        int classId = CacheMemoryUtils.getInstance().get(Contact.ID);
+        int classId = CacheMemoryUtils.getInstance().get(Contact.ID,0);
         String classIdStr = "";
         if (classId != 0) {
             classIdStr =String.valueOf(classId);

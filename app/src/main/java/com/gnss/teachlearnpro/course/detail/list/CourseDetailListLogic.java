@@ -31,6 +31,8 @@ import com.gnss.teachlearnpro.common.ui.FragmentProvider;
 import com.gnss.teachlearnpro.course.detail.CourseDetailActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.impl.ConfirmPopupView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +83,12 @@ public class CourseDetailListLogic extends BaseLogic {
         ImageView ivAvatar = mineView.findViewById(R.id.iv_fragment_course_detail_avatar);
         mHtmlManager.initWebView(flContent);
 
+        setCourseData(dataBean, tvTitle, tvSubTitle, tvLiveCount, tvManCount, ivCover, ivAvatar);
+    }
+
+    private void setCourseData(CourseDetailBean.DataBean dataBean, TextView tvTitle, TextView tvSubTitle, TextView tvLiveCount
+            , TextView tvManCount, ImageView ivCover, ImageView ivAvatar) {
+        tvSubTitle.setOnClickListener(view -> tipDesc(tvSubTitle.getText().toString()));
         CourseDetailBean.DataBean.CourseBean course = dataBean.getCourse();
         tvTitle.setText(course.getTitle());
         tvSubTitle.setText(course.getDesc());
@@ -88,19 +96,24 @@ public class CourseDetailListLogic extends BaseLogic {
         tvManCount.setText(course.getTotal_user() + "人加入学习");
         mHtmlManager.loadHtmlCode(course.getIntro());
         setTitleToCollapsingToolbarLayout(course.getTitle());
-        Glide.with(ivCover.getContext()).load(course.getLogo()).into(ivCover);
-
+        Glide.with(ivCover.getContext()).load(Contact.BASE_PIC_URL + course.getLogo()).into(ivCover);
         List<CourseDetailBean.DataBean.UserBean> users = dataBean.getUser();
-        if (ObjectUtils.isNotEmpty(users)){
+        if (ObjectUtils.isNotEmpty(users)) {
             RequestOptions options = RequestOptions.bitmapTransform(new CircleCrop()).diskCacheStrategy(DiskCacheStrategy.NONE);
             Glide.with(ivAvatar.getContext()).applyDefaultRequestOptions(options)
                     .load(users.get(0).getAvatar()).into(ivAvatar);
         }
-
-
-
         List<CourseDetailBean.DataBean.CatalogListBean> catalog_list = dataBean.getCatalog_list();
         mAdapter.setNewInstance(getDatas(catalog_list));
+    }
+
+    private void tipDesc(String msg) {
+        ConfirmPopupView confirmPopupView = new XPopup.Builder(mProvider.getActivity())
+                .asConfirm("", msg, () -> {
+
+                });
+        confirmPopupView.isHideCancel = true;
+        confirmPopupView.show();
     }
 
     private List<PlayItemBean> getDatas(List<CourseDetailBean.DataBean.CatalogListBean> catalogList) {

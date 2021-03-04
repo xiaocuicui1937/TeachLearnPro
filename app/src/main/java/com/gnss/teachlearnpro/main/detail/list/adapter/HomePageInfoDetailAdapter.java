@@ -24,14 +24,13 @@ public class HomePageInfoDetailAdapter extends BaseQuickAdapter<HomeDetailBean, 
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, HomeDetailBean homeDetailBean) {
         ImageView ivLogo = baseViewHolder.getView(R.id.iv_item_airticle_item_detail_logo);
-
         TextView tvContent = baseViewHolder.getView(R.id.tv_item_airticle_item_detail_content);
         TextView tvAuthor = baseViewHolder.getView(R.id.tv_item_airticle_item_detail_author);
         TextView tvCounts = baseViewHolder.getView(R.id.tv_item_airticle_item_detail_read_collect);
-        tvAuthor.setText(homeDetailBean.index);
+        tvAuthor.setText(homeDetailBean.author);
         tvContent.setText(homeDetailBean.title);
-        tvCounts.setText("阅读数:" + homeDetailBean.readCount + "   收藏数:" + homeDetailBean.collectCount);
-
+        //+ "   收藏数:" + homeDetailBean.collectCount
+        tvCounts.setText("阅读数:" + homeDetailBean.readCount);
         Glide.with(ivLogo.getContext()).load(homeDetailBean.logoUrl).into(ivLogo);
     }
 }

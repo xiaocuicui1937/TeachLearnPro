@@ -59,23 +59,15 @@ public class Contact {
      * 打开记录是直播还是课程
      */
     public static final String RECORD_TYPE = "record_type";
-    public static final int RECORD_LIVE= 0;
-    public static final int RECORD_COURSE= 1;
-
-
+    public static final int RECORD_LIVE = 0;
+    public static final int RECORD_COURSE = 1;
     /**
-     * 首页区分跳转到同一个Activity显示不同的内容
+     * 收藏状态
      */
-    public static final int HOME_STUDENT_WITNESS_TYPE = 0x10;
-    public static final int HOME_INFO_TYPE = 0x11;
-
+    public static final int COLLECTED = 2;
+    public static final int COLLECT_NONE = 1;
 
     public static final String SHARE_APP_PIC = "share_app.jpg";
-    //LoginOrRegisterFragment路径
-    public static final String PATH_LOGIN_REGISTER_FRAGMENT = "/app/LoginOrRegisterFragment";
-
-    public static final String PATH_REGISTER_FRAGMENT = "/app/RegisterFragment";
-
     public static final String SWITCH = "switch";
     public static final String COUNT_LIST = "count_list";
 
@@ -117,7 +109,7 @@ public class Contact {
 
     /**
      * 留言列表类型
-     * */
+     */
     public static final String LEAVE_MSG_TYPE = "leave_msg_type";
     public static final String LEAVE_MSG_DETAIL = "leave_msg_detail";
     /**

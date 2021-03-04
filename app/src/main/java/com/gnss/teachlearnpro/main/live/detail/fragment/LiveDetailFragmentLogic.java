@@ -36,7 +36,6 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
     private static final int DEFAULT_PAGE = 10;
     private int mPageIndex = 1;//默认获取第一页
     private boolean isLookAll = true;
-
     private FragmentProvider mProvider;
     LiveDetailFragment mFragment;
     private CommentViewModel commentModel;
@@ -57,11 +56,10 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
     }
 
     private void initView() {
+        View view = mProvider.getMineView();
         mLivePlayerManager = new LivePlayerManager(mProvider.getMineView().findViewById(R.id.live_top_bg));
-
-        mTvInput = mProvider.getMineView().findViewById(R.id.tv_fragment_live_detail_input);
-        mIvHeart = mProvider.getMineView().findViewById(R.id.iv_fragment_live_detail_favorite);
-
+        mTvInput = view.findViewById(R.id.tv_fragment_live_detail_input);
+        mIvHeart = view.findViewById(R.id.iv_fragment_live_detail_favorite);
         mTvInput.setOnClickListener(this);
         mIvHeart.setOnClickListener(this);
     }
@@ -118,8 +116,12 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
 
         commentModel.getCollect().observe(act, aBoolean -> {
             hideLoading();
-            mIvHeart.setImageResource(aBoolean ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
+            switchHeartStatus(aBoolean);
         });
+    }
+
+    private void switchHeartStatus(Boolean isSelected) {
+        mIvHeart.setImageResource(isSelected ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
     }
 
 
@@ -134,6 +136,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
                     , 0);
         });
     }
+
     private void switchMineOrAll(String id, Switch view) {
         Switch switchView = (Switch) view;
         mPageIndex = 1;
@@ -174,11 +177,11 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
         }
         if (dataBean.isSuccess()) {
             LiveDetailResBean.DataBean data = dataBean.getData();
+            switchHeartStatus(data.isCollect());
             details = data.getDetails();
             mLivePlayerManager.playLive(data.getPlay_url_flv());
             MeLog.e("拉流地址:" + data.getPlay_url_flv());
             mAdapter.setNewInstance(getDatas(null, true));
-
         } else {
             ToastUtils.showShort(dataBean.getMsg());
         }
@@ -201,7 +204,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
             MultipleItemEntity comment = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.COMMENT_TYPE)
                     .setField(Contact.CONTENT_SUB_TITLE, param)
-                    .setField(Contact.ID,param.getCommon_id())
+                    .setField(Contact.ID, param.getCommon_id())
                     .build();
             datas.add(comment);
         }
@@ -251,7 +254,8 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
 
     private void startFavorite() {
         showLoading("加载...");
-        commentModel.setCollectStatus(CommentViewModel.CommentType.LIVE, CacheMemoryUtils.getInstance().get(Contact.ID) + "");
+        commentModel.setCollectStatus(CommentViewModel.CommentType.LIVE,
+                CacheMemoryUtils.getInstance().get(Contact.ID) + "");
     }
 
 }

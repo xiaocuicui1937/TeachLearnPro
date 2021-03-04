@@ -190,7 +190,7 @@ public class HomePageDataConvert extends DataConvert {
         List<ArticleBean> arrays = new ArrayList<>();
         if (ObjectUtils.isNotEmpty(infos)) {
             for (int i = 0; i < infos.size(); i++) {
-                arrays.add(new ArticleBean(String.valueOf(i + 1), infos.get(i).getTitle()));
+                arrays.add(new ArticleBean(infos.get(i).getId(),String.valueOf(i + 1), infos.get(i).getTitle()));
             }
             MultipleItemEntity entity = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.ARTICLE_TYPE)

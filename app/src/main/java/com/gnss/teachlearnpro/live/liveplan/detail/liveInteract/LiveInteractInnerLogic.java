@@ -3,7 +3,6 @@ package com.gnss.teachlearnpro.live.liveplan.detail.liveInteract;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.View;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -29,6 +28,7 @@ import com.gnss.teachlearnpro.common.ui.WriteLeaveMessageCustomView;
 import com.gnss.teachlearnpro.common.viewmodel.CommentViewModel;
 import com.gnss.teachlearnpro.live.liveplan.detail.adapter.LiveInteractInnerAdapter;
 import com.gnss.teachlearnpro.live.liveplan.detail.liveInteract.reward.RewardCustomView;
+import com.gnss.teachlearnpro.main.live.detail.fragment.LiveDetailViewModel;
 import com.lxj.xpopup.XPopup;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -80,18 +80,21 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
         AppCompatActivity act = (AppCompatActivity) ActivityUtils.getTopActivity();
         commentModel = new ViewModelProvider(act).get(CommentViewModel.class);
         obtainInteract(id, 1);
-        BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
+        setHeartStatus(act);
+        refreshAndLoadMore(id, act);
 
+    }
+
+    private void refreshAndLoadMore(String id, AppCompatActivity act) {
+        BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
         commentModel.getCommentList().observe(act, dataBean -> {
             hideLoading();
             refreshLayout.finishRefresh();
             handleLoadData(loadMoreModule, dataBean);
         });
-
         loadMoreModule.setOnLoadMoreListener(() -> {
             commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex, isLookAll);
         });
-
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId() == R.id.tv_item_live_detail_thumbs) {
                 addThumbs(position, act, view);
@@ -99,13 +102,30 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
                 switchMineOrAll(id, (Switch) view);
             }
         });
+    }
 
+    /**
+     * 设置收藏heart显示
+     * 包含初始化显示 选中显示tint图标 未选中显示空心图标
+     *
+     * @param act AppCompatActivity
+     */
+    private void setHeartStatus(AppCompatActivity act) {
+        LiveDetailViewModel model = new ViewModelProvider(act).get(LiveDetailViewModel.class);
+        model.getLiveDetail().observe(act, liveDetailResBean -> mIvHeart.setImageResource(liveDetailResBean.getData().isCollect() ? R.drawable.ic_heart_tint : R.drawable.ic_heart));
         commentModel.getCollect().observe(act, aBoolean -> {
             hideLoading();
             mIvHeart.setImageResource(aBoolean ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
         });
     }
 
+    /**
+     * 评论点赞功能
+     *
+     * @param position 某一条评论index
+     * @param act      AppCompatActivity
+     * @param view     获取view强制转换TextView
+     */
     private void addThumbs(int position, AppCompatActivity act, View view) {
         CommentBean.DataBean dataBean = mAdapter.getData().get(position);
         int commonId = dataBean.getCommon_id();
@@ -117,7 +137,12 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
         });
     }
 
-
+    /**
+     * 查看自己评论或者所有人评论切换按钮
+     *
+     * @param id   评论id
+     * @param view 切换按钮Switch
+     */
     private void switchMineOrAll(String id, Switch view) {
         Switch switchView = view;
         mPageIndex = 1;
@@ -125,11 +150,23 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
         commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex, isLookAll);
     }
 
+    /**
+     * huoqu互动信息列表
+     *
+     * @param id        评论id
+     * @param pageIndex 页码 每次请求得页码数
+     */
     private void obtainInteract(String id, int pageIndex) {
         showLoading("获取互动信息列表...");
         commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, pageIndex, isLookAll);
     }
 
+    /**
+     * 处理回调数据包含加载更多
+     *
+     * @param loadMoreModule BaseLoadMoreModule
+     * @param dataBean       CommentBean
+     */
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
         if (!dataBean.isSuccess()) {
             ToastUtils.showShort(dataBean.getMsg());

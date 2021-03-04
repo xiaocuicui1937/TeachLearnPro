@@ -63,6 +63,8 @@
                     android:text="带你学习跆拳道品势1 - 8章"
                     android:textColor="#ffffffff"
                     android:textSize="16sp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -205,12 +207,14 @@
         <FrameLayout
             android:id="@+id/fl_fragment_course_detail_desc"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.25"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_fragment_course_detail_title"
             app:layout_constraintTop_toBottomOf="@+id/tv_fragment_course_detail_title" />
+
 
         <TextView
             android:id="@+id/tv_fragment_course_detail_play_title"

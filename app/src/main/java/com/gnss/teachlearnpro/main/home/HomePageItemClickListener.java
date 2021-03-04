@@ -17,7 +17,6 @@ import com.gnss.teachlearnpro.course.detail.CourseDetailActivity;
 import com.gnss.teachlearnpro.main.detail.detail.HomeListDetailActivity;
 import com.gnss.teachlearnpro.main.detail.detail.HomeListViewModel;
 import com.gnss.teachlearnpro.main.live.detail.LiveDetailActivity;
-import com.gnss.teachlearnpro.main.recentstudy.RecentListActivity;
 
 public class HomePageItemClickListener implements OnItemClickListener {
     @Override
@@ -34,9 +33,9 @@ public class HomePageItemClickListener implements OnItemClickListener {
             case ItemType.NEW_COURSE_TYPE:
                 toCourse(context, entity);
                 break;
-            case ItemType.ARTICLE_TYPE:
-                toHomeDetail(context, entity, HomeListViewModel.HomeListType.INFO);
-                break;
+//            case ItemType.ARTICLE_TYPE:
+//                toHomeDetail(context, entity, HomeListViewModel.HomeListType.INFO);
+//                break;
             case ItemType.STUDENT_WITNESS_TYPE:
                 toHomeDetail(context, entity, HomeListViewModel.HomeListType.STUDENT_WITNESS);
                 break;
@@ -47,8 +46,9 @@ public class HomePageItemClickListener implements OnItemClickListener {
 
     private void toHomeDetail(Context context, MultipleItemEntity entity, HomeListViewModel.HomeListType type) {
         Intent intent = new Intent(context, HomeListDetailActivity.class);
-        int id = entity.getField(Contact.ID);
+        int  id = entity.getField(Contact.ID);
         intent.putExtra(Contact.ID, id);
+        intent.putExtra(Contact.TITLE,(String) entity.getField(Contact.TITLE));
         intent.putExtra(Contact.HOME_DETAIL_TYPE, type);
         ActivityUtils.startActivity(intent);
     }

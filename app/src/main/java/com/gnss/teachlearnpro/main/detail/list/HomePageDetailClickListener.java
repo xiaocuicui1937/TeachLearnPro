@@ -28,6 +28,7 @@ public class HomePageDetailClickListener implements OnItemClickListener {
             HomeDetailBean data = (HomeDetailBean) adapter.getData().get(position);
             Intent intent = new Intent(context, HomeListDetailActivity.class);
             intent.putExtra(Contact.ID, data.id);
+            intent.putExtra(Contact.TITLE,data.title);
             intent.putExtra(Contact.HOME_DETAIL_TYPE, mType);
             ActivityUtils.startActivity(intent);
         }
