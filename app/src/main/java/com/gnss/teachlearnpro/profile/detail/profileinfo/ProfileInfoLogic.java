@@ -134,7 +134,7 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
         UiMessageUtils.getInstance().addListener(localMessage -> {
             int id = localMessage.getId();
-            if (id==Contact.AVATAR_CORP_PATH){
+            if (id == Contact.AVATAR_CORP_PATH) {
                 return;
             }
             if (localMessage.getId() == Contact.SELECTED_ADDRESS_LOCATION) {
@@ -200,19 +200,6 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
 
                     }
                 });
-//        String[] items = {StringUtils.getString(R.string.take_photo), StringUtils.getString(R.string.from_album)};
-//        new XPopup.Builder(mRightTextAvator.getContext())
-//                .asBottomList(StringUtils.getString(R.string.select_type), items, new OnSelectListener() {
-//                    @Override
-//                    public void onSelect(int position, String text) {
-//                        if (position == 0) {
-//                            //拍照
-//
-//                        } else {
-//                            upAvatarFromAlbum();
-//                        }
-//                    }
-//                }).show();
     }
 
     private void starUCrop(Uri sourceUri) {
@@ -241,7 +228,7 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
         options.setStatusBarColor(Color.parseColor("#000000"));//设置状态栏颜色
         options.setCropGridColor(Color.parseColor("#ffffff"));//设置裁剪网格的颜色
         options.setCropFrameColor(Color.parseColor("#ffffff"));//设置裁剪框的颜色
-        options.withMaxResultSize(200,200);
+        options.withMaxResultSize(200, 200);
         uCrop.withOptions(options);
         /*//裁剪后保存到文件中
         Uri destinationUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/myxmpp/" + "test1.jpg"));

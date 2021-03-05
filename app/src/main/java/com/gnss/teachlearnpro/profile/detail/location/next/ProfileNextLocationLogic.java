@@ -46,7 +46,7 @@ public class ProfileNextLocationLogic extends BaseLogic {
         ProfileDetailActivity act = (ProfileDetailActivity) ActivityUtils.getTopActivity();
         ProfileLocationViewModel model = new ViewModelProvider(act).get(ProfileLocationViewModel.class);
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
-        model.obtainNextLocation(instance.get(Contact.PROFILE_DETAIL_TYPE), instance.get(Contact.ID));
+        model.obtainNextLocation(instance.get(Contact.PROFILE_DETAIL_TYPE), instance.get(Contact.ID),false);
         model.getNextLocation().observe(act, s -> {
             ArrayList<MultipleItemEntity> convert = new ProfileLocationConvert().setJsonData(s).convert();
             mAdapter.setNewInstance(convert);

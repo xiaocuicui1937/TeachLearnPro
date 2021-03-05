@@ -58,8 +58,10 @@ public class ProfileLocationLogic extends BaseLogic {
         mAdapter = new ProfileLocationAdapter(R.layout.item_location, null);
         rv.setAdapter(mAdapter);
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
-            CacheMemoryUtils.getInstance().put(Contact.SELECTED_PROVINCE, mAdapter.getData().get(position));
-            CacheMemoryUtils.getInstance().put(Contact.ID, mAdapter.getData().get(position).getField(Contact.ID));
+            MultipleItemEntity entity = mAdapter.getData().get(position);
+            CacheMemoryUtils.getInstance().put(Contact.SELECTED_PROVINCE,entity);
+            String id = mAdapter.getData().get(position).getField(Contact.ID);
+            CacheMemoryUtils.getInstance().put(Contact.ID, id);
             CacheMemoryUtils.getInstance().put(Contact.PROFILE_DETAIL_TYPE, ProfileLocationViewModel.ELocation.CITY);
             FragmentUtils.replace(FragmentUtils.getTopShow(mProvider.getParentFragmentManager())
                     , ProfileNextLocationFragment.newInstance(), true);
@@ -71,7 +73,6 @@ public class ProfileLocationLogic extends BaseLogic {
         AppCompatActivity act = (AppCompatActivity) ActivityUtils.getTopActivity();
         model = new ViewModelProvider(act).get(ProfileLocationViewModel.class);
         model.obtainProvince();
-
         model.getLocation().observe(act, s -> {
             ArrayList<MultipleItemEntity> convert = new ProfileLocationConvert().setJsonData(s).convert();
             mAdapter.setNewInstance(convert);

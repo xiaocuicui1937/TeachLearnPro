@@ -17,6 +17,7 @@ import com.zhouyou.http.exception.ApiException;
 public class ProfileLocationViewModel extends BaseViewModel {
     private MutableLiveData<String> mMutableLocation = new MutableLiveData<>();
     private MutableLiveData<String> mMutableNextLocation = new MutableLiveData<>();
+    private MutableLiveData<String> mMutableNextLocationAuto = new MutableLiveData<>();
 
     public void obtainProvince() {
         EasyHttp.post("Area/getProvinceList")
@@ -31,7 +32,7 @@ public class ProfileLocationViewModel extends BaseViewModel {
                     @Override
                     public void onSuccess(String s) {
                         MeLog.e("province:" + s);
-                        saveLocationInfo(ELocation.PROVINCE,s);
+                        saveLocationInfo(ELocation.PROVINCE, s);
                         mMutableLocation.postValue(s);
                     }
                 });
@@ -50,31 +51,41 @@ public class ProfileLocationViewModel extends BaseViewModel {
      *
      * @param location ILocation
      * @param parentId 上一级地址id
+     * @param isAuto   true自动定位 false手动定位
      */
-    public void obtainNextLocation(ELocation location, String parentId) {
+    public void obtainNextLocation(ELocation location, String parentId, boolean isAuto) {
         EasyHttp.post(getUrl(location))
                 .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("parent_id", parentId)
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
-                        mMutableNextLocation.postValue(null);
                         tipError(e, getTip(location));
+                        setLocation(isAuto, null);
                     }
 
                     @Override
                     public void onSuccess(String s) {
                         MeLog.e("province:" + s);
-                        saveLocationInfo(location,s);
-                        mMutableNextLocation.postValue(s);
+                        saveLocationInfo(location, s);
+                        setLocation(isAuto, s);
                     }
                 });
     }
 
+    private void setLocation(boolean isAuto, String res) {
+        if (isAuto) {
+            mMutableNextLocationAuto.postValue(res);
+        } else {
+            mMutableNextLocation.postValue(res);
+        }
+    }
+
+
     private void saveLocationInfo(ELocation location, String res) {
         LocationResBean locationRes = GsonUtils.fromJson(res, LocationResBean.class);
-        if (locationRes.isSuccess()){
-            CacheDiskStaticUtils.put(location.name(),GsonUtils.toJson(locationRes.getData()));
+        if (locationRes.isSuccess()) {
+            CacheDiskStaticUtils.put(location.name(), GsonUtils.toJson(locationRes.getData()));
         }
     }
 
@@ -100,5 +111,9 @@ public class ProfileLocationViewModel extends BaseViewModel {
 
     public LiveData<String> getNextLocation() {
         return mMutableNextLocation;
+    }
+
+    public LiveData<String> getNextLocationAuto() {
+        return mMutableNextLocationAuto;
     }
 }

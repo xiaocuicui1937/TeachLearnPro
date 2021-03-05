@@ -98,11 +98,10 @@ public class LocationHelper implements AMapLocationListener, GeocodeSearch.OnGeo
         AppCompatActivity act = (AppCompatActivity) ActivityUtils.getTopActivity();
         act.runOnUiThread(() -> {
             ProfileLocationViewModel model = new ViewModelProvider(act).get(ProfileLocationViewModel.class);
-            model.obtainNextLocation(ProfileLocationViewModel.ELocation.CITY, String.valueOf(provinceId));
-            model.getNextLocation().observe(act, s -> {
+            model.obtainNextLocation(ProfileLocationViewModel.ELocation.CITY, String.valueOf(provinceId), true);
+            model.getNextLocationAuto().observe(act, s -> {
                 if (s.contains(String.valueOf(provinceId))) {
-                    model.obtainNextLocation(ProfileLocationViewModel.ELocation.AREA, String.valueOf(cityId));
-
+                    model.obtainNextLocation(ProfileLocationViewModel.ELocation.AREA, String.valueOf(cityId), true);
                 } else if (iLocationCallback != null) {
                     ThreadUtils.runOnUiThreadDelayed(() -> {
                         int areaId = parse(ProfileLocationViewModel.ELocation.AREA, regeocodeAddress.getDistrict());
