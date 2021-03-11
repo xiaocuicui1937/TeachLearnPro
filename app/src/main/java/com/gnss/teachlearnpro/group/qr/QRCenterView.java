@@ -7,20 +7,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Tools;
 import com.lxj.xpopup.core.CenterPopupView;
 import com.yun.utils.image.ImageUtils;
-import com.yun.utils.image.QRCodeUtil;
 
 public class QRCenterView extends CenterPopupView {
     private String mWechatImgUrl;
+    private String mTitle;
 
-    public QRCenterView(@NonNull Context context, String wechatImgUrl) {
+    public QRCenterView(@NonNull Context context, String title, String wechatImgUrl) {
         super(context);
+        this.mTitle = title;
         this.mWechatImgUrl = wechatImgUrl;
     }
 
@@ -37,15 +37,15 @@ public class QRCenterView extends CenterPopupView {
     }
 
     private void initView() {
+        TextView tvTitle  = findViewById(R.id.tv_layout_qrcode_title);
+        tvTitle.setText(mTitle);
         findViewById(R.id.iv_layout_qrcode_close).setOnClickListener(view -> {
             dismiss();
         });
         ImageView ivQRCode = findViewById(R.id.iv_layout_qrcode);
-//        Bitmap qrBitmap = createQRCode("测试地址");
-//        ivQRCode.setImageBitmap(qrBitmap);
         Glide.with(getContext()).load(mWechatImgUrl).into(ivQRCode);
-        TextView tvSaveQRCode = findViewById(R.id.tv_layout_qrcode_save_qr);
-        tvSaveQRCode.setOnLongClickListener(view -> {
+//        TextView tvSaveQRCode = findViewById(R.id.tv_layout_qrcode_save_qr);
+        ivQRCode.setOnLongClickListener(view -> {
             saveQRCode(Tools.DrawableToBitmap(ivQRCode.getDrawable()));
             return true;
         });
@@ -55,10 +55,4 @@ public class QRCenterView extends CenterPopupView {
     private void saveQRCode(Bitmap qrBitmap) {
         ImageUtils.INSTANCE.saveImageToFile(getContext(), qrBitmap, TimeUtils.getNowString());
     }
-
-    private Bitmap createQRCode(String msg) {
-        return QRCodeUtil.INSTANCE.createQRCodeBitmap(msg, SizeUtils.dp2px(150), SizeUtils.dp2px(150));
-    }
-
-
 }

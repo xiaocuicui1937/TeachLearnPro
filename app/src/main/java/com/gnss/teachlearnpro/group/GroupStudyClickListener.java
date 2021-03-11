@@ -46,7 +46,7 @@ public class GroupStudyClickListener implements OnItemClickListener {
                         if (position == 0) {
                             createInputSecretMatchDialog(view, String.valueOf(pwd), clRoot, entity);
                         } else {
-                            createQrDialog(view, wechatImgUrl);
+                            createQrDialog(view, entity.getField(Contact.TITLE), wechatImgUrl);
                         }
                     }).show();
         } else {
@@ -111,11 +111,11 @@ public class GroupStudyClickListener implements OnItemClickListener {
         tv.setVisibility(isBlur ? View.VISIBLE : View.GONE);
     }
 
-    private void createQrDialog(View view, String wechatImgUrl) {
+    private void createQrDialog(View view, String title, String wechatImgUrl) {
         ConstraintLayout rootView = (ConstraintLayout) LayoutInflater.from(view.getContext()).inflate(R.layout.layout_qrcode, null);
         new XPopup.Builder(view.getContext())
                 .dismissOnTouchOutside(false)
-                .asCustom(new QRCenterView(rootView.getContext(), wechatImgUrl))
+                .asCustom(new QRCenterView(rootView.getContext(), title, wechatImgUrl))
                 .show();
     }
 
