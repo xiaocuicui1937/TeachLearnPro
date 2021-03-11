@@ -59,6 +59,12 @@ public class GroupStudyBean extends BaseResBean{
         private String time_end_ming;
         private int status;
         private String wechat_img;
+        private int is_password;
+
+        public boolean isCover() {
+            //1未比对密码 2用户已比对密码
+            return is_password==1;
+        }
 
         public String getWechat_img() {
             return wechat_img;

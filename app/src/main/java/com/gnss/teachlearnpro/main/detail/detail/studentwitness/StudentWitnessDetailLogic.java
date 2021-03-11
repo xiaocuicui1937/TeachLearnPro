@@ -56,7 +56,7 @@ public class StudentWitnessDetailLogic extends BaseLogic {
 
     private void initWebView(FrameLayout flContent) {
         //创建一个LayoutParams宽高设定为全屏
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //创建WebView
         mWebView = new WebView(flContent.getContext().getApplicationContext());
         //设置WebView的宽高

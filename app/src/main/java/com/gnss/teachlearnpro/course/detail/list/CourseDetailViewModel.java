@@ -23,6 +23,7 @@ public class CourseDetailViewModel extends BaseViewModel {
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
+                        mUtableCourse.postValue(null);
                         tipError(e, "访问课程详情接口失败");
                     }
 

@@ -1,31 +1,21 @@
 package com.gnss.teachlearnpro.course.detail.list;
 
-import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-
-import com.blankj.utilcode.util.GsonUtils;
-import com.blankj.utilcode.util.ToastUtils;
-import com.gnss.teachlearnpro.R;
-import com.gnss.teachlearnpro.common.bean.HtmlResBean;
-import com.zhouyou.http.EasyHttp;
-import com.zhouyou.http.callback.SimpleCallBack;
-import com.zhouyou.http.exception.ApiException;
 
 public class HtmlLoadManager {
 
     private WebView mWebView;
 
-    public HtmlLoadManager(){
+    public HtmlLoadManager() {
 
     }
 
     public void initWebView(FrameLayout rootLayout) {
         //创建一个LayoutParams宽高设定为全屏
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //创建WebView
         mWebView = new WebView(rootLayout.getContext().getApplicationContext());
         //设置WebView的宽高
@@ -45,12 +35,11 @@ public class HtmlLoadManager {
     }
 
 
-
     public void loadHtmlCode(String detailHtml) {
 
         //图片宽度改为100%  高度为自适应
-        String varjs = "<script type='text/javascript'> \nwindow.onload = function()\n{var $img = document.getElementsByTagName('img');for(var p in  $img){$img[p].style.width = '100%'; $img[p].style.height ='auto'}}</script>";
-
+        String varjs = "<script type='text/javascript'> \nwindow.onload = function()\n" +
+                "{var $img = document.getElementsByTagName('img');for(var p in  $img){$img[p].style.width = '100%'; $img[p].style.height ='auto'}}</script>";
         mWebView.loadData(varjs + detailHtml, "text/html", "UTF-8");
     }
 

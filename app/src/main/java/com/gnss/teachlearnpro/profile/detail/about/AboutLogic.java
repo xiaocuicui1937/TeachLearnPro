@@ -31,7 +31,7 @@ public class AboutLogic extends BaseLogic {
     private void initWebView() {
         LinearLayout rootLayout = mProvider.getMineView().findViewById(R.id.root_about);
         //创建一个LayoutParams宽高设定为全屏
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         //创建WebView
         mWebView = new WebView(rootLayout.getContext().getApplicationContext());
         //设置WebView的宽高

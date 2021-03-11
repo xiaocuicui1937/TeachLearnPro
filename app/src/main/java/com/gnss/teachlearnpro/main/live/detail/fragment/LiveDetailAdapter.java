@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.UiMessageUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
@@ -33,7 +33,7 @@ public class LiveDetailAdapter extends BaseMultiItemQuickAdapter<MultipleItemEnt
         addItemType(ItemType.HEAD_TYPE, R.layout.item_live_detail_head);
         addItemType(ItemType.COMMENT_TYPE, R.layout.item_live_detail_comment);
         mHtmlLoadManager = new HtmlLoadManager();
-        addChildClickViewIds(R.id.switch_item_live_detail_head,R.id.tv_item_live_detail_thumbs);
+        addChildClickViewIds(R.id.switch_item_live_detail_head, R.id.tv_item_live_detail_thumbs);
     }
 
     @Override
@@ -69,6 +69,7 @@ public class LiveDetailAdapter extends BaseMultiItemQuickAdapter<MultipleItemEnt
         tvDate.setText(data.getCreate_time());
         tvContent.setText(data.getContent());
         tvThumbs.setText(String.valueOf(data.getLike_num()));
+        tvThumbs.setCompoundDrawablesWithIntrinsicBounds(data.isRecording() ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0, 0);
         tvMessage.setText(String.valueOf(data.getFraction()));
         if (ObjectUtils.isNotEmpty(data.getRespond())) {
             clResponse.setVisibility(View.VISIBLE);
@@ -88,7 +89,17 @@ public class LiveDetailAdapter extends BaseMultiItemQuickAdapter<MultipleItemEnt
     private void createHead(BaseViewHolder baseViewHolder, MultipleItemEntity item) {
         FrameLayout flContent = baseViewHolder.getView(R.id.fl_fragment_group_detail_content);
         mHtmlLoadManager.initWebView(flContent);
-        mHtmlLoadManager.loadHtmlCode(item.getField(Contact.TITLE));
+        String title = item.getField(Contact.TITLE);
+        if (ObjectUtils.isNotEmpty(title)) {
+            mHtmlLoadManager.loadHtmlCode(title);
+        } else {
+            UiMessageUtils.getInstance().addListener(Contact.HEAD_TITLE, localMessage -> {
+                if (ObjectUtils.isNotEmpty(localMessage.getObject())) {
+
+                    mHtmlLoadManager.loadHtmlCode(String.valueOf(localMessage.getObject()));
+                }
+            });
+        }
     }
 
 

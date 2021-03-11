@@ -1,11 +1,10 @@
 package com.gnss.teachlearnpro.group;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.UiMessageUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
@@ -43,16 +42,28 @@ public class GroupStudyAdapter extends BaseQuickAdapter<MultipleItemEntity, Base
         String time = multipleItemEntity.getField(Contact.PlAN_TIME);
 
 
-        boolean isBlur = multipleItemEntity.getField(Contact.BLUR);
         ImageView iv = baseViewHolder.getView(R.id.iv_item_group_study_lock);
         TextView tv = baseViewHolder.getView(R.id.tv_item_group_study_blur);
+        boolean isBlur = multipleItemEntity.getField(Contact.BLUR);
+        setBlur(titleTv, dateTv, timeTv, locationTv, groupTv, title, date, location, group, time, iv, tv, isBlur);
+
+//        UiMessageUtils.getInstance().addListener(Contact.BLUR_VISIBLE, localMessage -> {
+//            MultipleItemEntity entity = (MultipleItemEntity) localMessage.getObject();
+//            setBlur(titleTv, dateTv, timeTv, locationTv, groupTv,
+//                    entity.getField(Contact.TITLE), entity.getField(Contact.PlAN_DATE),
+//                    entity.getField(Contact.PlAN_LOCATION), entity.getField(Contact.PlAN_GROUP),
+//                    entity.getField(Contact.PlAN_TIME), iv, tv, false);
+//        });
+    }
+
+    private void setBlur(TextView titleTv, TextView dateTv, TextView timeTv, TextView locationTv, TextView groupTv, String title, String date, String location, String group, String time, ImageView iv, TextView tv, boolean isBlur) {
         if (isBlur) {
             titleTv.setText("xxxxx");
             dateTv.setText("xxxxx");
             timeTv.setText("xxxxx");
             locationTv.setText("xxxxx");
             groupTv.setText("xxxxx");
-        }else{
+        } else {
             titleTv.setText(title);
             dateTv.setText(date);
             timeTv.setText(time);

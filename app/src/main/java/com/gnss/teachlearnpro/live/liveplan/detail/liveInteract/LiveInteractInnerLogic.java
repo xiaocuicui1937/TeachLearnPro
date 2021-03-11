@@ -128,8 +128,8 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
      */
     private void addThumbs(int position, AppCompatActivity act, View view) {
         CommentBean.DataBean dataBean = mAdapter.getData().get(position);
-        int commonId = dataBean.getCommon_id();
-        commentModel.addRecording(CommentViewModel.CommentType.LIVE, String.valueOf(commonId));
+        int commonId = dataBean.getId();
+        commentModel.addRecording(String.valueOf(commonId));
         commentModel.getAddRecording().observe(act, aBoolean -> {
             TextView tvThumbs = (TextView) view;
             tvThumbs.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0
@@ -168,6 +168,9 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
      * @param dataBean       CommentBean
      */
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
+        if (dataBean == null) {
+            return;
+        }
         if (!dataBean.isSuccess()) {
             ToastUtils.showShort(dataBean.getMsg());
             return;

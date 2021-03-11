@@ -21,11 +21,12 @@ public class GroupStudyViewModel extends BaseViewModel {
     private MutableLiveData<String> mMutableGroupStudy = new MutableLiveData<>();
     private MutableLiveData<Boolean> mMutableGroupEntry = new MutableLiveData<>();
     private MutableLiveData<Boolean> mMutableGroupEntryOrNot = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mMutableGroupMatchPwdOrNot = new MutableLiveData<>();
 
     public void obtainGroupStudyList(int pageIndex) {
         EasyHttp.post("Team/getList")
                 .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
-                .params("page",String.valueOf(pageIndex))
+                .params("page", String.valueOf(pageIndex))
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
@@ -107,10 +108,32 @@ public class GroupStudyViewModel extends BaseViewModel {
 
     }
 
-
     public LiveData<Boolean> getGroupStudyEntryOrNot() {
         return mMutableGroupEntryOrNot;
     }
 
+    public void matchPasswordWithGroup(int teamId, String password) {
+        EasyHttp.post("Team/isPassword")
+                .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
+                .params("team_id", String.valueOf(teamId))
+                .params("password", password)
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        mMutableGroupMatchPwdOrNot.postValue(true);
+                        tipError(e, "访问获取是否比对密码接口失败");
+                    }
 
+                    @Override
+                    public void onSuccess(String s) {
+                        BaseResBean res = GsonUtils.fromJson(s, BaseResBean.class);
+                        mMutableGroupMatchPwdOrNot.postValue(res.isSuccess());
+                        ToastUtils.showShort(res.getMsg());
+                    }
+                });
+    }
+
+    public LiveData<Boolean> getGroupMatchPwdOrNot() {
+        return mMutableGroupMatchPwdOrNot;
+    }
 }

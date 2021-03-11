@@ -51,7 +51,23 @@ public class LivePlanBean extends BaseResBean {
         private int make_number;
         private String play_url_flv;
         private String playback_address;
+        private int reservation_status;
+        private String live_user;
+        private String duration;
 
+
+        public String getDuration() {
+            return duration;
+        }
+
+        public String getLive_user() {
+            return live_user;
+        }
+
+        public  String getReservationStatusStr(){
+            //1未预约 2已预约
+            return reservation_status==1?"未预约":"已预约";
+        }
         public String getPlayback_address() {
             return playback_address;
         }

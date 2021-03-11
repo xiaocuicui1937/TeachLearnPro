@@ -19,6 +19,8 @@ public class CourseDetailItemClickListener implements OnItemClickListener {
         CacheMemoryUtils.getInstance().put(Contact.PlAY_URL, playItemBean.url);
         CacheMemoryUtils.getInstance().put(Contact.TITLE, playItemBean.title);
         CacheMemoryUtils.getInstance().put(Contact.ID, playItemBean.id);
+        CacheMemoryUtils.getInstance().put(Contact.IS_COLLECT, playItemBean.isCollect);
+
         ActivityUtils.startActivity(CourseDetailPlayActivity.class);
     }
 }

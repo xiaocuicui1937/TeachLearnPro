@@ -22,7 +22,7 @@ public class LivePlanDataConvert extends DataConvert {
         for (LivePlanBean.DataBean param : mDataList) {
 
             addLivePlanItem(param.getTitle(), "", param.getTime_start() + "-"
-                    + param.getTime_end(), param.getStatus() == 2 ? "直播中" : "预约中", "预约人数:"+param.getMake_number(),param.getPlay_url_flv(), String.valueOf(param.getId()));
+                    + param.getTime_end(), param.getReservationStatusStr(), "预约人数:"+param.getMake_number(),param.getPlay_url_flv(), String.valueOf(param.getId()));
         }
 //        addLivePlanItem("祂路主日", "每周一二三四五", "6:00AM - 7:00AM", "Zoom：1234567890， 密码：2020", "讲师组");
         return ENTITYS;

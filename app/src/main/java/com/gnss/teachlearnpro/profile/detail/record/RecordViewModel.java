@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.blankj.utilcode.util.GsonUtils;
+import com.blankj.utilcode.util.ObjectUtils;
 import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.ecommerce.melibrary.log.MeLog;
@@ -47,6 +48,7 @@ public class RecordViewModel extends BaseViewModel {
 
                     @Override
                     public void onSuccess(String s) {
+
                         RecordResBean res = GsonUtils.fromJson(s, RecordResBean.class);
                         if (res.isSuccess()) {
                             updateData(type,res.getData());

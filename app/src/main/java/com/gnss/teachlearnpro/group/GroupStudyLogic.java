@@ -50,13 +50,6 @@ public class GroupStudyLogic extends BaseLogic {
         mAdapter = new GroupStudyAdapter(R.layout.item_group_study, null);
         rv.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(new GroupStudyClickListener());
-//        mAdapter.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-//                90.replace(FragmentUtils.getTopShow(mProvider.getParentFragmentManager())
-//                        , new GroupStudyEntryFragment(),true);
-//            }
-//        });
         fixContent(mProvider.getMineView().findViewById(R.id.root_group_study), mProvider.getResources());
     }
 
@@ -97,11 +90,8 @@ public class GroupStudyLogic extends BaseLogic {
         if (dataConvert.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();
-            MeLog.e("more dengyu" + dataConvert.size());
-
+            return;
         } else {
-            MeLog.e("more dayu" + dataConvert.size());
-
             loadMoreModule.loadMoreComplete();
         }
         mPageIndex++;

@@ -1,6 +1,6 @@
 package com.gnss.teachlearnpro.common.bean;
 
-public class GroupStudyDetailBean extends BaseResBean{
+public class GroupStudyDetailBean extends BaseResBean {
 
     /**
      * id : 54
@@ -55,6 +55,11 @@ public class GroupStudyDetailBean extends BaseResBean{
         private String time_start_ming;
         private String time_end_ming;
         private String teacher_name;
+        private int collection_status;
+
+        public boolean isCollect() {
+            return collection_status == 2;
+        }
 
         public String getTeacher_name() {
             return teacher_name;

@@ -135,4 +135,18 @@ public class Contact {
      * 课程列表包含的容器是否是activity
      */
     public static final String IS_ACTIVITY = "is_activity";
+    /**
+     * 点赞id
+     */
+    public static final String ID_RECORDING = "id_recording";
+    /**
+     * 是否收藏
+     */
+    public static final String IS_COLLECT = "is_collect";
+
+    public static final int HEAD_TITLE = 0x201;
+
+    public static final int BLUR_VISIBLE = 0x202;
+
+    public static final String PWD = "pwd";
 }

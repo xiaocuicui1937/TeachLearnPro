@@ -44,6 +44,7 @@ public class CourseDetailListLogic extends BaseLogic {
     private ConstraintLayout mHeadLayout;
     private CollapsingToolbarLayout mCollapsToolbarLayout;
     private HtmlLoadManager mHtmlManager;
+    private CourseDetailViewModel model;
 
     public CourseDetailListLogic(FragmentProvider provider) {
         this.mProvider = provider;
@@ -56,19 +57,26 @@ public class CourseDetailListLogic extends BaseLogic {
     }
 
     private void addRequestResListener(AppCompatActivity act) {
-        CourseDetailViewModel model = new ViewModelProvider(act)
+        model = new ViewModelProvider(act)
                 .get(CourseDetailViewModel.class);
-        int id = mProvider.getArguments().getInt(Contact.ID);
         showLoading("获取课程...");
-        model.obtainCourseDetail(String.valueOf(id));
+//        initCourseDetail();
         model.getCourse().observe(act, course -> {
             hideLoading();
+            if (course==null){
+                return;
+            }
             if (course.isSuccess()) {
                 parseCourse(course.getData());
             } else {
                 ToastUtils.showShort(course.getMsg());
             }
         });
+    }
+
+    public void initCourseDetail() {
+        int id = mProvider.getArguments().getInt(Contact.ID);
+        model.obtainCourseDetail(String.valueOf(id));
     }
 
     private void parseCourse(CourseDetailBean.DataBean dataBean) {
@@ -96,7 +104,7 @@ public class CourseDetailListLogic extends BaseLogic {
         tvManCount.setText(course.getTotal_user() + "人加入学习");
         mHtmlManager.loadHtmlCode(course.getIntro());
         setTitleToCollapsingToolbarLayout(course.getTitle());
-        Glide.with(ivCover.getContext()).load(Contact.BASE_PIC_URL + course.getLogo()).into(ivCover);
+        Glide.with(ivCover.getContext()).applyDefaultRequestOptions(RequestOptions.noTransformation()).load(Contact.BASE_PIC_URL + course.getLogo()).into(ivCover);
         List<CourseDetailBean.DataBean.UserBean> users = dataBean.getUser();
         if (ObjectUtils.isNotEmpty(users)) {
             RequestOptions options = RequestOptions.bitmapTransform(new CircleCrop()).diskCacheStrategy(DiskCacheStrategy.NONE);
@@ -104,7 +112,7 @@ public class CourseDetailListLogic extends BaseLogic {
                     .load(users.get(0).getAvatar()).into(ivAvatar);
         }
         List<CourseDetailBean.DataBean.CatalogListBean> catalog_list = dataBean.getCatalog_list();
-        mAdapter.setNewInstance(getDatas(catalog_list));
+        mAdapter.setNewInstance(getDatas(catalog_list,course.isCollect()));
     }
 
     private void tipDesc(String msg) {
@@ -116,10 +124,11 @@ public class CourseDetailListLogic extends BaseLogic {
         confirmPopupView.show();
     }
 
-    private List<PlayItemBean> getDatas(List<CourseDetailBean.DataBean.CatalogListBean> catalogList) {
+    private List<PlayItemBean> getDatas(List<CourseDetailBean.DataBean.CatalogListBean> catalogList,boolean isCollect) {
         List<PlayItemBean> list = new ArrayList<>();
         for (CourseDetailBean.DataBean.CatalogListBean param : catalogList) {
-            list.add(new PlayItemBean(param.getId(), param.getTitle(), param.getTime() + "|" + param.getCreate_time(), param.getUrl()));
+            list.add(new PlayItemBean(param.getId(), param.getTitle(),
+                    param.getTime() + "|" + param.getCreate_time(), param.getUrl(),isCollect));
         }
         return list;
     }

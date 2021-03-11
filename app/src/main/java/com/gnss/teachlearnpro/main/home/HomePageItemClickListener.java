@@ -25,7 +25,6 @@ public class HomePageItemClickListener implements OnItemClickListener {
         MultipleItemEntity entity = (MultipleItemEntity) adapter.getData().get(position);
         int type = entity.getField(ItemType.TYPE);
         switch (type) {
-
             case ItemType.LIVE_TYPE:
                 toLiveDetail(entity);
                 break;
@@ -46,9 +45,9 @@ public class HomePageItemClickListener implements OnItemClickListener {
 
     private void toHomeDetail(Context context, MultipleItemEntity entity, HomeListViewModel.HomeListType type) {
         Intent intent = new Intent(context, HomeListDetailActivity.class);
-        int  id = entity.getField(Contact.ID);
+        int id = entity.getField(Contact.ID);
         intent.putExtra(Contact.ID, id);
-        intent.putExtra(Contact.TITLE,(String) entity.getField(Contact.TITLE));
+        intent.putExtra(Contact.TITLE, (String) entity.getField(Contact.CONTENT_TITLE));
         intent.putExtra(Contact.HOME_DETAIL_TYPE, type);
         ActivityUtils.startActivity(intent);
     }

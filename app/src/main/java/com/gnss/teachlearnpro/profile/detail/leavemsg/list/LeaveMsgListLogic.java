@@ -4,7 +4,6 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,12 +58,7 @@ public class LeaveMsgListLogic extends BaseLogic {
         loadMoreModule.setOnLoadMoreListener(() -> {
             model.obtainLeaveMsg(mType, mPageIndex);
         });
-        model.getLeaveMsg().observe(act, new Observer<LeaveMsgBean>() {
-            @Override
-            public void onChanged(LeaveMsgBean leaveMsgBean) {
-                handleLoadData(loadMoreModule, leaveMsgBean);
-            }
-        });
+        model.getLeaveMsg().observe(act, leaveMsgBean -> handleLoadData(loadMoreModule, leaveMsgBean));
     }
 
     private void initRefresh() {
@@ -88,6 +82,7 @@ public class LeaveMsgListLogic extends BaseLogic {
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, LeaveMsgBean res) {
         hideLoading();
+        mAdapter.setNewInstance(null);
         if (refreshLayout != null) {
             refreshLayout.finishRefresh(true);
         }

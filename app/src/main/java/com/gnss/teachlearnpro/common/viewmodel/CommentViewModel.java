@@ -34,6 +34,7 @@ public class CommentViewModel extends BaseViewModel {
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
+                        mUtableCommentDetail.postValue(null);
                         tipError(e, getErrorTip(type));
                     }
 
@@ -244,11 +245,11 @@ public class CommentViewModel extends BaseViewModel {
      * @param type 点赞的类型 直播、课程、文章
      * @param id
      */
-    public void addRecording(CommentType type, String id) {
+    public void addRecording( String id) {
         EasyHttp.post("Recording/addRecording")
                 .headers(Contact.HEADER_TOKEN, SPUtils.getInstance().getString(Contact.TOEKN))
                 .params("common_id", id)
-                .params("type", getType(type))
+                .params("type","1")
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {

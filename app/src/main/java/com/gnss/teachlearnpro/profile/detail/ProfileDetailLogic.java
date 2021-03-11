@@ -29,7 +29,6 @@ public class ProfileDetailLogic extends BaseLogic {
             case Contact.PROFILE_INFO_TYPE:
                 return ProfileInfoFragment.newInstance();
             case Contact.PROFILE_FAVORITE_TYPE:
-
                 return FavoriteFragment.newInstance();
             case Contact.PROFILE_LIVE_RECORD_TYPE:
                 return RecordFragment.newInstance(Contact.RECORD_LIVE);

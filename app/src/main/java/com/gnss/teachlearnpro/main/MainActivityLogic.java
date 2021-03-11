@@ -49,6 +49,7 @@ public class MainActivityLogic {
             mCurItemIndex = savedInstanceState.getInt(SAVE_CURRENT_ID);
         }
         requestIsEntry();
+//        initTabBottom(false);
     }
 
     public void onSaveInstanceState(@NonNull Bundle outState) {

@@ -65,7 +65,7 @@ public class GroupStudyEntryLogic extends BaseLogic implements View.OnClickListe
             @Override
             public void onChanged(Boolean aBoolean) {
                 FragmentUtils.replace(FragmentUtils.getTopShow(mProvider.getParentFragmentManager())
-                        , new GroupStudyEntryFragment(),true);
+                        , new GroupStudyFragment(),true);
             }
         });
 
@@ -94,6 +94,7 @@ public class GroupStudyEntryLogic extends BaseLogic implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+
         if (check()){
             String studyWhat = mEtWhat.getText().toString().trim();
             String studyHow = mEtWhat.getText().toString().trim();

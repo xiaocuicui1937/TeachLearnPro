@@ -18,7 +18,8 @@ public class GroupStudyDataConvert extends DataConvert {
         if (item.isSuccess()) {
             List<GroupStudyBean.DataBean> datas = item.getData();
             for (GroupStudyBean.DataBean param : datas) {
-                addLivePlanItem(param.getStatus() == 2, param.getId(),item.getCount(), param.getTitle(), param.getTime(), param.getTime_start_ming() + "-" +
+                //param.getStatus() == 2
+                addLivePlanItem(param.isCover(), param.getId(),item.getCount(), param.getPassword(),param.getTitle(), param.getTime(), param.getTime_start_ming() + "-" +
                         param.getTime_end_ming(), "Zoom:" + param.getRoom_id() +
                         ",密码:" + param.getPassword(), param.getTeacher_name(),param.getWechat_img());
             }
@@ -30,7 +31,7 @@ public class GroupStudyDataConvert extends DataConvert {
         return ENTITYS;
     }
 
-    private void addLivePlanItem(boolean isCover, int id, int count,String... lives) {
+    private void addLivePlanItem(boolean isCover, int id, int count,int pwd,String... lives) {
         MultipleItemEntity entity = MultipleItemEntity.builder()
                 .setField(Contact.TITLE, lives[0])
                 .setField(Contact.PlAN_DATE, lives[1])
@@ -41,6 +42,7 @@ public class GroupStudyDataConvert extends DataConvert {
                 .setField(Contact.ID, id)
                 .setField(Contact.COUNT_LIST,count)
                 .setField(Contact.LOGO_URL,lives[5])
+                .setField(Contact.PWD,pwd)
                 .build();
         ENTITYS.add(entity);
     }

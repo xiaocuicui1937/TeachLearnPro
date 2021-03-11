@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.UiMessageUtils;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.module.BaseLoadMoreModule;
 import com.ecommerce.common.dataconvert.MultipleItemEntity;
@@ -33,6 +34,7 @@ import com.lxj.xpopup.XPopup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickListener {
     private static final int DEFAULT_PAGE = 10;
@@ -41,11 +43,11 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
     private FragmentProvider mProvider;
     private TextView mTvTitle, mTvDate, mTvTime, mTvLocation, mTvGroup, mTvInput;
     private ImageView mIvHead;
-    private String details;
+
     private LiveDetailAdapter mAdapter;
     private CommentViewModel commentModel;
     private ImageView mIvHeart;
-
+    private String details;
 
     public GroupStudyDetailLogic(FragmentProvider provider) {
         this.mProvider = provider;
@@ -61,33 +63,36 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         showLoading("获取小组详情...");
         String id = CacheMemoryUtils.getInstance().get(Contact.ID) + "";
         model.obtainGroupStudyDetail(id);
-        model.getGroupDetail().observe(act, dataBean -> {
-            handleDetail(act, dataBean);
-        });
 
         commentModel = new ViewModelProvider(act).get(CommentViewModel.class);
-        commentModel.obtainCommentList(CommentViewModel.CommentType.GROUP, id, 1, isLookAll);
-        BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
+        model.getGroupDetail().observe(act, dataBean -> {
+            handleDetail(act,id, dataBean);
+        });
 
+        BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
         commentModel.getCommentList().observe(act, dataBean -> {
             hideLoading();
             handleLoadData(loadMoreModule, dataBean);
+//            UiMessageUtils.getInstance().send(Contact.HEAD_TITLE, details);
+
         });
 
         loadMoreModule.setOnLoadMoreListener(() -> {
             commentModel.obtainCommentList(CommentViewModel.CommentType.GROUP, id, mPageIndex, isLookAll);
         });
 
+        //点赞或者是切换只看自己留言
+        AtomicReference<TextView> thumbsAtom = new AtomicReference<>();
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId() == R.id.tv_item_live_detail_thumbs) {
-                addThumbs(position, act, view);
+                thumbsAtom.set((TextView) view);
+                addThumbs(position);
             } else if (view instanceof Switch) {
                 switchMineOrAll(id, (Switch) view);
             }
 
-
         });
-
+        tothumbRes(act, thumbsAtom);
 
         commentModel.getCollect().observe(act, aBoolean -> {
             hideLoading();
@@ -95,8 +100,29 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         });
     }
 
+    private void addThumbs(int position) {
+        MultipleItemEntity entity = mAdapter.getData().get(position);
+        int commonId = entity.getField(Contact.ID);
+        commentModel.addRecording( String.valueOf(commonId));
+    }
+
+    private void tothumbRes(GroupStudyDetailActivity act, AtomicReference<TextView> thumbsAtom) {
+        commentModel.getAddRecording().observe(act, aBoolean -> {
+            TextView thumbsTv = thumbsAtom.get();
+            int recordingCount = Integer.parseInt(thumbsTv.getText().toString());
+            //点赞成功点赞数会在原来的基础上加1，取消点赞在原来的基础上减1
+            if (aBoolean) {
+                recordingCount++;
+            } else if (recordingCount > 0) {
+                recordingCount--;
+            }
+            thumbsTv.setText(String.valueOf(recordingCount));
+            thumbsTv.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0, 0);
+        });
+    }
+
     private void switchMineOrAll(String id, Switch view) {
-        if (view != null){
+        if (view != null) {
             mPageIndex = 1;
             Switch switchView = (Switch) view;
             isLookAll = !switchView.isChecked();
@@ -104,20 +130,11 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         }
     }
 
-    private void addThumbs(int position, AppCompatActivity act, View view) {
-        MultipleItemEntity entity = mAdapter.getData().get(position);
-        int commonId = entity.getField(Contact.ID);
-        commentModel.addRecording(CommentViewModel.CommentType.GROUP, String.valueOf(commonId));
-        commentModel.getAddRecording().observe(act, aBoolean -> {
-            TextView tvThumbs = (TextView) view;
-            tvThumbs.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0
-                    , 0);
-        });
-    }
-
-
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
+        if (dataBean == null) {
+            return;
+        }
         if (mPageIndex == 1) {
             mAdapter.setNewInstance(getDatas(dataBean.getData(), true));
         } else {
@@ -147,7 +164,7 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         if (isLoadHead) {
             MultipleItemEntity liveDetail = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.HEAD_TYPE)
-                    .setField(Contact.TITLE, details)
+                    .setField(Contact.TITLE,details)
                     .build();
             datas.add(liveDetail);
         }
@@ -158,7 +175,7 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
             MultipleItemEntity comment = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.COMMENT_TYPE)
                     .setField(Contact.CONTENT_SUB_TITLE, param)
-                    .setField(Contact.ID,param.getCommon_id())
+                    .setField(Contact.ID, param.getId())
                     .build();
             datas.add(comment);
         }
@@ -166,7 +183,9 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         return datas;
     }
 
-    private void handleDetail(GroupStudyDetailActivity act, GroupStudyDetailBean.DataBean dataBean) {
+    private void handleDetail(GroupStudyDetailActivity act,String id, GroupStudyDetailBean.DataBean dataBean) {
+        commentModel.obtainCommentList(CommentViewModel.CommentType.GROUP, id, 1, isLookAll);
+
         hideLoading();
         if (dataBean == null) {
             return;
@@ -178,7 +197,7 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         mTvGroup.setText(dataBean.getTeacher_name());
         Glide.with(act).load(dataBean.getImg()).into(mIvHead);
         details = dataBean.getDetails();
-        mIvHeart.setImageResource(dataBean.getCollect_number() != 0 ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
+        mIvHeart.setImageResource(dataBean.isCollect()? R.drawable.ic_heart_tint : R.drawable.ic_heart);
     }
 
     private void initView() {

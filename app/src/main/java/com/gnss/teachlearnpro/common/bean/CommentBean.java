@@ -68,6 +68,12 @@ public class CommentBean extends BaseResBean{
         private int like_num;
         private int pid;
         private int is_top;
+        private int recording_status;
+
+        public boolean isRecording(){
+            // 1未点赞 2已点赞
+            return recording_status==2;
+        }
 
         public String getNickname() {
             return nickname;

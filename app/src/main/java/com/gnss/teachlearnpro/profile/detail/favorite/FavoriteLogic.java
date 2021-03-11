@@ -15,14 +15,12 @@ import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.FragmentUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.chad.library.adapter.base.module.BaseLoadMoreModule;
-import com.ecommerce.melibrary.log.MeLog;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.FavoriteBean;
 import com.gnss.teachlearnpro.common.logic.BaseLogic;
 import com.gnss.teachlearnpro.common.ui.FragmentProvider;
 import com.gnss.teachlearnpro.course.detail.CourseDetailActivity;
-import com.gnss.teachlearnpro.course.detail.play.CourseDetailPlayActivity;
 import com.gnss.teachlearnpro.group.detail.GroupStudyDetailActivity;
 import com.gnss.teachlearnpro.main.live.detail.fragment.LiveDetailFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -55,25 +53,27 @@ public class FavoriteLogic extends BaseLogic {
         AppCompatActivity act = (AppCompatActivity) mProvider.getActivity();
         model = new ViewModelProvider(act).get(FavoriteViewModel.class);
         showLoading("获取收藏列表...");
-        model.obtainFavoriteList(FavoriteViewModel.FavoriteType.ALL, mPageIndex);
+        model.obtainFavoriteList(FavoriteViewModel.FavoriteType.ALL, mPageIndex = 1);
         BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
         loadMoreModule.setOnLoadMoreListener(() -> {
             model.obtainFavoriteList(mFavoriteType, mPageIndex);
         });
 
         model.getFavorite().observe(act, favoriteBean -> {
-            hideLoading();
             handleLoadData(loadMoreModule, favoriteBean);
         });
 
     }
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, FavoriteBean favorite) {
-        List<FavoriteBean.DataBean> data = favorite.getData();
         hideLoading();
         if (refreshLayout != null) {
             refreshLayout.finishRefresh(true);
         }
+        if (favorite == null) {
+            return;
+        }
+        List<FavoriteBean.DataBean> data = favorite.getData();
         if (ObjectUtils.isEmpty(data)) {
             loadMoreModule.loadMoreEnd();
             return;
@@ -88,11 +88,8 @@ public class FavoriteLogic extends BaseLogic {
         if (data.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();
-            MeLog.e("more dengyu" + data.size());
-
+            return;
         } else {
-            MeLog.e("more dayu" + data.size());
-
             loadMoreModule.loadMoreComplete();
         }
         mPageIndex++;
@@ -176,8 +173,7 @@ public class FavoriteLogic extends BaseLogic {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 showLoading("获取收藏列表...");
-                mPageIndex = 1;
-                model.obtainFavoriteList(mFavoriteType, mPageIndex);
+                model.obtainFavoriteList(mFavoriteType, mPageIndex = 1);
             }
         });
     }
@@ -188,14 +184,15 @@ public class FavoriteLogic extends BaseLogic {
             switch (data.getType()) {
                 case 1:
                     //course
-                    CacheMemoryUtils.getInstance().put(Contact.PlAY_URL, data.getHead_img());
-                    CacheMemoryUtils.getInstance().put(Contact.TITLE, data.getTitle());
-                    CacheMemoryUtils.getInstance().put(Contact.ID, data.getId());
-                    ActivityUtils.startActivity(CourseDetailPlayActivity.class);
+                    Intent intent = new Intent(mProvider.getActivity(), CourseDetailActivity.class);
+                    intent.putExtra(Contact.ID, data.getId());
+                    ActivityUtils.startActivity(intent);
                     break;
                 case 2:
                     //live
-                    CacheMemoryUtils.getInstance().put(Contact.ID, data.getId());
+                    CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
+                    instance.put(Contact.ID, data.getId());
+                    instance.put(Contact.TITLE, data.getTitle());
                     FragmentUtils.replace(FragmentUtils.getTopShow(mProvider.getParentFragmentManager()),
                             LiveDetailFragment.newInstance(), true);
                     break;

@@ -42,6 +42,12 @@ public class CourseDetailListFragment extends MeBaseFragment implements Fragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mLogic.initCourseDetail();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mLogic.destroyWebView();

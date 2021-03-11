@@ -24,6 +24,7 @@ public class GroupStudyDetailViewModel extends BaseViewModel {
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
+                        mUtableGroupDetail.postValue(null);
                         tipError(e, "访问获取小组详情接口失败");
                     }
 

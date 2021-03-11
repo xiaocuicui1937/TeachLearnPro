@@ -31,8 +31,8 @@ public class LiveBackAdapter extends BaseQuickAdapter<LivePlanBean.DataBean, Bas
 //        ImageView ivRefresh = baseViewHolder.getView(R.id.iv_item_plan_back_refresh);
         Glide.with(ivAvator.getContext()).load(item.getTitle_img()).into(ivAvator);
         mTvTitle.setText(item.getTitle());
-        mTvTeacher.setText(item.getTime_start());
-        mTvTime.setText(item.getTime_start());
+        mTvTeacher.setText(item.getLive_user());
+        mTvTime.setText(item.getDuration());
 
     }
 }

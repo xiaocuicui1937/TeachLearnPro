@@ -31,6 +31,7 @@ import com.lxj.xpopup.XPopup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickListener {
     private static final int DEFAULT_PAGE = 10;
@@ -80,7 +81,6 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
         rv.setLayoutManager(manager);
         mAdapter = new LiveDetailAdapter(null);
         rv.setAdapter(mAdapter);
-
         mAdapter.setOnItemClickListener((adapter1, view, position) -> {
             ActivityUtils.startActivity(CommentListActivity.class);
         });
@@ -104,16 +104,20 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
             hideLoading();
             handleLoadData(loadMoreModule, dataBean);
         });
+
+        //评论点赞、切换自己还是全部留言
+        AtomicReference<TextView> thumbsAtom = new AtomicReference<>();
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId() == R.id.tv_item_live_detail_thumbs) {
-                addThumbs(position, act, view);
+                thumbsAtom.set((TextView) view);
+                addThumbs(position);
             } else if (view instanceof Switch) {
                 switchMineOrAll(id, (Switch) view);
             }
 
         });
-
-
+        tothumbRes(act, thumbsAtom);
+        //监听收藏回调
         commentModel.getCollect().observe(act, aBoolean -> {
             hideLoading();
             switchHeartStatus(aBoolean);
@@ -125,17 +129,27 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
     }
 
 
-    private void addThumbs(int position, AppCompatActivity act, View view) {
-
+    private void addThumbs(int position) {
         MultipleItemEntity entity = mAdapter.getData().get(position);
         int commonId = entity.getField(Contact.ID);
-        commentModel.addRecording(CommentViewModel.CommentType.LIVE, String.valueOf(commonId));
+        commentModel.addRecording(String.valueOf(commonId));
+    }
+
+    private void tothumbRes(AppCompatActivity act, AtomicReference<TextView> thumbsAtom) {
         commentModel.getAddRecording().observe(act, aBoolean -> {
-            TextView tvThumbs = (TextView) view;
-            tvThumbs.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0
-                    , 0);
+            TextView thumbsTv = thumbsAtom.get();
+            int recordingCount = Integer.parseInt(thumbsTv.getText().toString());
+            //点赞成功点赞数会在原来的基础上加1，取消点赞在原来的基础上减1
+            if (aBoolean) {
+                recordingCount++;
+            } else if (recordingCount > 0) {
+                recordingCount--;
+            }
+            thumbsTv.setText(String.valueOf(recordingCount));
+            thumbsTv.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0, 0);
         });
     }
+
 
     private void switchMineOrAll(String id, Switch view) {
         Switch switchView = (Switch) view;
@@ -145,6 +159,9 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
     }
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
+        if (dataBean == null) {
+            return;
+        }
         List<CommentBean.DataBean> dataRes = dataBean.getData();
         if (ObjectUtils.isEmpty(dataRes)) {
             loadMoreModule.loadMoreEnd();
@@ -204,7 +221,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
             MultipleItemEntity comment = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.COMMENT_TYPE)
                     .setField(Contact.CONTENT_SUB_TITLE, param)
-                    .setField(Contact.ID, param.getCommon_id())
+                    .setField(Contact.ID, param.getId())
                     .build();
             datas.add(comment);
         }

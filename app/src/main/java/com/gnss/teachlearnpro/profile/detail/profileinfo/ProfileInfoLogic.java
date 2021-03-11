@@ -94,15 +94,16 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
         SuperTextView stvAvator = mProvider.getMineView().findViewById(R.id.stv_fragment_profile_avator);
         stvNick = mProvider.getMineView().findViewById(R.id.stv_fragment_profile_nick);
         SuperTextView stvLocation = mProvider.getMineView().findViewById(R.id.stv_fragment_profile_location);
+
         mRightTextAvator = stvAvator.getRightTextView();
-
-
         if (mProfileInfo != null) {
 
             setAvator(mProfileInfo.getAvatar());
             stvNick.setRightString(mProfileInfo.getNickname());
-            if (ObjectUtils.isNotEmpty(mProfileInfo.getProvince_name()) && ObjectUtils.isNotEmpty(mProfileInfo.getCity_name())) {
-                stvLocation.setRightString(mProfileInfo.getProvince_name() + mProfileInfo.getCity_name() + mProfileInfo.getArea_name());
+            if (ObjectUtils.isNotEmpty(mProfileInfo.getProvince_name()) &&
+                    ObjectUtils.isNotEmpty(mProfileInfo.getCity_name())) {
+                stvLocation.setRightString(mProfileInfo.getProvince_name() + mProfileInfo.getCity_name()
+                        + mProfileInfo.getArea_name());
             } else {
                 stvLocation.setRightString("");
             }

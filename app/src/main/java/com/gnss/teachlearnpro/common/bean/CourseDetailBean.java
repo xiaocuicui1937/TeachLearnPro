@@ -186,8 +186,8 @@ public class CourseDetailBean extends BaseResBean{
                 this.total = total;
             }
 
-            public int getCollection_status() {
-                return collection_status;
+            public boolean isCollect() {
+                return collection_status==2;
             }
 
             public void setCollection_status(int collection_status) {

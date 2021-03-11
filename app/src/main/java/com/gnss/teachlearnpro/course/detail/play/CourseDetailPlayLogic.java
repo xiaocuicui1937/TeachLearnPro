@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,18 +20,17 @@ import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.ItemType;
 import com.gnss.teachlearnpro.common.bean.CommentBean;
-import com.gnss.teachlearnpro.common.bean.GroupStudyDetailBean;
 import com.gnss.teachlearnpro.common.logic.BaseLogic;
 import com.gnss.teachlearnpro.common.ui.ActivityProvider;
 import com.gnss.teachlearnpro.common.ui.WriteLeaveMessageCustomView;
 import com.gnss.teachlearnpro.common.viewmodel.CommentViewModel;
-import com.gnss.teachlearnpro.group.detail.GroupStudyDetailActivity;
 import com.gnss.teachlearnpro.main.live.detail.fragment.LiveDetailAdapter;
 import com.lxj.xpopup.XPopup;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickListener {
     private static final int DEFAULT_PAGE = 10;
@@ -73,21 +71,43 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
 //        loadMoreModule.setAutoLoadMore(true);
         //当自动加载开启，同时数据不满一屏时，是否继续执行自动加载更多(默认为true)
 //        loadMoreModule.setEnableLoadMoreIfNotFullPage(false);
-
+        //点赞，切换自己留言还是全部
+        AtomicReference<TextView> thumbsAtom = new AtomicReference<>();
         mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
             if (view.getId() == R.id.tv_item_live_detail_thumbs) {
-                addThumbs(position, act, view);
+                thumbsAtom.set((TextView) view);
+                addThumbs(position);
             } else if (view instanceof Switch) {
                 switchMineOrAll(id, (Switch) view);
             }
         });
-
-
+        tothumbRes(act, thumbsAtom);
+        //监听收藏回调
         commentModel.getCollect().observe(act, aBoolean -> {
             hideLoading();
             mIvHeart.setImageResource(aBoolean ? R.drawable.ic_heart_tint : R.drawable.ic_heart);
         });
+    }
 
+    private void addThumbs(int position) {
+        MultipleItemEntity entity = mAdapter.getData().get(position);
+        int commonId = entity.getField(Contact.ID);
+        commentModel.addRecording(String.valueOf(commonId));
+    }
+
+    private void tothumbRes(CourseDetailPlayActivity act, AtomicReference<TextView> thumbsAtom) {
+        commentModel.getAddRecording().observe(act, aBoolean -> {
+            TextView thumbsTv = thumbsAtom.get();
+            int recordingCount = Integer.parseInt(thumbsTv.getText().toString());
+            //点赞成功点赞数会在原来的基础上加1，取消点赞在原来的基础上减1
+            if (aBoolean) {
+                recordingCount++;
+            } else if (recordingCount > 0) {
+                recordingCount--;
+            }
+            thumbsTv.setText(String.valueOf(recordingCount));
+            thumbsTv.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0, 0);
+        });
     }
 
     private void switchMineOrAll(String id, Switch view) {
@@ -98,6 +118,9 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
     }
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, CommentBean dataBean) {
+        if (dataBean == null) {
+            return;
+        }
         if (mPageIndex == 1) {
             mAdapter.setNewInstance(getDatas(dataBean.getData()));
         } else {
@@ -132,7 +155,7 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
             MultipleItemEntity comment = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.COMMENT_TYPE)
                     .setField(Contact.CONTENT_SUB_TITLE, param)
-                    .setField(Contact.ID, param.getCommon_id())
+                    .setField(Contact.ID, param.getId())
                     .build();
             datas.add(comment);
         }
@@ -148,6 +171,8 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
         mPlayerManager.init(instance.get(Contact.PlAY_URL), instance.get(Contact.TITLE));
         mTvInput = mProvider.findViewById(R.id.tv_activity_group_detail_input);
         mIvHeart = mProvider.findViewById(R.id.iv_activity_course_favorite);
+        boolean isCollect = instance.get(Contact.IS_COLLECT);
+        mIvHeart.setImageResource(isCollect?R.drawable.ic_heart_tint:R.drawable.ic_heart);
 
         mTvInput.setOnClickListener(this);
         mIvHeart.setOnClickListener(this);
@@ -166,16 +191,6 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
 
     }
 
-    private void addThumbs(int position, AppCompatActivity act, View view) {
-        MultipleItemEntity entity = mAdapter.getData().get(position);
-        int commonId = entity.getField(Contact.ID);
-        commentModel.addRecording(CommentViewModel.CommentType.COURSE, String.valueOf(commonId));
-        commentModel.getAddRecording().observe(act, aBoolean -> {
-            TextView tvThumbs = (TextView) view;
-            tvThumbs.setCompoundDrawablesWithIntrinsicBounds(aBoolean ? R.drawable.ic_thumb_tint : R.drawable.ic_thumb, 0, 0
-                    , 0);
-        });
-    }
 
     @SuppressLint("NonConstantResourceId")
     @Override
