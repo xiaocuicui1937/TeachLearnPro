@@ -50,30 +50,29 @@
         app:layout_constraintStart_toStartOf="@+id/tv_item_course_title"
         app:layout_constraintTop_toBottomOf="@+id/tv_item_course_title" />
 
-    <TextView
-        android:id="@+id/tv_item_course_teacher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:text="杨川岛"
-        android:textColor="#ff999999"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_course_title"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_course_desc" />
+<!--    <TextView-->
+<!--        android:id="@+id/tv_item_course_teacher"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="13dp"-->
+<!--        android:text="杨川岛"-->
+<!--        android:textColor="#ff999999"-->
+<!--        android:textSize="12sp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/tv_item_course_title"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tv_item_course_desc" />-->
 
     <TextView
         android:id="@+id/tv_item_course_progress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
         android:text="更新至第6讲"
         android:textColor="#ff459df5"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/dp_10"
-        app:layout_constraintStart_toEndOf="@+id/tv_item_course_teacher"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_course_desc"
-        app:layout_constraintTop_toTopOf="@+id/tv_item_course_teacher" />
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_course_title"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_course_desc"/>
 
     <View
         android:layout_width="match_parent"

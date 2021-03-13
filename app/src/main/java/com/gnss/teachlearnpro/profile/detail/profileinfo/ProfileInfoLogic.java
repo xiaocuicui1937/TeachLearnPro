@@ -73,7 +73,7 @@ public class ProfileInfoLogic extends BaseLogic implements View.OnClickListener 
         model.getUpdateAvator().observe(act, new Observer<AvatarResBean>() {
             @Override
             public void onChanged(AvatarResBean avatarResBean) {
-                model.updatePerson(mProfileInfo.getNickname(), Contact.BASE_PIC_URL + avatarResBean.getData(), String.valueOf(mProfileInfo.getProvince_id())
+                model.updatePerson(mProfileInfo.getNickname(),avatarResBean.getData(), String.valueOf(mProfileInfo.getProvince_id())
                         , String.valueOf(mProfileInfo.getCity_id()), String.valueOf(mProfileInfo.getArea_id()),
                         String.valueOf(mProfileInfo.getSex()));
             }

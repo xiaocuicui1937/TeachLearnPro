@@ -104,7 +104,7 @@ public class CourseDetailListLogic extends BaseLogic {
         tvManCount.setText(course.getTotal_user() + "人加入学习");
         mHtmlManager.loadHtmlCode(course.getIntro());
         setTitleToCollapsingToolbarLayout(course.getTitle());
-        Glide.with(ivCover.getContext()).applyDefaultRequestOptions(RequestOptions.noTransformation()).load(Contact.BASE_PIC_URL + course.getLogo()).into(ivCover);
+        Glide.with(ivCover.getContext()).applyDefaultRequestOptions(RequestOptions.noTransformation()).load(course.getLogo()).into(ivCover);
         List<CourseDetailBean.DataBean.UserBean> users = dataBean.getUser();
         if (ObjectUtils.isNotEmpty(users)) {
             RequestOptions options = RequestOptions.bitmapTransform(new CircleCrop()).diskCacheStrategy(DiskCacheStrategy.NONE);

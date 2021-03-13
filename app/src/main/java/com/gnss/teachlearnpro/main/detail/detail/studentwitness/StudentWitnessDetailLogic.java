@@ -42,7 +42,7 @@ public class StudentWitnessDetailLogic extends BaseLogic {
         model.getList().observe(act, homeDetailBean -> {
             hideLoading();
             mTvTitle.setText(homeDetailBean.title);
-            Glide.with(mIv.getContext()).load(Contact.BASE_PIC_URL+homeDetailBean.logoUrl).into(mIv);
+            Glide.with(mIv.getContext()).load(homeDetailBean.logoUrl).into(mIv);
            loadHtmlCode(homeDetailBean.content);
         });
     }

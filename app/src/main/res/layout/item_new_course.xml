@@ -20,11 +20,14 @@
     <ImageView
         android:id="@+id/iv_item_new_course_course"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="18dp"
-        android:src="@drawable/test_new_course"
+        android:scaleType="centerCrop"
+        android:src="@drawable/test_recent_course"
+        app:layout_constraintHeight_percent="0.58"
         app:layout_constraintStart_toStartOf="@+id/tv_item_new_course"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_new_course" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_new_course"
+        app:layout_constraintWidth_percent="0.32" />
 
     <TextView
         android:id="@+id/tv_item_new_course_content"
@@ -48,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:text="这是一段课程简介，这是一段课程简介，这是一段课程简介。"
         android:textColor="#999999"
         android:textSize="10sp"

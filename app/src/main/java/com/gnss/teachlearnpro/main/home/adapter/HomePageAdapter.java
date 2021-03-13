@@ -15,6 +15,7 @@ import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.ObjectUtils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -110,7 +111,7 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         TextView tvTitle = baseViewHolder.getView(R.id.tv_item_student_witness);
         TextView tvContent = baseViewHolder.getView(R.id.tv_item_student_witness_content);
         String logoUrl = multipleItemEntity.getField(Contact.LOGO_URL);
-        Glide.with(iv.getContext()).load(logoUrl).placeholder(R.mipmap.ic_launcher_round).into(iv);
+        Glide.with(iv.getContext()).load(logoUrl).apply(RequestOptions.circleCropTransform()).placeholder(R.mipmap.ic_launcher_round).into(iv);
         String title = multipleItemEntity.getField(Contact.TITLE);
         String contentTitle = multipleItemEntity.getField(Contact.CONTENT_TITLE);
         tvTitle.setText(title);
@@ -126,10 +127,9 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         String contentTitle = multipleItemEntity.getField(Contact.CONTENT_TITLE);
         String content = multipleItemEntity.getField(Contact.CONTENT_SUB_TITLE);
         String logoUrlSub = (String) multipleItemEntity.getField(Contact.LOGO_URL);
-        String logoUrl = Contact.BASE_PIC_URL + logoUrlSub;
 
         if (ObjectUtils.isNotEmpty(logoUrlSub)) {
-            Glide.with(ivNew.getContext()).load(logoUrl).placeholder(R.drawable.test_new_course).into(ivNew);
+            Glide.with(ivNew.getContext()).load(logoUrlSub).apply(RequestOptions.noTransformation()).placeholder(R.drawable.test_new_course).into(ivNew);
         }
         tvContentTitle.setText(contentTitle);
         tvContent.setText(content);
@@ -141,14 +141,17 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         ImageView ivLogo = baseViewHolder.getView(R.id.iv_item_hot_course);
         TextView tvContentTitle = baseViewHolder.getView(R.id.tv_item_hot_course_content);
         TextView tvContentOther = baseViewHolder.getView(R.id.tv_item_hot_course_other);
+        TextView tvDesc = baseViewHolder.getView(R.id.tv_item_hot_course_desc);
 
-        String logoUrl = Contact.BASE_URL.substring(0, Contact.BASE_URL.length() - 5) + multipleItemEntity.getField(Contact.LOGO_URL);
+        String logoUrl = multipleItemEntity.getField(Contact.LOGO_URL);
         MeLog.e("createHotCourse:" + logoUrl);
         String contentTitle = multipleItemEntity.getField(Contact.CONTENT_TITLE);
         String contentSubTitle = multipleItemEntity.getField(Contact.CONTENT_SUB_TITLE);
-        Glide.with(ivLogo.getContext()).load(logoUrl).into(ivLogo);
+        String desc = multipleItemEntity.getField(Contact.DESC);
+        Glide.with(ivLogo.getContext()).load(logoUrl).apply(RequestOptions.noTransformation()).into(ivLogo);
         tvContentTitle.setText(contentTitle);
         tvContentOther.setText(contentSubTitle);
+        tvDesc.setText(desc);
     }
 
 
@@ -160,11 +163,11 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         List<HomePageBean.DataBean.StudyBean> studys = multipleItemEntity.getField(Contact.ARRAY);
         if (ObjectUtils.isNotEmpty(studys)) {
             HomePageBean.DataBean.StudyBean studyBean = studys.get(0);
-            Glide.with(ivCourse.getContext()).load(studyBean.getLogo()).into(ivCourse);
+            Glide.with(ivCourse.getContext()).load(studyBean.getLogo()).apply(RequestOptions.noTransformation()).into(ivCourse);
             tvCourse.setText(studyBean.getTitle());
 
             HomePageBean.DataBean.StudyBean studyBeanLive = studys.get(1);
-            Glide.with(ivCourse.getContext()).load(studyBeanLive.getLogo()).into(ivLive);
+            Glide.with(ivCourse.getContext()).load(studyBeanLive.getLogo()).apply(RequestOptions.noTransformation()).into(ivLive);
             tvLive.setText(studyBeanLive.getTitle());
         }
     }
@@ -176,7 +179,8 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         TextView liveStartTime = baseViewHolder.getView(R.id.tv_item_live_time);
         liveStartTime.setText(item.getField(Contact.SUB_TITLE));
         ImageView ivLogo = baseViewHolder.getView(R.id.iv_item_live);
-        Glide.with(ivLogo.getContext()).load(Contact.BASE_PIC_URL + item.getField(Contact.LOGO_URL)).placeholder(R.drawable.test_live).into(ivLogo);
+        String url = item.getField(Contact.LOGO_URL);
+        Glide.with(ivLogo.getContext()).load(url).placeholder(R.drawable.test_live).apply(RequestOptions.noTransformation()).into(ivLogo);
         TextView makeNumTv = baseViewHolder.getView(R.id.tv_item_live_count);
         String content = item.getField(Contact.CONTENT_SUB_TITLE);
         makeNumTv.setText(content.split("-")[0]);
@@ -210,6 +214,7 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
                 //图片加载自己实现
                 Glide.with(holder.itemView)
                         .load(data.getBanner())
+                        .apply(RequestOptions.noTransformation())
                         .into(holder.imageView);
             }
         })
@@ -220,18 +225,18 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
 
     @Override
     public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-        if (adapter instanceof HomeInfoAdapter){
+        if (adapter instanceof HomeInfoAdapter) {
             List<ArticleBean> datas = (List<ArticleBean>) adapter.getData();
-            if (ObjectUtils.isNotEmpty(datas)){
+            if (ObjectUtils.isNotEmpty(datas)) {
                 ArticleBean articleBean = datas.get(position);
-                toHomeDetail(view.getContext(),articleBean.name,articleBean.id);
+                toHomeDetail(view.getContext(), articleBean.name, articleBean.id);
             }
-        }else if (adapter instanceof HomeClassesAdapter){
+        } else if (adapter instanceof HomeClassesAdapter) {
             toCourseList(adapter, position);
         }
     }
 
-    private void toHomeDetail(Context context,String  title,int id) {
+    private void toHomeDetail(Context context, String title, int id) {
         Intent intent = new Intent(context, HomeListDetailActivity.class);
         intent.putExtra(Contact.TITLE, title);
         intent.putExtra(Contact.ID, id);

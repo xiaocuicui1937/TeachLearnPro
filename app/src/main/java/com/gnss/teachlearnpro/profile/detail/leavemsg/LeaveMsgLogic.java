@@ -76,6 +76,7 @@ public class LeaveMsgLogic extends BaseLogic {
         mTvGroup.setText(String.valueOf(res.getTeam_count()));
         List<LeaveMsgBean.DataBean> data = res.getData();
         if (ObjectUtils.isEmpty(data)) {
+            mAdapter.setNewInstance(null);
             loadMoreModule.loadMoreEnd();
             return;
         }
@@ -88,11 +89,8 @@ public class LeaveMsgLogic extends BaseLogic {
         if (data.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();
-            MeLog.e("more dengyu" + data.size());
-
+            return;
         } else {
-            MeLog.e("more dayu" + data.size());
-
             loadMoreModule.loadMoreComplete();
         }
         mPageIndex++;
@@ -124,7 +122,7 @@ public class LeaveMsgLogic extends BaseLogic {
         mPageIndex = 1;
         if (model != null) {
             showLoading("获取留言列表...");
-            model.obtainLeaveMsg(CommentViewModel.CommentType.LIVE, mPageIndex);
+            model.obtainLeaveMsg(CommentViewModel.CommentType.ALL, mPageIndex);
 
         }
     }

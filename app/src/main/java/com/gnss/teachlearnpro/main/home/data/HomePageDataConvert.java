@@ -55,14 +55,14 @@ public class HomePageDataConvert extends DataConvert {
         //热门课程
         List<HomePageBean.DataBean.CourseBean> course = data.getCourse();
         for (HomePageBean.DataBean.CourseBean param : course) {
-            addHotCourse(param.getId(), "热门课程", param.getLogo(), param.getTitle(), param.getPlatform());
+            addHotCourse(param.getId(), "热门课程", param.getLogo(), param.getTitle(), param.getPlatform(),param.getDesc());
         }
         //最新课程
         HomePageBean.DataBean.CourseNewBean course_new = data.getCourse_new();
-        addNewCourse(course_new.getId(), "最新课程", course_new.getLogo(), course_new.getTitle(), "");
+        addNewCourse(course_new.getId(), "最新课程", course_new.getLogo(), course_new.getTitle(), course_new.getDesc());
         //定制推荐
         HomePageBean.DataBean.CourseBean made_new = data.getMade_new();
-        addNewCourse(course_new.getId(), "定制推荐", made_new.getLogo(), made_new.getTitle(), "");
+        addNewCourse(course_new.getId(), "定制推荐", made_new.getLogo(), made_new.getTitle(), made_new.getDesc());
         //话题文章
 //        MainActivity activity = (MainActivity) ActivityUtils.getTopActivity();
 //        addInfoList(activity);
@@ -170,6 +170,7 @@ public class HomePageDataConvert extends DataConvert {
                 .setField(Contact.LOGO_URL, strs[1])
                 .setField(Contact.CONTENT_TITLE, strs[2])
                 .setField(Contact.CONTENT_SUB_TITLE, strs[3])
+                .setField(Contact.DESC,strs[4])
                 .build();
         ENTITYS.add(entity);
     }

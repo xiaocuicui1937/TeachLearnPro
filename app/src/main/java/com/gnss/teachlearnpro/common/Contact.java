@@ -4,7 +4,7 @@ public class Contact {
     //访问域名
     public static final String BASE_URL = "http://zt.baomanyi.net/Api/";
 
-    public static final String BASE_PIC_URL = "http://zt.baomanyi.net";
+//    public static final String BASE_PIC_URL = "http://zt.baomanyi.net";
 
     /**
      * token 对应的HEADER
@@ -85,6 +85,7 @@ public class Contact {
     public static final String CONTENT_SUB_TITLE = "content_sub_title";
     public static final String RIGHT_TOP_DRAWABLE = "right_top_drawable";
     public static final String ARRAY = "array";
+    public static final String DESC = "desc";
     /**
      * ----------------------------------直播计划--------------------------------------------------------
      */

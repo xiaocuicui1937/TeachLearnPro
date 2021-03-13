@@ -84,7 +84,7 @@ public class CommentViewModel extends BaseViewModel {
 
 
     public enum CommentType {
-        LIVE, GROUP, COURSE
+        LIVE, GROUP, COURSE,ALL
     }
 
     public LiveData<CommentBean> getCommentList() {

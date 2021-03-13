@@ -1,5 +1,6 @@
 package com.gnss.teachlearnpro.course.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,13 +28,14 @@ public class CourseAdapter extends BaseQuickAdapter<CourseBean.DataBean, BaseVie
         ImageView iv = baseViewHolder.getView(R.id.iv_item_course);
         TextView tvTitle = baseViewHolder.getView(R.id.tv_item_course_title);
         TextView tvDesc = baseViewHolder.getView(R.id.tv_item_course_desc);
-        TextView tvTeacher = baseViewHolder.getView(R.id.tv_item_course_teacher);
+//        TextView tvTeacher = baseViewHolder.getView(R.id.tv_item_course_teacher);
         TextView tvProgress = baseViewHolder.getView(R.id.tv_item_course_progress);
+//        tvTeacher.setVisibility(View.GONE);
 
         Glide.with(iv.getContext()).load( dataBean.getLogo()).into(iv);
         tvTitle.setText(dataBean.getTitle());
         tvDesc.setText(dataBean.getDesc());
-        tvTeacher.setText(dataBean.getCourse_count()+"");
-        tvProgress.setText(dataBean.getCatelog_title());
+//        tvTeacher.setText(dataBean.getCourse_count()+"");
+        tvProgress.setText("更新至第"+dataBean.getCourse_count()+"讲");
     }
 }

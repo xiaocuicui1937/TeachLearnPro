@@ -215,6 +215,11 @@ public class HomePageBean extends BaseResBean{
             private int id;
             private String title;
             private String logo;
+            private String desc;
+
+            public String getDesc() {
+                return desc;
+            }
 
             public int getId() {
                 return id;
@@ -332,6 +337,11 @@ public class HomePageBean extends BaseResBean{
             private String title;
             private String logo;
             private String platform;
+            private String desc;
+
+            public String getDesc() {
+                return desc;
+            }
 
             public String getPlatform() {
                 return platform;

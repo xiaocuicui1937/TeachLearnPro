@@ -104,11 +104,8 @@ public class LeaveMsgListLogic extends BaseLogic {
         if (data.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();
-            MeLog.e("more dengyu" + data.size());
-
+            return;
         } else {
-            MeLog.e("more dayu" + data.size());
-
             loadMoreModule.loadMoreComplete();
         }
         mPageIndex++;
