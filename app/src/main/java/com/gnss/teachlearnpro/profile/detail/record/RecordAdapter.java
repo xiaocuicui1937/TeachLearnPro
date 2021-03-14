@@ -29,7 +29,8 @@ public class RecordAdapter extends BaseQuickAdapter<RecordResBean.DataBean, Base
         stv.setPadding(20, 20, 20, 20);
         stv.setLeftString(recordBean.getTitle());
         stv.setRightString(recordBean.getCreate_time());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(SizeUtils.dp2px(160), ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(SizeUtils.dp2px(150),
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         stv.getLeftTextView().setLayoutParams(params);
         stv.getLeftTextView().setSingleLine(false);
     }

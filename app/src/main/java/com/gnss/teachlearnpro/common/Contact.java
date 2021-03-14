@@ -79,6 +79,7 @@ public class Contact {
     public static final String LOGO_URL = "logo_url";
     public static final String ID = "id";
     public static final String TITLE = "title";
+    public static final String INDEX = "index";
     public static final String SUB_TITLE = "sub_title";
     public static final String RIGHT_TITLE = "right_title";
     public static final String CONTENT_TITLE = "content_title";

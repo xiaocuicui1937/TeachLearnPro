@@ -37,12 +37,12 @@ android {
 
     }
 
-    android.applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = outputFileName = "衪路_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
-
-        }
-    }
+//    android.applicationVariants.all { variant ->
+//        variant.outputs.all {
+//            outputFileName = outputFileName = "衪路_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+//
+//        }
+//    }
 
     packagingOptions {
         pickFirst '**/libc++_shared.so'

@@ -1,22 +1,15 @@
 package com.gnss.teachlearnpro.main.home.data;
 
 import androidx.annotation.DrawableRes;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.GsonUtils;
 import com.blankj.utilcode.util.ObjectUtils;
-import com.blankj.utilcode.util.ToastUtils;
 import com.ecommerce.common.dataconvert.DataConvert;
 import com.ecommerce.common.dataconvert.MultipleItemEntity;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.ItemType;
 import com.gnss.teachlearnpro.common.bean.ArticleBean;
 import com.gnss.teachlearnpro.common.bean.HomePageBean;
-import com.gnss.teachlearnpro.common.bean.InfoListResBean;
-import com.gnss.teachlearnpro.common.bean.StudentWitnessResBean;
-import com.gnss.teachlearnpro.main.MainActivity;
-import com.gnss.teachlearnpro.main.home.HomePageViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,9 +47,13 @@ public class HomePageDataConvert extends DataConvert {
 
         //热门课程
         List<HomePageBean.DataBean.CourseBean> course = data.getCourse();
-        for (HomePageBean.DataBean.CourseBean param : course) {
-            addHotCourse(param.getId(), "热门课程", param.getLogo(), param.getTitle(), param.getPlatform(),param.getDesc());
+        int size = course.size();
+        for (int i = 0; i < size; i++) {
+            HomePageBean.DataBean.CourseBean param = course.get(i);
+            addHotCourse(param.getId(), i, "热门课程", param.getLogo(),
+                    param.getTitle(), param.getPlatform(), param.getDesc());
         }
+
         //最新课程
         HomePageBean.DataBean.CourseNewBean course_new = data.getCourse_new();
         addNewCourse(course_new.getId(), "最新课程", course_new.getLogo(), course_new.getTitle(), course_new.getDesc());
@@ -66,7 +63,7 @@ public class HomePageDataConvert extends DataConvert {
         //话题文章
 //        MainActivity activity = (MainActivity) ActivityUtils.getTopActivity();
 //        addInfoList(activity);
-        addAirticle(data.getInfo(),"话题文章");
+        addAirticle(data.getInfo(), "话题文章");
         //学员见证
         List<HomePageBean.DataBean.StudentBean> student = data.getStudent();
 //        addStudentWitnessList(activity);
@@ -162,15 +159,16 @@ public class HomePageDataConvert extends DataConvert {
 
     }
 
-    private void addHotCourse(int id, String... strs) {
+    private void addHotCourse(int id, int index, String... strs) {
         MultipleItemEntity entity = MultipleItemEntity.builder()
                 .setField(ItemType.TYPE, ItemType.HOT_COURSE_TYPE)
                 .setField(Contact.ID, id)
+                .setField(Contact.INDEX, index)
                 .setField(Contact.TITLE, strs[0])
                 .setField(Contact.LOGO_URL, strs[1])
                 .setField(Contact.CONTENT_TITLE, strs[2])
                 .setField(Contact.CONTENT_SUB_TITLE, strs[3])
-                .setField(Contact.DESC,strs[4])
+                .setField(Contact.DESC, strs[4])
                 .build();
         ENTITYS.add(entity);
     }
@@ -191,7 +189,7 @@ public class HomePageDataConvert extends DataConvert {
         List<ArticleBean> arrays = new ArrayList<>();
         if (ObjectUtils.isNotEmpty(infos)) {
             for (int i = 0; i < infos.size(); i++) {
-                arrays.add(new ArticleBean(infos.get(i).getId(),String.valueOf(i + 1), infos.get(i).getTitle()));
+                arrays.add(new ArticleBean(infos.get(i).getId(), String.valueOf(i + 1), infos.get(i).getTitle()));
             }
             MultipleItemEntity entity = MultipleItemEntity.builder()
                     .setField(ItemType.TYPE, ItemType.ARTICLE_TYPE)

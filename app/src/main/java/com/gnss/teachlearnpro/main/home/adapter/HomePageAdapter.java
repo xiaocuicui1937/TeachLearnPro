@@ -3,10 +3,12 @@ package com.gnss.teachlearnpro.main.home.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.SizeUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -142,7 +145,19 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         TextView tvContentTitle = baseViewHolder.getView(R.id.tv_item_hot_course_content);
         TextView tvContentOther = baseViewHolder.getView(R.id.tv_item_hot_course_other);
         TextView tvDesc = baseViewHolder.getView(R.id.tv_item_hot_course_desc);
+        TextView tvTitle = baseViewHolder.getView(R.id.tv_item_hot_course);
 
+        int index = multipleItemEntity.getField(Contact.INDEX);
+        if (index == 0) {
+            tvTitle.setVisibility(View.VISIBLE);
+            setItemMargin(baseViewHolder, SizeUtils.dp2px(40));
+        } else {
+//            if (index!=1){
+//                setItemMargin(baseViewHolder, -SizeUtils.dp2px(20));
+//            }
+            setItemMargin(baseViewHolder, -SizeUtils.dp2px(4));
+            tvTitle.setVisibility(View.GONE);
+        }
         String logoUrl = multipleItemEntity.getField(Contact.LOGO_URL);
         MeLog.e("createHotCourse:" + logoUrl);
         String contentTitle = multipleItemEntity.getField(Contact.CONTENT_TITLE);
@@ -152,6 +167,14 @@ public class HomePageAdapter extends BaseMultiItemQuickAdapter<MultipleItemEntit
         tvContentTitle.setText(contentTitle);
         tvContentOther.setText(contentSubTitle);
         tvDesc.setText(desc);
+    }
+
+    private void setItemMargin(BaseViewHolder baseViewHolder, int i) {
+        ConstraintLayout.LayoutParams params = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = i;
+        params.leftMargin = SizeUtils.dp2px(20);
+        params.rightMargin = SizeUtils.dp2px(20);
+        baseViewHolder.itemView.setLayoutParams(params);
     }
 
 
