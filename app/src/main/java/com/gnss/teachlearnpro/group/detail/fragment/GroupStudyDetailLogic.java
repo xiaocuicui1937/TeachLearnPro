@@ -73,8 +73,6 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         commentModel.getCommentList().observe(act, dataBean -> {
             hideLoading();
             handleLoadData(loadMoreModule, dataBean);
-//            UiMessageUtils.getInstance().send(Contact.HEAD_TITLE, details);
-
         });
 
         loadMoreModule.setOnLoadMoreListener(() -> {
@@ -150,7 +148,7 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();
             MeLog.e("more dengyu" + dataRes.size());
-
+            return;
         } else {
             MeLog.e("more dayu" + dataRes.size());
 
@@ -195,6 +193,7 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         mTvTime.setText(dataBean.getTime_start_ming() + "-" + dataBean.getTime_end_ming());
         mTvLocation.setText("Zoom:" + dataBean.getRoom_id() + ",密码:" + dataBean.getPassword());
         mTvGroup.setText(dataBean.getTeacher_name());
+
         Glide.with(act).load(dataBean.getImg()).into(mIvHead);
         details = dataBean.getDetails();
         mIvHeart.setImageResource(dataBean.isCollect()? R.drawable.ic_heart_tint : R.drawable.ic_heart);
@@ -261,7 +260,7 @@ public class GroupStudyDetailLogic extends BaseLogic implements View.OnClickList
         new XPopup.Builder(mTvLocation.getContext())
                 .hasShadowBg(false)
                 .asCustom(new WriteLeaveMessageCustomView(mTvLocation.getContext(), CommentViewModel.CommentType.GROUP,
-                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", 1))
+                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex,isLookAll))
                 .show();
     }
 

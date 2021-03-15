@@ -22,12 +22,15 @@ public class WriteLeaveMessageCustomView extends BottomPopupView {
     private ZLoadingDialog zLoadingDialog;
     private EditText mEtWriteComment;
     private int mPageIndex;
+    private boolean isLookAll = true;
 
-    public WriteLeaveMessageCustomView(@NonNull Context context, CommentViewModel.CommentType commentType, String id, int pageIndex) {
+    public WriteLeaveMessageCustomView(@NonNull Context context, CommentViewModel.CommentType commentType,
+                                       String id, int pageIndex,boolean isLookAll) {
         super(context);
         this.mCommentType = commentType;
         this.mId = id;
         this.mPageIndex = pageIndex;
+        this.isLookAll = isLookAll;
     }
 
     @Override
@@ -52,7 +55,7 @@ public class WriteLeaveMessageCustomView extends BottomPopupView {
         showLoading("留言中");
 
         model.writeComment(mCommentType, mId, mEtWriteComment.getText().toString());
-        model.obtainCommentList(mCommentType, mId, mPageIndex, true);
+        model.obtainCommentList(mCommentType, mId, mPageIndex, isLookAll);
 
         model.getWriteComment().observe(act, aBoolean -> {
             hideLoading();

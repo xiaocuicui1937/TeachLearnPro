@@ -93,12 +93,13 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
         showLoading("获取直播详情...");
         String id = CacheMemoryUtils.getInstance().get(Contact.ID) + "";
         model.obtainLiveDetail(id);
+        commentModel = new ViewModelProvider(act).get(CommentViewModel.class);
         model.getLiveDetail().observe(act, dataBean -> {
             handleDetail(dataBean);
+            commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex=1, isLookAll);
         });
 
-        commentModel = new ViewModelProvider(act).get(CommentViewModel.class);
-        commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, 1, isLookAll);
+
         BaseLoadMoreModule loadMoreModule = mAdapter.getLoadMoreModule();
         commentModel.getCommentList().observe(act, dataBean -> {
             hideLoading();
@@ -177,11 +178,8 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
         if (dataRes.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();
-            MeLog.e("more dengyu" + dataRes.size());
-
+            return;
         } else {
-            MeLog.e("more dayu" + dataRes.size());
-
             loadMoreModule.loadMoreComplete();
         }
         mPageIndex++;
@@ -265,7 +263,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
         new XPopup.Builder(mTvInput.getContext())
                 .hasShadowBg(false)
                 .asCustom(new WriteLeaveMessageCustomView(mTvInput.getContext(), CommentViewModel.CommentType.LIVE,
-                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", 1))
+                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex,isLookAll))
                 .show();
     }
 

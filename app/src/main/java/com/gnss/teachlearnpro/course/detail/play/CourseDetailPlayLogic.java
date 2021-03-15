@@ -121,25 +121,23 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
         if (dataBean == null) {
             return;
         }
-        if (mPageIndex == 1) {
-            mAdapter.setNewInstance(getDatas(dataBean.getData()));
-        } else {
-            mAdapter.addData(getDatas(dataBean.getData()));
-        }
-        MeLog.e("总数：" + dataBean.getCount());
         List<CommentBean.DataBean> dataRes = dataBean.getData();
         if (ObjectUtils.isEmpty(dataRes)) {
             loadMoreModule.loadMoreEnd();
             return;
         }
+        if (mPageIndex == 1) {
+            mAdapter.setNewInstance(getDatas(dataRes));
+        } else {
+            mAdapter.addData(getDatas(dataRes));
+        }
+        MeLog.e("总数：" + dataBean.getCount());
+
         if (dataRes.size() < DEFAULT_PAGE) {
             //如果不够一页的话就停止加载
             loadMoreModule.loadMoreEnd();
-            MeLog.e("more dengyu" + dataRes.size());
-
+            return;
         } else {
-            MeLog.e("more dayu" + dataRes.size());
-
             loadMoreModule.loadMoreComplete();
         }
         mPageIndex++;
@@ -214,7 +212,7 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
         new XPopup.Builder(mTvInput.getContext())
                 .hasShadowBg(false)
                 .asCustom(new WriteLeaveMessageCustomView(mTvInput.getContext(), CommentViewModel.CommentType.COURSE,
-                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex))
+                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex,isLookAll))
                 .show();
     }
 

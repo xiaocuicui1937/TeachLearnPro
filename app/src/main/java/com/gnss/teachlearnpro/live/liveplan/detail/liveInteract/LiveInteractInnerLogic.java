@@ -260,7 +260,7 @@ public class LiveInteractInnerLogic extends BaseLogic implements View.OnClickLis
         new XPopup.Builder(mIvHeart.getContext())
                 .hasShadowBg(false)
                 .asCustom(new WriteLeaveMessageCustomView(mIvHeart.getContext(), CommentViewModel.CommentType.LIVE,
-                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex))
+                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex,isLookAll))
                 .show();
     }
 
