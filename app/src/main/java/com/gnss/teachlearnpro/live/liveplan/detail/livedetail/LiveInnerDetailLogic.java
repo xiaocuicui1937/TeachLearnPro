@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.ObjectUtils;
+import com.blankj.utilcode.util.UiMessageUtils;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.bean.LiveDetailResBean;
@@ -43,14 +44,20 @@ public class LiveInnerDetailLogic extends BaseLogic {
         model.getLiveDetail().observe(act, new Observer<LiveDetailResBean>() {
             @Override
             public void onChanged(LiveDetailResBean liveDetailResBean) {
-                hideLoading();
-                refreshLayout.finishRefresh();
-                if (ObjectUtils.isEmpty(liveDetailResBean)){
-                    return;
-                }
-                mAdapter.setNewInstance(new LiveInnerDetailDataConvert(liveDetailResBean).convert());
+                handleLiveDetail(liveDetailResBean);
             }
         });
+    }
+
+    private void handleLiveDetail(LiveDetailResBean liveDetailResBean) {
+        hideLoading();
+        refreshLayout.finishRefresh();
+        if (ObjectUtils.isEmpty(liveDetailResBean)){
+            return;
+        }
+        mAdapter.setNewInstance(new LiveInnerDetailDataConvert(liveDetailResBean).convert());
+        //更新播放地址
+        UiMessageUtils.getInstance().send(Contact.LIVE_UPDATE_URL,liveDetailResBean.getData().getPlay_url_flv());
     }
 
     private void obtainLiveDetail() {
@@ -64,7 +71,7 @@ public class LiveInnerDetailLogic extends BaseLogic {
         rv.setLayoutManager(manager);
         mAdapter = new LiveInnerDetailAdapter(null);
         rv.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new LiveInnerDetailItemClickListener());
+//        mAdapter.setOnItemClickListener(new LiveInnerDetailItemClickListener());
     }
 
     private void initRefresh() {

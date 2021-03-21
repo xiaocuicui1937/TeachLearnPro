@@ -15,6 +15,10 @@ public class LivePlayerManager {
         mLivePlayer.setPlayerView(playerView);
     }
 
+    public void setPlayerOrientation(int rotation){
+        mLivePlayer.setRenderRotation(rotation);
+    }
+
     public void playLive(String liveUrl) {
         mLivePlayer.startPlay(liveUrl, TXLivePlayer.PLAY_TYPE_LIVE_FLV);
     }

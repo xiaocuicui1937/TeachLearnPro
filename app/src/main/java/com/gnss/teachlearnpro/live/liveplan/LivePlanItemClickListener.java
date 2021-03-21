@@ -19,7 +19,6 @@ public class LivePlanItemClickListener implements OnItemClickListener {
         MultipleItemEntity data = (MultipleItemEntity) adapter.getData().get(position);
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
         instance.put(Contact.TITLE, data.getField(Contact.TITLE));
-        instance.put(Contact.PlAY_URL, data.getField(Contact.PlAY_URL));
         instance.put(Contact.ID, data.getField(Contact.ID));
         ActivityUtils.startActivity(PlanDetailAActivity.class);
     }

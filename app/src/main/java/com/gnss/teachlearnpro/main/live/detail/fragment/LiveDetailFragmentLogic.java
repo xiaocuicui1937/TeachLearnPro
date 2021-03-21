@@ -28,6 +28,7 @@ import com.gnss.teachlearnpro.common.ui.WriteLeaveMessageCustomView;
 import com.gnss.teachlearnpro.common.viewmodel.CommentViewModel;
 import com.gnss.teachlearnpro.main.live.detail.commentlist.CommentListActivity;
 import com.lxj.xpopup.XPopup;
+import com.tencent.rtmp.TXLiveConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
     private LivePlayerManager mLivePlayerManager;
     private TextView mTvInput;
     private ImageView mIvHeart;
+    private boolean isLiveScreenPortrait = true;
 
     public LiveDetailFragmentLogic(FragmentProvider provider, LiveDetailFragment fragment) {
         this.mProvider = provider;
@@ -58,9 +60,10 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
 
     private void initView() {
         View view = mProvider.getMineView();
-        mLivePlayerManager = new LivePlayerManager(mProvider.getMineView().findViewById(R.id.live_top_bg));
+        mLivePlayerManager = new LivePlayerManager(view.findViewById(R.id.live_top_bg));
         mTvInput = view.findViewById(R.id.tv_fragment_live_detail_input);
         mIvHeart = view.findViewById(R.id.iv_fragment_live_detail_favorite);
+        view.findViewById(R.id.iv_activity_plan_switch_screen).setOnClickListener(this);
         mTvInput.setOnClickListener(this);
         mIvHeart.setOnClickListener(this);
     }
@@ -96,7 +99,7 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
         commentModel = new ViewModelProvider(act).get(CommentViewModel.class);
         model.getLiveDetail().observe(act, dataBean -> {
             handleDetail(dataBean);
-            commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex=1, isLookAll);
+            commentModel.obtainCommentList(CommentViewModel.CommentType.LIVE, id, mPageIndex = 1, isLookAll);
         });
 
 
@@ -254,16 +257,24 @@ public class LiveDetailFragmentLogic extends BaseLogic implements View.OnClickLi
             case R.id.tv_fragment_live_detail_input:
                 writeLeaveMsg();
                 break;
+            case R.id.iv_activity_plan_switch_screen:
+                switchScreen();
+                break;
             default:
                 break;
         }
+    }
+
+    private void switchScreen() {
+        isLiveScreenPortrait = !isLiveScreenPortrait;
+        mLivePlayerManager.setPlayerOrientation(isLiveScreenPortrait ? TXLiveConstants.RENDER_ROTATION_PORTRAIT : TXLiveConstants.RENDER_ROTATION_LANDSCAPE);
     }
 
     private void writeLeaveMsg() {
         new XPopup.Builder(mTvInput.getContext())
                 .hasShadowBg(false)
                 .asCustom(new WriteLeaveMessageCustomView(mTvInput.getContext(), CommentViewModel.CommentType.LIVE,
-                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex,isLookAll))
+                        CacheMemoryUtils.getInstance().get(Contact.ID) + "", mPageIndex, isLookAll))
                 .show();
     }
 

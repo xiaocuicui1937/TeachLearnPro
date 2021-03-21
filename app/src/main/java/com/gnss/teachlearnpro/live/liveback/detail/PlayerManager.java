@@ -3,6 +3,7 @@ package com.gnss.teachlearnpro.live.liveback.detail;
 import android.content.pm.ActivityInfo;
 import android.view.View;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
@@ -23,9 +24,9 @@ public class PlayerManager {
         mPlayer.getBackButton().setVisibility(View.GONE);
         //设置旋转
 //        orientationUtils = new OrientationUtils(ActivityUtils.getTopActivity(), mPlayer);
-//        orientationUtils.setScreenType(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
-        mPlayer.setAutoFullWithSize(true);
+//        orientationUtils.setScreenType(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
+        mPlayer.setAutoFullWithSize(false);
         mPlayer.getFullscreenButton().setOnClickListener(v -> {
 //            orientationUtils.resolveByClick();
             mPlayer.startWindowFullscreen(mPlayer.getContext(),true,true);

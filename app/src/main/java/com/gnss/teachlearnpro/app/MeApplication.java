@@ -8,7 +8,7 @@ import com.ecommerce.melibrary.log.MeLogConfig;
 import com.ecommerce.melibrary.log.MeLogManager;
 import com.gnss.teachlearnpro.common.Contact;
 import com.google.gson.Gson;
-import com.tencent.bugly.crashreport.CrashReport;
+//import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.rtmp.TXLiveBase;
 import com.zhouyou.http.EasyHttp;
 
@@ -18,7 +18,7 @@ public class MeApplication extends MeBaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        CrashReport.initCrashReport(this,"2cf01c910a",true);
+//        CrashReport.initCrashReport(this,"2cf01c910a",true);
         initLog();
         initArouter();
         initHttp();

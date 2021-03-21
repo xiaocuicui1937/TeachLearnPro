@@ -150,5 +150,7 @@ public class Contact {
 
     public static final int BLUR_VISIBLE = 0x202;
 
+    public static final int LIVE_UPDATE_URL = 0x203;
+
     public static final String PWD = "pwd";
 }

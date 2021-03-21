@@ -4,12 +4,14 @@ import android.util.TypedValue;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.SizeUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.UiMessageUtils;
 import com.ecommerce.meui.tab.top.MeTabTop;
 import com.ecommerce.meui.tab.top.MeTabTopInfo;
 import com.ecommerce.meui.tab.top.MeTabTopLayout;
@@ -44,11 +46,12 @@ public class PlanDetailALogic extends BaseLogic {
     private void initView() {
         mTabToplayout = mProvider.findViewById(R.id.mtl_tab_top_plan_detail);
         mLivePlayerManager = new LivePlayerManager(mProvider.findViewById(R.id.live_top_bg));
-//        mStv = mProvider.findViewById(R.id.stv_common_title);
-//        mStv.setCenterString(StringUtils.getString(R.string.live));
         setTitle(CacheMemoryUtils.getInstance().get(Contact.TITLE));
         //播放直播
-        mLivePlayerManager.playLive(CacheMemoryUtils.getInstance().get(Contact.PlAY_URL));
+        UiMessageUtils.getInstance().addListener(Contact.LIVE_UPDATE_URL, localMessage -> {
+            String liveUrl = String.valueOf(localMessage.getObject());
+            mLivePlayerManager.playLive(liveUrl);
+        });
     }
 
     private void initTap() {

@@ -82,13 +82,15 @@ public class LeaveMsgListLogic extends BaseLogic {
 
     private void handleLoadData(BaseLoadMoreModule loadMoreModule, LeaveMsgBean res) {
         hideLoading();
-        mAdapter.setNewInstance(null);
         if (refreshLayout != null) {
             refreshLayout.finishRefresh(true);
         }
         if (ObjectUtils.isEmpty(res)) {
             loadMoreModule.loadMoreEnd();
             return;
+        }
+        if (res.getCount()==0){
+            mAdapter.setNewInstance(null);
         }
         List<LeaveMsgBean.DataBean> data = res.getData();
         if (ObjectUtils.isEmpty(data)) {

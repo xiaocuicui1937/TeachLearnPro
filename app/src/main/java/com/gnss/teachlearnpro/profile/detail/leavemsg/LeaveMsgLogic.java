@@ -74,9 +74,11 @@ public class LeaveMsgLogic extends BaseLogic {
         }
         mTvCourse.setText(String.valueOf(res.getCourse_count()));
         mTvGroup.setText(String.valueOf(res.getTeam_count()));
+        if (res.getCount()==0){
+            mAdapter.setNewInstance(null);
+        }
         List<LeaveMsgBean.DataBean> data = res.getData();
         if (ObjectUtils.isEmpty(data)) {
-            mAdapter.setNewInstance(null);
             loadMoreModule.loadMoreEnd();
             return;
         }
