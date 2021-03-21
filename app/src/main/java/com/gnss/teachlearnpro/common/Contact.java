@@ -153,4 +153,6 @@ public class Contact {
     public static final int LIVE_UPDATE_URL = 0x203;
 
     public static final String PWD = "pwd";
+
+    public static final String VIDEO_SPEED_INDEX = "video_speed_index";
 }

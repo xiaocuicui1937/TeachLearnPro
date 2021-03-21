@@ -23,10 +23,12 @@ import com.gnss.teachlearnpro.common.bean.CommentBean;
 import com.gnss.teachlearnpro.common.logic.BaseLogic;
 import com.gnss.teachlearnpro.common.ui.ActivityProvider;
 import com.gnss.teachlearnpro.common.ui.WriteLeaveMessageCustomView;
+import com.gnss.teachlearnpro.common.video.CommonVideoPlayerView;
+import com.gnss.teachlearnpro.common.video.PlayerManager;
 import com.gnss.teachlearnpro.common.viewmodel.CommentViewModel;
 import com.gnss.teachlearnpro.main.live.detail.fragment.LiveDetailAdapter;
 import com.lxj.xpopup.XPopup;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,10 +165,10 @@ public class CourseDetailPlayLogic extends BaseLogic implements View.OnClickList
 
 
     private void initView() {
-        StandardGSYVideoPlayer player = mProvider.findViewById(R.id.sgp_top_bg);
+        CommonVideoPlayerView player = mProvider.findViewById(R.id.sgp_top_bg);
         mPlayerManager = new PlayerManager(player);
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
-        mPlayerManager.init(instance.get(Contact.PlAY_URL), instance.get(Contact.TITLE));
+        mPlayerManager.init(instance.get(Contact.PlAY_URL), null, instance.get(Contact.TITLE));
         mTvInput = mProvider.findViewById(R.id.tv_activity_group_detail_input);
         mIvHeart = mProvider.findViewById(R.id.iv_activity_course_favorite);
         boolean isCollect = instance.get(Contact.IS_COLLECT);

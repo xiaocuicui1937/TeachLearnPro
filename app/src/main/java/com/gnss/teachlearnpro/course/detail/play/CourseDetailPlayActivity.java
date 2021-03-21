@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.ui.ActivityProvider;
 import com.gnss.teachlearnpro.common.ui.BaseActivity;
-import com.shuyu.gsyvideoplayer.GSYVideoManager;
 
 public class CourseDetailPlayActivity extends BaseActivity implements ActivityProvider {
 

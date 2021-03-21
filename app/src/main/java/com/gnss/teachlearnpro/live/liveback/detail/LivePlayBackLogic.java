@@ -5,7 +5,9 @@ import com.gnss.teachlearnpro.R;
 import com.gnss.teachlearnpro.common.Contact;
 import com.gnss.teachlearnpro.common.logic.BaseLogic;
 import com.gnss.teachlearnpro.common.ui.ActivityProvider;
-import com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer;
+import com.gnss.teachlearnpro.common.video.PlayerManager;
+import com.gnss.teachlearnpro.common.video.CommonVideoPlayerView;
+
 
 public class LivePlayBackLogic extends BaseLogic {
     private ActivityProvider mProvider;
@@ -19,10 +21,10 @@ public class LivePlayBackLogic extends BaseLogic {
     }
 
     private void initView() {
-        StandardGSYVideoPlayer player = mProvider.findViewById(R.id.sgp_top_bg);
+        CommonVideoPlayerView player = mProvider.findViewById(R.id.sgp_top_bg);
         mPlayerManager = new PlayerManager(player);
         CacheMemoryUtils instance = CacheMemoryUtils.getInstance();
-        mPlayerManager.init(instance.get(Contact.PlAY_URL), instance.get(Contact.TITLE));
+        mPlayerManager.init(instance.get(Contact.PlAY_URL), null, instance.get(Contact.TITLE));
     }
 
 

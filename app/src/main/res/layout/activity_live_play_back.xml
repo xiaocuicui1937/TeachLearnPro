@@ -17,7 +17,7 @@
         android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+    <com.gnss.teachlearnpro.common.video.CommonVideoPlayerView
         android:id="@+id/sgp_top_bg"
         android:layout_width="match_parent"
         android:layout_height="0dp"

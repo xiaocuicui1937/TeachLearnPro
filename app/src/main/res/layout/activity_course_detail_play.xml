@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp" />
 
-    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+    <com.gnss.teachlearnpro.common.video.CommonVideoPlayerView
         android:id="@+id/sgp_top_bg"
         android:layout_width="match_parent"
         android:layout_height="0dp"
